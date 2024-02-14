@@ -12,7 +12,7 @@ export default function LandingPageHeroSection() {
           </p>
           <label htmlFor="landingPageSubButton" className="w-full">
             <input type="text" id="landingPageSubButton" placeholder="Email" />
-            <button>Subscribe</button>
+            <button>Sign Up</button>
           </label>
         </div>
       </div>
