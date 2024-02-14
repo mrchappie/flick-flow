@@ -13,8 +13,7 @@ export default function MovieCard(props: MovieDetails) {
         </div>
         <Image
           src={props.poster}
-          layout="fill"
-          objectFit="cover"
+          fill={true}
           alt="Picture of the author"
           className="z-0"
         />
