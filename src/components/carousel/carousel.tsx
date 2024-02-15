@@ -1,6 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Slide from './slide';
+import ButtonMain from '../UI/buttons/buttonMain';
 
 export default function Carousel() {
   const slideDetails: SlideDetailsI[] = [
@@ -35,13 +36,14 @@ export default function Carousel() {
 
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const handleNextSlide = () => {
+  const handleNextSlide = useCallback(() => {
     if (activeSlide < slideDetails.length - 1) {
       setActiveSlide(activeSlide + 1);
     } else {
       setActiveSlide(0);
     }
-  };
+  }, [activeSlide, slideDetails.length]);
+
   const handlePrevSlide = () => {
     if (activeSlide > 0) {
       setActiveSlide(activeSlide - 1);
@@ -49,6 +51,16 @@ export default function Carousel() {
       setActiveSlide(slideDetails.length - 1);
     }
   };
+
+  // useEffect(() => {
+  //   const changeSlide = setTimeout(() => {
+  //     handleNextSlide();
+  //   }, 5000);
+
+  //   return () => {
+  //     clearTimeout(changeSlide);
+  //   };
+  // }, [activeSlide, handleNextSlide]);
 
   return (
     <section className="w-full h-[70vh] col-span-full center">
@@ -69,8 +81,8 @@ export default function Carousel() {
               className={`w-full h-full absolute top-0`}
               style={{ left: `${slideOffset}px` }}
             >
-              <div className="absolute left-0 bottom-0 z-20 center-col">
-                <h1>{slide.title}</h1>
+              <div className="absolute left-0 bottom-0 z-20 center-col items-start p-4">
+                <h1 className="text-[4  0px] font-bold">{slide.title}</h1>
                 <div>
                   <span>{slide.genre!}</span> | <span>{slide.duration}</span> |{' '}
                   <span>{slide.year}</span>
@@ -78,9 +90,9 @@ export default function Carousel() {
                 <div>
                   <p>{slide.description}</p>
                 </div>
-                <div>
-                  <button>Play Now</button>
-                  <button>Add to WatchList</button>
+                <div className="center gap-4">
+                  <ButtonMain title="Play Now" />
+                  <ButtonMain title="Add to WatchList" />
                 </div>
               </div>
               <div className="w-full h-full absolute top-0 left-0 bg-custom-bg-fade z-10 rotate-180"></div>

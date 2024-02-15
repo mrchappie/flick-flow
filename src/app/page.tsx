@@ -1,19 +1,13 @@
-import Carousel from '@/components/carousel/carousel';
 import LandingPageHeroSection from '@/components/hero-section/landing-page-hero-section';
-import ForYou from '@/components/landingPageComponents/forYou/forYou';
-import LatestMovies from '@/components/landingPageComponents/latestMovies/latestMovies';
-import MostPopular from '@/components/landingPageComponents/mostPopular/mostPopular';
+import LatestMovies from '@/components/latestMovies/latestMovies';
+import LatestShows from '@/components/latestShows/latestShows';
 
 export default function LandingPage() {
-  const loggedIn = true;
-
   return (
     <>
-      {!loggedIn && <LandingPageHeroSection />}
-      {loggedIn && <Carousel />}
+      <LandingPageHeroSection />
       <LatestMovies />
-      <MostPopular />
-      <ForYou />
+      <LatestShows />
     </>
   );
 }

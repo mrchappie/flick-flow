@@ -1,5 +1,5 @@
 import MovieCard, { MovieDetails } from '@/UI/movieCard/movieCard';
-import Title from '@/UI/title/title';
+import Heading from '@/components/UI/heading/heading';
 
 const movieDetails: MovieDetails = {
   title: 'Greenland',
@@ -8,10 +8,10 @@ const movieDetails: MovieDetails = {
   movieID: '121213412qsadnd7asda',
 };
 
-export default function MostPopular() {
+export default function LatestMovies() {
   return (
     <section className="col-span-full w-full center-col gap-6 items-start my-12">
-      <Title title="Most Popular" />
+      <Heading title="Latest Movies" />
       <section className="center items-start gap-4">
         <MovieCard {...movieDetails} />
         <MovieCard {...movieDetails} />

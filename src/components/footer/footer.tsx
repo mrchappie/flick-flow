@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="center justify-evenly min-h-[300px] border-t-white/50 border-t-2">
+    <footer className="center justify-evenly w-full min-h-[300px] border-t-white/50 border-t-2">
       <div className="center gap-4">
         <Link href={'/'}>Feedback</Link>
         <Link href={'/'}>Help</Link>

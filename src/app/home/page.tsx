@@ -1,3 +1,15 @@
+import Carousel from '@/components/carousel/carousel';
+import ForYou from '@/components/forYou/forYou';
+import LatestMovies from '@/components/latestMovies/latestMovies';
+import MostPopular from '@/components/mostPopular/mostPopular';
+
 export default function Home() {
-  return <div className="w-full">Home page</div>;
+  return (
+    <>
+      <Carousel />
+      <LatestMovies />
+      <ForYou />
+      <MostPopular />
+    </>
+  );
 }
