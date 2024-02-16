@@ -1,3 +1,9 @@
+import MovieCardsContainer from '@/components/UI/movieCardsContainer/movieCardsContainer';
+
 export default function TvShows() {
-  return <div className="w-full">TV Shows page</div>;
+  const componentData = {
+    title: 'Most popolar TV shows',
+  };
+
+  return <MovieCardsContainer {...componentData} />;
 }

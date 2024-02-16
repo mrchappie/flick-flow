@@ -7,7 +7,7 @@ export default function Genre() {
       <ul className="center flex-wrap gap-5 w-full">
         {genres.map((genre) => {
           return (
-            <Link key={genre.name} href={`/movies/${genre.name}`}>
+            <Link key={genre.name} href={`/genre/${genre.name}`}>
               <li className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70">
                 <span className="text-center">{genre.placeholder}</span>
               </li>

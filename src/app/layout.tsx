@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         <Banner />
-        <main className="grid grid-cols-12 max-w-[1780px] gap-[24px] m-auto">
+        <main className="custom-grid max-w-[1780px] gap-[24px] m-auto min-h-screen py-8">
           {children}
         </main>
         <Footer />

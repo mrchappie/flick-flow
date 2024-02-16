@@ -13,23 +13,23 @@ export default function MostPopular() {
     <section className="col-span-full w-full center-col gap-6 items-start my-12">
       <Title title="Most Popular" />
       <section className="center items-start gap-4">
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
-        <MovieCard {...movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
+        <MovieCard details={movieDetails} />
       </section>
     </section>
   );

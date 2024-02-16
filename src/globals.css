@@ -45,4 +45,8 @@ body {
   .center-col {
     @apply flex items-center justify-center flex-col gap-2;
   }
+
+  .custom-grid {
+    @apply grid grid-cols-12;
+  }
 }

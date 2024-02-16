@@ -1,4 +1,4 @@
-import { Filters } from 'utils/interfaces/globals';
+import { Filters } from 'utils/interfaces/Interfaces';
 
 export default function Filter(props: Filters) {
   return (
