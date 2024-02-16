@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function LandingPageHeroSection() {
   return (
     <section className="w-full h-[70vh] col-span-full center justify-start-start overflow-hidden relative">
@@ -12,7 +14,9 @@ export default function LandingPageHeroSection() {
           </p>
           <label htmlFor="landingPageSubButton" className="w-full">
             <input type="text" id="landingPageSubButton" placeholder="Email" />
-            <button>Sign Up</button>
+            <button>
+              <Link href={'/register'}>Sign Up</Link>
+            </button>
           </label>
         </div>
       </div>
