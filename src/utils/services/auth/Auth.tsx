@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { cookies } from 'next/headers';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
@@ -22,6 +23,7 @@ export async function loginUser(formData: any) {
       rawFormData.email,
       rawFormData.password
     );
+    document.cookie = `isLoggedIn=true`;
     console.log(rawFormData);
     console.log('user logged in');
     return response;
@@ -52,6 +54,7 @@ export async function createUser(formData: any) {
 export async function logoutUser() {
   try {
     await signOut(auth);
+    document.cookie = 'isLoggedIn=false';
     console.log('user logged out');
   } catch (error) {
     console.log(error);

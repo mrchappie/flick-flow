@@ -17,6 +17,7 @@ export default function useAuthCheck() {
         if (user) {
           updatePageSpinner(false);
           updateIsLoggedIn(true);
+          console.log(user);
           return user;
         } else {
           updatePageSpinner(false);
