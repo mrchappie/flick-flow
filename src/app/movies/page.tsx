@@ -1,4 +1,4 @@
-import MovieCardsContainer from '@/components/UI/movieCardsContainer/movieCardsContainer';
+import MovieCardsContainer from '@components/UI/movieCardsContainer/movieCardsContainer';
 
 export default function Movies() {
   const componentData = {

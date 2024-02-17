@@ -1,5 +1,5 @@
-import MovieCard, { MovieDetails } from '@/UI/movieCard/movieCard';
-import Title from '@/components/UI/heading/heading';
+import MovieCard, { MovieDetails } from '@UI/movieCard/movieCard';
+import Title from '@components/UI/heading/heading';
 
 const movieDetails: MovieDetails = {
   title: 'Greenland',

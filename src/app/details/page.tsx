@@ -1,6 +1,6 @@
 'use client';
-import MovieCard, { MovieDetails } from '@/components/UI/movieCard/movieCard';
-import ForYou from '@/components/forYou/forYou';
+import MovieCard, { MovieDetails } from '@components/UI/movieCard/movieCard';
+import ForYou from '@components/forYou/forYou';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 

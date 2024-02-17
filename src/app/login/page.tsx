@@ -1,7 +1,7 @@
 'use client';
 import { FormEvent } from 'react';
-import { loginUser } from 'utils/services/auth/Auth';
-import { useStateStore } from 'utils/services/state/State';
+import { loginUser } from '@services/auth/Auth';
+import { useStateStore } from '@services/state/State';
 
 export default function Login() {
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);

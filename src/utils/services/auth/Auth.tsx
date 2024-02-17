@@ -1,9 +1,8 @@
-import { firebaseConfig } from '@/api/firebase.config';
+import { firebaseConfig } from '@api/firebase.config';
 import { initializeApp } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
@@ -54,20 +53,6 @@ export async function logoutUser() {
   try {
     await signOut(auth);
     console.log('user logged out');
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function getCurrentUser() {
-  try {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        return user;
-      } else {
-        return null;
-      }
-    });
   } catch (error) {
     console.log(error);
   }

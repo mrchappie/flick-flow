@@ -4,8 +4,10 @@ import Link from 'next/link';
 import Navigation from '../navigation/navigation';
 import Search from '../search/search';
 import { logoutUser } from 'utils/services/auth/Auth';
+import useAuthCheck from '@hooks/useAuthCheck';
 
 export default function Header() {
+  const authCheck = useAuthCheck();
   return (
     <header className="center justify-evenly bg-custom-bg-fade">
       <div>
