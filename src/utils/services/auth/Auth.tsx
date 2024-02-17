@@ -1,8 +1,9 @@
-import { firebaseConfig } from 'api/firebase.config';
+import { firebaseConfig } from '@/api/firebase.config';
 import { initializeApp } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
@@ -17,13 +18,14 @@ export async function loginUser(formData: any) {
   };
 
   try {
-    await signInWithEmailAndPassword(
+    const response = await signInWithEmailAndPassword(
       auth,
       rawFormData.email,
       rawFormData.password
     );
     console.log(rawFormData);
-    alert('user logged in');
+    console.log('user logged in');
+    return response;
   } catch (error) {
     console.log(error);
   }
@@ -42,7 +44,7 @@ export async function createUser(formData: any) {
       rawFormData.password
     );
     console.log(rawFormData);
-    alert('user created');
+    console.log('user created');
   } catch (error) {
     console.log(error);
   }
@@ -51,7 +53,21 @@ export async function createUser(formData: any) {
 export async function logoutUser() {
   try {
     await signOut(auth);
-    alert('user logged out');
+    console.log('user logged out');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getCurrentUser() {
+  try {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        return user;
+      } else {
+        return null;
+      }
+    });
   } catch (error) {
     console.log(error);
   }

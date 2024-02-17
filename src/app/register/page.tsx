@@ -1,5 +1,5 @@
 'use client';
-import { createUser } from 'utils/auth/Auth';
+import { createUser } from 'utils/services/auth/Auth';
 
 export default function Register() {
   return (

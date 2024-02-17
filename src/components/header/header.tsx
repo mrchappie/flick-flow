@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Navigation from '../navigation/navigation';
 import Search from '../search/search';
-import { logoutUser } from 'utils/auth/Auth';
+import { logoutUser } from 'utils/services/auth/Auth';
 
 export default function Header() {
   return (
