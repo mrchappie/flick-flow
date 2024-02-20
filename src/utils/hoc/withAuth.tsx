@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 export default function withAuth(WrappedComponent: React.FC) {
   return function WithAuth(props: any) {
-    const isAuth = false;
+    const isAuth = true;
     const router = useRouter();
 
     useEffect(() => {
