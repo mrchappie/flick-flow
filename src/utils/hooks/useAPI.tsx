@@ -32,5 +32,6 @@ export default async function useAPI(props: APIParams) {
 }
 
 export interface APIParams {
-  movieId: string;
+  movieId?: string;
+  url?: string;
 }

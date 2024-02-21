@@ -5,7 +5,7 @@ import Filters from '../filters/filters';
 import Heading from '../heading/heading';
 import MovieCard, { MovieDetails } from '../movieCard/movieCard';
 
-export default function MovieCardsContainer({ title }: any) {
+export default function MovieCardsContainer({ title }: any, data: any) {
   const [showFilters, setShowFilters] = useState(false);
 
   function handleClick() {
@@ -18,6 +18,8 @@ export default function MovieCardsContainer({ title }: any) {
     poster: '/images/movie_poster.jpg',
     movieID: '121213412qsadnd7asda',
   };
+
+  console.log(data.results);
 
   const arr = new Array(20).fill(0);
 
