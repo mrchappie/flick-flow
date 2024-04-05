@@ -1,10 +1,21 @@
 import { createUser } from 'utils/services/auth/Auth';
 
 export default function Register() {
+  async function handleRegister(event) {
+    // prevent default behaviour of forms
+    event.preventDefault();
+
+    // extracts the form data object from event
+    const formData = new FormData(event.target);
+
+    // attempt to login the user
+    await createUser(formData);
+  }
+
   return (
     <section className="col-span-full center ">
       <div className="bg-black/50 rounded-md center p-[40px]">
-        <form action={createUser} className="center-col">
+        <form onSubmit={handleRegister} className="center-col">
           <input
             type="text"
             name="email"

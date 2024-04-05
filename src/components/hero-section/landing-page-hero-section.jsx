@@ -15,7 +15,7 @@ export default function LandingPageHeroSection() {
           <label htmlFor="landingPageSubButton" className="w-full">
             <input type="text" id="landingPageSubButton" placeholder="Email" />
             <button>
-              <Link href={'/register'}>Sign Up</Link>
+              <Link to={'/register'}>Sign Up</Link>
             </button>
           </label>
         </div>

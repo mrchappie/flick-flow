@@ -4,9 +4,9 @@ export default function Footer() {
   return (
     <footer className="center justify-evenly w-full min-h-[300px] border-t-white/50 border-t-2">
       <div className="gap-4 center">
-        <Link href={'/'}>Feedback</Link>
-        <Link href={'/'}>Help</Link>
-        <Link href={'/'}>FAQ</Link>
+        <Link to={'/'}>Feedback</Link>
+        <Link to={'/'}>Help</Link>
+        <Link to={'/'}>FAQ</Link>
       </div>
       <div className="gap-4 center-col">
         <div>LOGO</div>
@@ -22,9 +22,9 @@ export default function Footer() {
         <div>Follow us on</div>
         <ul>
           <li>
-            <Link href={'/'}>AAA</Link>
-            <Link href={'/'}>AAA</Link>
-            <Link href={'/'}>AAA</Link>
+            <Link to={'/'}>AAA</Link>
+            <Link to={'/'}>AAA</Link>
+            <Link to={'/'}>AAA</Link>
           </li>
         </ul>
       </div>

@@ -4,27 +4,39 @@ import { logoutUser } from 'utils/services/auth/Auth';
 import { useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';
 import useAuthCheck from 'utils/hooks/useAuthCheck';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const authCheck = useAuthCheck();
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
+  const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
 
   const [toggleMenu, setToggleMenu] = useState(false);
   function handleShowMenu() {
     setToggleMenu(!toggleMenu);
   }
 
+  const navigate = useNavigate();
+
+  // handle logout
+  const handleLogOut = async () => {
+    await logoutUser();
+
+    // redirect to landing page and then set to false login state
+    navigate('/');
+    updateIsLoggedIn(false);
+  };
+
   return (
     <header className="p-4 center justify-evenly bg-custom-bg-fade">
       <div>
-        <Link href={'/'}>Logo</Link>
+        <Link to={'/'}>Logo</Link>
       </div>
       <Navigation />
       <Search />
       {!isLoggedIn && (
         <div>
-          <Link href={'/login'}>Sign In</Link>
+          <Link to={'/login'}>Sign In</Link>
         </div>
       )}
       {isLoggedIn && (
@@ -58,10 +70,10 @@ export default function Header() {
                   Hi, <span>Alexandru</span>
                 </h2>
               </div>
-              <Link href={'/user-profile'}>Profile</Link>
-              <Link href={'/user-profile/watchlist'}>Watchlist</Link>
+              <Link to={'/user-profile'}>Profile</Link>
+              <Link to={'/user-profile/watchlist'}>Watchlist</Link>
               <div>
-                <button onClick={logoutUser}>Sign Out</button>
+                <button onClick={handleLogOut}>Sign Out</button>
               </div>
             </div>
           )}

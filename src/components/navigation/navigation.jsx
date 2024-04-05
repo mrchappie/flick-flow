@@ -15,7 +15,7 @@ export default function Navigation() {
         {routes.map((route) => {
           return (
             <li key={route.path}>
-              <Link href={`/${route.path}`} className="block px-6 py-4">
+              <Link to={`/${route.path}`} className="block px-6 py-4">
                 {route.name}
               </Link>
             </li>

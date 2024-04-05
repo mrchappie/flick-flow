@@ -1,12 +1,11 @@
-'use client';
-import MovieCard from '@components/UI/movieCard/movieCard';
-import ForYou from '@components/forYou/forYou';
-import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import ForYou from 'components/forYou/forYou';
+import MovieCard from 'components/UI/movieCard/movieCard';
+import { useSearchParams } from 'react-router-dom';
 
 export default function Details() {
-  const movieDetailsParams = useSearchParams();
-  const movieDetailsID = movieDetailsParams.get('movie_id');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const movieID = searchParams.get('movie_id');
+  console.log(movieID);
   const movieDetails = {
     title: 'Greenland',
     year: '2020',
@@ -23,7 +22,7 @@ export default function Details() {
     <section className="col-span-full custom-grid">
       <section className="w-full h-full col-span-9 bg-black/50 center-col">
         <div className="w-full h-[70%] relative">
-          <Image src={'/images/movie_poster_l.jpg'} fill={true} alt="" />
+          <img src={'/images/movie_poster_l.jpg'} alt="" />
         </div>
         <header className="h-[30%] center-col justify-start gap-4">
           <div className="items-start w-full center-col">

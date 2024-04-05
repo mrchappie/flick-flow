@@ -1,17 +1,27 @@
-export default function Login() {
-  async function handleLogin(formData) {
-    const rawFormData = {
-      email: formData.get('email'),
-      password: formData.get('password'),
-    };
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from 'utils/services/auth/Auth';
 
-    console.log(rawFormData);
+export default function Login() {
+  const navigate = useNavigate();
+
+  async function handleLogin(event) {
+    // prevent default behaviour of forms
+    event.preventDefault();
+
+    // extracts the form data object from event
+    const formData = new FormData(event.target);
+
+    // attempt to login the user
+    await loginUser(formData);
+
+    // redirect to homepage
+    navigate('/home');
   }
 
   return (
     <section className="col-span-full center ">
       <div className="bg-black/50 rounded-md center p-[40px]">
-        <form action={handleLogin} className="center-col">
+        <form onSubmit={handleLogin} className="center-col">
           <input
             type="text"
             name="email"

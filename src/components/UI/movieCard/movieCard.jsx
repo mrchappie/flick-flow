@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function MovieCard({ details, customStyle }) {
   return (
-    <Link href={`/details?movie_id=${details.movieID}`}>
+    <Link to={`/details?movie_id=${details.movieID}`}>
       <div
         className="w-[214px] h-[290px] overflow-hidden relative cursor-pointer hover:opacity-50 bg-black"
         style={customStyle}
