@@ -1,34 +1,26 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { firebaseConfig } from 'utils/keys/firebase.config';
-import { useStateStore } from 'utils/services/state/State';
 
 initializeApp(firebaseConfig);
 const auth = getAuth();
 
 export default function useAuthCheck() {
-  const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
-  const updatePageSpinner = useStateStore((state) => state.updatePageSpinner);
+  const [user, setUser] = useState(null);
+  const [authIsLoading, setAuthIsLoading] = useState(true);
 
-  try {
-    useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          updatePageSpinner(false);
-          updateIsLoggedIn(true);
-          return user;
-        } else {
-          updatePageSpinner(false);
-          return null;
-        }
-      });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+        setAuthIsLoading(false);
+      }
+    });
 
-      return () => {
-        unsubscribe();
-      };
-    }, [updateIsLoggedIn, updatePageSpinner]);
-  } catch (error) {
-    console.log(error);
-  }
+    return () => unsubscribe();
+  }, []);
+  return { user, authIsLoading }; // Return the current authState (null or user object)
 }
