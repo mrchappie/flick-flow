@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { firebaseConfig } from 'utils/keys/firebase.config';
 import { useStateStore } from 'utils/services/state/State';
 
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 const auth = getAuth();
 
 export default function useAuthCheck() {
@@ -17,7 +17,6 @@ export default function useAuthCheck() {
         if (user) {
           updatePageSpinner(false);
           updateIsLoggedIn(true);
-          console.log(user);
           return user;
         } else {
           updatePageSpinner(false);

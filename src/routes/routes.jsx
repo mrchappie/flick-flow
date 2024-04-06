@@ -15,34 +15,84 @@ import WatchHistory from 'pages/user-profile/watch-history/page';
 import Settings from 'pages/user-profile/settings/page';
 import GenreCategory from 'pages/genre/[genreID]/page';
 import Header from 'components/header/header';
+import PrivateRoute from 'utils/hoc/PrivateRoute';
 
 function RoutesContext(props) {
+  const routes = [
+    { path: '/', element: <LandingPage /> },
+    { path: '/login', element: <Login /> },
+    { path: '/register', element: <Register /> },
+    {
+      path: '/home',
+      element: (
+        <PrivateRoute>
+          <Home />
+        </PrivateRoute>
+      ),
+    },
+    { path: '/movies', element: <Movies /> },
+    { path: '/tv-shows', element: <TvShows /> },
+    {
+      path: '/details',
+      element: (
+        <PrivateRoute>
+          <Details />
+        </PrivateRoute>
+      ),
+    },
+    { path: '/genre', element: <Genre /> },
+    { path: '/genre/:genreID', element: <GenreCategory /> },
+    {
+      path: '/user-profile',
+      element: (
+        <PrivateRoute>
+          <UserProfile />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: '/user-profile/settings',
+      element: (
+        <PrivateRoute>
+          <Settings />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: '/user-profile/watchlist',
+      element: (
+        <PrivateRoute>
+          <WatchList />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: '/user-profile/watch-history',
+      element: (
+        <PrivateRoute>
+          <WatchHistory />
+        </PrivateRoute>
+      ),
+    },
+    { path: '*', element: <NotFound /> },
+  ];
+
   return (
     <BrowserRouter>
       {/* Navigation */}
       <Header />
 
       {/* Main Content */}
-      <main>{props.children}</main>
+      <main>
+        {props.children}
 
-      {/* Routes */}
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/tv-shows" element={<TvShows />} />
-        <Route path="/details" element={<Details />} />
-        <Route path="/genre" element={<Genre />} />
-        <Route path="/genre/:genreID" element={<GenreCategory />} />
-        <Route path="/user-profile" element={<UserProfile />} />
-        <Route path="/user-profile/settings" element={<Settings />} />
-        <Route path="/user-profile/watchlist" element={<WatchList />} />
-        <Route path="/user-profile/watch-history" element={<WatchHistory />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-
+        {/* Routes */}
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+      </main>
       {/* Footer */}
     </BrowserRouter>
   );
