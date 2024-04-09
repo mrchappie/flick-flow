@@ -1,11 +1,12 @@
 import Heading from 'components/UI/heading/heading';
 import MovieCard from 'components/UI/movieCard/movieCard';
+import { v4 as uuid } from 'uuid';
 
 const movieDetails = {
-  title: 'Greenland',
+  title: 'Godzilla x Kong: The New Empire',
   year: '2020',
-  poster: '/images/movie_poster.jpg',
-  movieID: '121213412qsadnd7asda',
+  poster: `${process.env.REACT_APP_TMDB_IMAGE_API_ORIGIN}/original/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg`,
+  movieID: uuid(),
 };
 
 export default function LatestMovies() {

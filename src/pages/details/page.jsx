@@ -1,16 +1,17 @@
 import ForYou from 'components/forYou/forYou';
 import MovieCard from 'components/UI/movieCard/movieCard';
 import { useSearchParams } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 
 export default function Details() {
   const [searchParams, setSearchParams] = useSearchParams();
   const movieID = searchParams.get('movie_id');
-  console.log(movieID);
+  // console.log(movieID);
   const movieDetails = {
     title: 'Greenland',
     year: '2020',
     poster: '/images/movie_poster.jpg',
-    movieID: '121213412qsadnd7asda',
+    movieID: uuid(),
   };
 
   const myStyles = {

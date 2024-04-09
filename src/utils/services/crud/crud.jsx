@@ -1,15 +1,13 @@
-import { firebaseConfig } from '@api/firebase.config';
+import { firebaseConfig } from 'utils/keys/firebase.config';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
+import { doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+initializeApp(firebaseConfig);
+getAuth();
 const firestore = getFirestore();
 
 class ConnectDB {
-  constructor() {}
-
   async getFirestoreDoc(docPath = ['users']) {
     try {
       const docRef = doc(firestore, 'test', ...docPath);
@@ -37,8 +35,10 @@ class ConnectDB {
     }
   }
 
-  async setFirestoreDoc(docPath = ['users']) {
+  async setFirestoreDoc(docPath = 'users', movieID) {
     try {
+      const docRef = doc(firestore, docPath, movieID);
+      await setDoc(docRef, { data: 'test' });
     } catch (error) {
       console.log(error);
     }

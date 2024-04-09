@@ -4,6 +4,7 @@ import ButtonMain from '../buttons/buttonMain';
 import Filters from '../filters/filters';
 import Heading from '../heading/heading';
 import MovieCard from '../movieCard/movieCard';
+import { v4 as uuid } from 'uuid';
 
 export default function MovieCardsContainer({ title }) {
   const [showFilters, setShowFilters] = useState(false);
@@ -16,7 +17,7 @@ export default function MovieCardsContainer({ title }) {
     title: 'Greenland',
     year: '2020',
     poster: '/images/movie_poster.jpg',
-    movieID: '121213412qsadnd7asda',
+    movieID: uuid(),
   };
 
   const arr = new Array(20).fill(0);

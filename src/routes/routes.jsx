@@ -16,6 +16,7 @@ import Settings from 'pages/user-profile/settings/page';
 import GenreCategory from 'pages/genre/[genreID]/page';
 import Header from 'components/header/header';
 import PrivateRoute from 'utils/hoc/PrivateRoute';
+import Favorites from 'pages/user-profile/favorites/page';
 
 function RoutesContext(props) {
   const routes = [
@@ -63,6 +64,14 @@ function RoutesContext(props) {
       element: (
         <PrivateRoute>
           <WatchList />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: '/user-profile/favorites',
+      element: (
+        <PrivateRoute>
+          <Favorites />
         </PrivateRoute>
       ),
     },

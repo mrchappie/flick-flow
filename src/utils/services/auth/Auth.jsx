@@ -7,7 +7,7 @@ import {
   signOut,
 } from 'firebase/auth';
 
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 const auth = getAuth();
 
 export async function loginUser(formData) {

@@ -1,22 +1,35 @@
 import { useEffect } from 'react';
 
-export default async function useAPI(props) {
+export default async function useAPI({ movieID, method, body = null, paths }) {
   const tmdbAccessToken = process.env.REACT_APP_TMDB_ACCESS_TOKEN;
-  const { movieId } = props;
+  const movieId = movieID;
   try {
     useEffect(() => {
       const options = {
-        method: 'GET',
+        method: method,
         headers: {
           accept: 'application/json',
           Authorization: `Bearer ${tmdbAccessToken}`,
         },
       };
+
+      // if body is not null in params
+      // add the body to the options objects
+      if (body) {
+        options.body = body;
+      }
+
+      const { category, subCategory, params } = paths;
+
       const fetchData = async () => {
         const data = await fetch(
-          // `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
-          'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1',
-          // 'https://api.themoviedb.org/3/movie/tt0116629/credits?language=en-US',
+          `${process.env.REACT_APP_TMDB_API_ORIGIN}/${category}${
+            subCategory ? `/${subCategory}` : ''
+          }${
+            Object.keys(params).length > 0
+              ? `?${new URLSearchParams(params).toString()}`
+              : ''
+          }`,
           options
         );
         const response = await data.json();
@@ -24,7 +37,7 @@ export default async function useAPI(props) {
       };
 
       fetchData();
-    }, [movieId, tmdbAccessToken]);
+    }, [movieId, tmdbAccessToken, method, body, paths]);
   } catch (error) {
     console.log(error);
   }

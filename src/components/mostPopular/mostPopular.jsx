@@ -1,11 +1,12 @@
 import MovieCard from 'components/UI/movieCard/movieCard';
 import Title from 'components/UI/heading/heading';
+import { v4 as uuid } from 'uuid';
 
 const movieDetails = {
   title: 'Greenland',
   year: '2020',
   poster: '/images/movie_poster.jpg',
-  movieID: '121213412qsadnd7asda',
+  movieID: uuid(),
 };
 
 export default function MostPopular() {
