@@ -96,10 +96,24 @@ export default function Header() {
                 </Link>
                 <Link
                   onClick={handleShowMenu}
+                  to={'/user-profile/favorites'}
+                  className="text-xl"
+                >
+                  Favorites
+                </Link>
+                <Link
+                  onClick={handleShowMenu}
                   to={'/user-profile/watchlist'}
                   className="text-xl"
                 >
                   Watchlist
+                </Link>
+                <Link
+                  onClick={handleShowMenu}
+                  to={'/user-profile/user-lists'}
+                  className="text-xl"
+                >
+                  Your lists
                 </Link>
                 <div>
                   <button onClick={handleLogOut} className="text-xl">

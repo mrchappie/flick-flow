@@ -6,12 +6,14 @@ import Heading from '../heading/heading';
 import MovieCard from '../movieCard/movieCard';
 import { v4 as uuid } from 'uuid';
 
-export default function MovieCardsContainer({ title }) {
+export default function MovieCardsContainer({ title, data = [] }) {
   const [showFilters, setShowFilters] = useState(false);
 
   function handleClick() {
     setShowFilters(!showFilters);
   }
+
+  console.log(data);
 
   const movieDetails = {
     title: 'Greenland',
@@ -19,8 +21,6 @@ export default function MovieCardsContainer({ title }) {
     poster: '/images/movie_poster.jpg',
     movieID: uuid(),
   };
-
-  const arr = new Array(20).fill(0);
 
   return (
     <section className="w-full col-span-full center-col">
@@ -30,8 +30,8 @@ export default function MovieCardsContainer({ title }) {
       </div>
       {showFilters && <Filters />}
       <div className="my-[50px] w-full h-full center flex-wrap">
-        {arr.map((_, index) => {
-          return <MovieCard details={movieDetails} key={index} />;
+        {data.map((movie) => {
+          return <MovieCard details={movieDetails} key={Math.random()} />;
         })}
       </div>
     </section>

@@ -17,6 +17,8 @@ import GenreCategory from 'pages/genre/[genreID]/page';
 import Header from 'components/header/header';
 import PrivateRoute from 'utils/hoc/PrivateRoute';
 import Favorites from 'pages/user-profile/favorites/page';
+import UserLists from 'pages/user-profile/user-lists/userLists';
+import List from 'pages/user-profile/user-lists/[list]';
 
 function RoutesContext(props) {
   const routes = [
@@ -80,6 +82,22 @@ function RoutesContext(props) {
       element: (
         <PrivateRoute>
           <WatchHistory />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: '/user-profile/user-lists',
+      element: (
+        <PrivateRoute>
+          <UserLists />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: '/user-profile/user-lists/:listID',
+      element: (
+        <PrivateRoute>
+          <List />
         </PrivateRoute>
       ),
     },

@@ -8,15 +8,19 @@ function App() {
   // check if user is authenticated
   const { user } = useAuthCheck();
 
+  const updateUser = useStateStore((state) => state.updateUser);
   const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
 
   useEffect(() => {
     if (user) {
+      updateUser(user);
       updateIsLoggedIn(true);
+      console.log(user);
     } else {
+      updateUser(null);
       updateIsLoggedIn(false);
     }
-  }, [user, updateIsLoggedIn]);
+  }, [user, updateIsLoggedIn, updateUser]);
 
   return (
     <React.StrictMode>

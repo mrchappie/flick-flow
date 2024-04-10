@@ -19,12 +19,12 @@ export default async function useAPI({ movieID, method, body = null, paths }) {
         options.body = body;
       }
 
-      const { category, subCategory, params } = paths;
+      const { category, subCategorys, params } = paths;
 
       const fetchData = async () => {
         const data = await fetch(
           `${process.env.REACT_APP_TMDB_API_ORIGIN}/${category}${
-            subCategory ? `/${subCategory}` : ''
+            subCategorys.length > 0 ? `/${subCategorys.join('/')}` : ''
           }${
             Object.keys(params).length > 0
               ? `?${new URLSearchParams(params).toString()}`

@@ -1,7 +1,15 @@
 import { firebaseConfig } from 'utils/keys/firebase.config';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+  setDoc,
+} from 'firebase/firestore';
 
 initializeApp(firebaseConfig);
 getAuth();
@@ -17,10 +25,16 @@ class ConnectDB {
     }
   }
 
-  async getFirestoreDocs(docPath = ['users']) {
+  async getFirestoreDocs(docPath) {
     try {
-      const docRef = doc(firestore, 'test', ...docPath);
-      await getDocs();
+      const docRef = query(collection(firestore, 'lists', ...docPath));
+      const snapshot = await getDocs(docRef);
+      const result = [];
+
+      snapshot.forEach((doc) => {
+        result.push(doc.data());
+      });
+      return result;
     } catch (error) {
       console.log(error);
     }
@@ -35,9 +49,9 @@ class ConnectDB {
     }
   }
 
-  async setFirestoreDoc(docPath = 'users', movieID) {
+  async setFirestoreDoc(docPath, movieID) {
     try {
-      const docRef = doc(firestore, docPath, movieID);
+      const docRef = doc(firestore, ...docPath, movieID);
       await setDoc(docRef, { data: 'test' });
     } catch (error) {
       console.log(error);

@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import { HiBookmark, HiHeart } from 'react-icons/hi';
 import ConnectDB from 'utils/services/crud/crud';
+import { useStateStore } from 'utils/services/state/State';
 
 export default function MovieCard({ details, customStyle }) {
   const db = new ConnectDB();
+  const user = useStateStore((state) => state.user);
 
   function handleAddToFavorites(movieID) {
-    console.log(movieID);
-    db.setFirestoreDoc(undefined, movieID);
+    db.setFirestoreDoc(['lists', user.uid, 'favorites', movieID]);
   }
 
   function handleAddToWatchlist(movieID) {
-    console.log('watchlist');
+    db.setFirestoreDoc(['lists', user.uid, 'watchlist', movieID]);
   }
 
   return (

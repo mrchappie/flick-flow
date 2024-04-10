@@ -12,7 +12,7 @@ export default function LandingPage() {
   //   method: 'GET',
   //   paths: {
   //     category: 'movie',
-  //     subCategory: 'tt0116629',
+  //     subCategory: ['tt0116629'],
   //     params: { language: 'en-US', page: '1' },
   //   },
   // });
