@@ -5,11 +5,13 @@ import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
+import { v4 as uuid } from 'uuid';
 
 export default function UserLists() {
   const user = useStateStore((state) => state.user);
   const [modalIsOpen, setIsOpen] = useState(false);
 
+  // add list modal append to root
   ReactModal.setAppElement(document.getElementById('root'));
 
   const [componentData, setComponentData] = useState({
@@ -17,37 +19,50 @@ export default function UserLists() {
     data: [],
   });
 
+  const [lists, setLists] = useState([]);
+
   const DB = new ConnectDB();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const fetchedData = await DB.getFirestoreDocs([user.uid]);
-        setComponentData({
-          ...componentData,
-          data: fetchedData,
-        });
+        // get user object from db
+        const userData = await DB.getFirestoreDoc(['users', user.uid]);
+        setLists(Object.values(userData.lists));
       } catch (error) {
         console.error('Error fetching data:', error);
         // Handle error if needed
       }
     }
 
-    // because user auth check is async, I check the user to not be null
+    // because user auth check is async, I check for the user to not be null
     if (user) {
       fetchData();
     }
   }, [user]);
 
-  const [lists, setLists] = useState([
-    { listName: 'comedy' },
-    { listName: 'horror' },
-    { listName: 'action' },
-  ]);
-
   function handleAddNewList() {
     setIsOpen(!modalIsOpen);
   }
+
+  const customStyles = {
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    },
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   return (
     <div className="w-full">
@@ -56,21 +71,31 @@ export default function UserLists() {
         isOpen={modalIsOpen}
         onRequestClose={handleAddNewList}
         contentLabel="Example Modal"
+        style={customStyles}
       >
         <Formik
-          initialValues={{ listName: 'name', listDescription: 'description' }}
+          initialValues={{ listName: '' }}
           onSubmit={async (values) => {
-            DB.setFirestoreDoc(
-              ['lists', user.uid, values.listName],
-              values.listDescription
-            );
+            console.log(values);
             setLists([...lists, { listName: values.listName }]);
+            const listID = uuid();
+            await DB.updateFirestoreDoc(['users', user.uid], {
+              listName: values.listName,
+              listID: listID,
+            });
+            await DB.setFirestoreDoc(['lists', user.uid, listID, 'test'], {});
           }}
         >
           <Form className="center-col">
-            <Field name="name" type="text" className="text-black" />
-            <Field name="email" type="text" className="text-black" />
-            <button type="submit">Submit</button>
+            <Field
+              name="listName"
+              type="text"
+              placeHolder="List name"
+              className="px-4 py-2 text-black border-2 shadow-lg"
+            />
+            <button type="submit" className="text-black">
+              Add your list
+            </button>
           </Form>
         </Formik>
       </ReactModal>
@@ -84,7 +109,7 @@ export default function UserLists() {
         {lists.map((list) => {
           return (
             <li
-              key={list.listName}
+              key={list.listID}
               className="text-3xl font-bold border-2 rounded-lg "
             >
               <Link to={list.listName} className="w-[200px] h-[200px] center">

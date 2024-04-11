@@ -1,37 +1,92 @@
+import { Field, Form, Formik } from 'formik';
 import { createUser } from 'utils/services/auth/Auth';
+import ConnectDB from 'utils/services/crud/crud';
+import { v4 as uuid } from 'uuid';
 
 export default function Register() {
-  async function handleRegister(event) {
+  const DB = new ConnectDB();
+
+  async function initUserData(user) {
+    const favListID = uuid();
+    const watchListID = uuid();
+    const historyListID = uuid();
+
+    // init user object in DB
+    await DB.setFirestoreDoc(['users', user.uid], {
+      uid: user.uid,
+      username: null,
+      email: user.email,
+      genres: [],
+      lists: {
+        favorites: {
+          listID: favListID,
+          listName: 'favorites',
+        },
+        watchList: {
+          listID: watchListID,
+          listName: 'watchlist',
+        },
+        watchHistory: {
+          listID: historyListID,
+          listName: 'watch-history',
+        },
+      },
+    });
+
+    // init user default lists in DB
+    await DB.setFirestoreDoc(['lists', user.uid, favListID, 'test'], {});
+
+    await DB.setFirestoreDoc(['lists', user.uid, watchListID, 'test'], {});
+
+    await DB.setFirestoreDoc(['lists', user.uid, historyListID, 'test'], {});
+  }
+
+  async function handleRegister(formData) {
     // prevent default behaviour of forms
-    event.preventDefault();
+    // event.preventDefault();
 
-    // extracts the form data object from event
-    const formData = new FormData(event.target);
+    console.log(formData);
 
-    // attempt to login the user
-    await createUser(formData);
+    try {
+      // attempt to login the user
+      const userCredentials = await createUser(formData);
+      const user = userCredentials.user;
+
+      if (user) {
+        initUserData(user);
+      }
+      console.log(user);
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <section className="col-span-full center ">
       <div className="bg-black/50 rounded-md center p-[40px]">
-        <form onSubmit={handleRegister} className="center-col">
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            className="text-black w-[400px] h-10"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="text-black w-[400px] h-10"
-          />
-          <button type="submit" className="bg-slate-400 w-[400px] h-10">
-            Register
-          </button>
-        </form>
+        <Formik
+          initialValues={{ email: 'alex@mail.com', password: 'Alex2024!' }}
+          onSubmit={handleRegister}
+        >
+          <Form className="center-col">
+            <Field
+              type="text"
+              name="email"
+              placeholder="Email"
+              className="text-black w-[400px] h-10"
+            />
+            <Field
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="text-black w-[400px] h-10"
+            />
+            <button type="submit" className="bg-slate-400 w-[400px] h-10">
+              Register
+            </button>
+          </Form>
+        </Formik>
       </div>
     </section>
   );

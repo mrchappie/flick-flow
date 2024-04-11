@@ -1,4 +1,3 @@
-'use client';
 import { useState } from 'react';
 import ButtonMain from '../buttons/buttonMain';
 import Filters from '../filters/filters';

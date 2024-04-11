@@ -32,19 +32,15 @@ export async function loginUser(formData) {
 }
 
 export async function createUser(formData) {
-  const rawFormData = {
-    email: formData.get('email'),
-    password: formData.get('password'),
-  };
-
   try {
-    await createUserWithEmailAndPassword(
+    const userCredentials = await createUserWithEmailAndPassword(
       auth,
-      rawFormData.email,
-      rawFormData.password
+      formData.email,
+      formData.password
     );
-    console.log(rawFormData);
+    console.log(formData);
     console.log('user created');
+    return userCredentials;
   } catch (error) {
     console.log(error);
   }

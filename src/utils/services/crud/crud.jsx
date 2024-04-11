@@ -9,6 +9,7 @@ import {
   getFirestore,
   query,
   setDoc,
+  updateDoc,
 } from 'firebase/firestore';
 
 initializeApp(firebaseConfig);
@@ -16,10 +17,12 @@ getAuth();
 const firestore = getFirestore();
 
 class ConnectDB {
-  async getFirestoreDoc(docPath = ['users']) {
+  async getFirestoreDoc(docPath) {
     try {
-      const docRef = doc(firestore, 'test', ...docPath);
-      await getDoc(docRef);
+      const docRef = doc(firestore, ...docPath);
+      const snapshot = await getDoc(docRef);
+
+      return snapshot.data();
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +30,7 @@ class ConnectDB {
 
   async getFirestoreDocs(docPath) {
     try {
-      const docRef = query(collection(firestore, 'lists', ...docPath));
+      const docRef = query(collection(firestore, ...docPath));
       const snapshot = await getDocs(docRef);
       const result = [];
 
@@ -49,17 +52,25 @@ class ConnectDB {
     }
   }
 
-  async setFirestoreDoc(docPath, movieID) {
+  async setFirestoreDoc(docPath, data) {
     try {
-      const docRef = doc(firestore, ...docPath, movieID);
-      await setDoc(docRef, { data: 'test' });
+      const docRef = doc(firestore, ...docPath);
+      await setDoc(docRef, data);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async updateFirestoreDoc(docPath = ['users']) {
+  async updateFirestoreDoc(docPath, data) {
     try {
+      const docRef = doc(firestore, ...docPath);
+
+      const existingUserData = await this.getFirestoreDoc(docPath);
+      existingUserData.lists[data.listName] = { ...data };
+
+      await updateDoc(docRef, {
+        ...existingUserData,
+      });
     } catch (error) {
       console.log(error);
     }
