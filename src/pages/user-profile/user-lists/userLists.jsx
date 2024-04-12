@@ -2,10 +2,10 @@ import Heading from 'components/UI/heading/heading';
 import { Field, Formik, Form } from 'formik';
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import { Link } from 'react-router-dom';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 import { v4 as uuid } from 'uuid';
+import ListCard from './listCard';
 
 export default function UserLists() {
   const user = useStateStore((state) => state.user);
@@ -13,11 +13,6 @@ export default function UserLists() {
 
   // add list modal append to root
   ReactModal.setAppElement(document.getElementById('root'));
-
-  const [componentData, setComponentData] = useState({
-    title: 'Your Custom Lists',
-    data: [],
-  });
 
   const [lists, setLists] = useState([]);
 
@@ -30,8 +25,8 @@ export default function UserLists() {
         const userData = await DB.getFirestoreDoc(['users', user.uid]);
         setLists(Object.values(userData.lists));
       } catch (error) {
-        console.error('Error fetching data:', error);
         // Handle error if needed
+        console.error('Error fetching data:', error);
       }
     }
 
@@ -39,9 +34,9 @@ export default function UserLists() {
     if (user) {
       fetchData();
     }
-  }, [user]);
+  });
 
-  function handleAddNewList() {
+  function toggleAddNewListModal() {
     setIsOpen(!modalIsOpen);
   }
 
@@ -66,10 +61,10 @@ export default function UserLists() {
 
   return (
     <div className="w-full">
-      <Heading title={componentData.title} />
+      <Heading title="Your Custom Lists" />
       <ReactModal
         isOpen={modalIsOpen}
-        onRequestClose={handleAddNewList}
+        onRequestClose={toggleAddNewListModal}
         contentLabel="Example Modal"
         style={customStyles}
       >
@@ -77,20 +72,24 @@ export default function UserLists() {
           initialValues={{ listName: '' }}
           onSubmit={async (values) => {
             console.log(values);
-            setLists([...lists, { listName: values.listName }]);
             const listID = uuid();
-            await DB.updateFirestoreDoc(['users', user.uid], {
-              listName: values.listName,
+            setLists([...lists, { listName: values.listName, listID: listID }]);
+            await DB.updateFirestoreDocInArray(['users', user.uid], {
+              listName: values.listName
+                .toString()
+                .toLowerCase()
+                .replace(/[\s_]+/g, '-'),
               listID: listID,
             });
             await DB.setFirestoreDoc(['lists', user.uid, listID, 'test'], {});
+            toggleAddNewListModal();
           }}
         >
           <Form className="center-col">
             <Field
               name="listName"
               type="text"
-              placeHolder="List name"
+              placeholder="List name"
               className="px-4 py-2 text-black border-2 shadow-lg"
             />
             <button type="submit" className="text-black">
@@ -101,21 +100,23 @@ export default function UserLists() {
       </ReactModal>
       <ul className="flex-wrap w-full gap-4 center">
         <li
-          onClick={handleAddNewList}
-          className="w-[200px] h-[200px] rounded-lg font-bold border-2 center text-3xl cursor-pointer"
+          onClick={toggleAddNewListModal}
+          className="w-[200px] h-[200px] rounded-lg font-bold border-2 center text-3xl cursor-pointer bg-black/50"
         >
           +
         </li>
         {lists.map((list) => {
           return (
-            <li
+            <ListCard
+              list={list}
+              removeList={(listToDelete) => {
+                const newLists = lists.filter(
+                  (list) => list.listID !== listToDelete.listID
+                );
+                setLists(newLists);
+              }}
               key={list.listID}
-              className="text-3xl font-bold border-2 rounded-lg "
-            >
-              <Link to={list.listName} className="w-[200px] h-[200px] center">
-                {list.listName}
-              </Link>
-            </li>
+            />
           );
         })}
       </ul>

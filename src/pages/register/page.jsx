@@ -17,20 +17,20 @@ export default function Register() {
       username: null,
       email: user.email,
       genres: [],
-      lists: {
-        favorites: {
+      lists: [
+        {
           listID: favListID,
           listName: 'favorites',
         },
-        watchList: {
+        {
           listID: watchListID,
           listName: 'watchlist',
         },
-        watchHistory: {
+        {
           listID: historyListID,
           listName: 'watch-history',
         },
-      },
+      ],
     });
 
     // init user default lists in DB

@@ -2,6 +2,8 @@ import { firebaseConfig } from 'utils/keys/firebase.config';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import {
+  arrayRemove,
+  arrayUnion,
   collection,
   doc,
   getDoc,
@@ -65,11 +67,30 @@ class ConnectDB {
     try {
       const docRef = doc(firestore, ...docPath);
 
-      const existingUserData = await this.getFirestoreDoc(docPath);
-      existingUserData.lists[data.listName] = { ...data };
+      await updateDoc(docRef, data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updateFirestoreDocInArray(docPath, data) {
+    try {
+      const docRef = doc(firestore, ...docPath);
 
       await updateDoc(docRef, {
-        ...existingUserData,
+        lists: arrayUnion(data),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async deleteFirestoreDocFromArray(docPath, data) {
+    try {
+      const docRef = doc(firestore, ...docPath);
+
+      await updateDoc(docRef, {
+        lists: arrayRemove(data),
       });
     } catch (error) {
       console.log(error);
