@@ -2,9 +2,9 @@ import { HiOutlineTrash } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
+const DB = new ConnectDB();
 
-export default function ListCard({ list, removeList }) {
-  const DB = new ConnectDB();
+export function ListCardBlock({ list, removeList }) {
   const user = useStateStore((state) => state.user);
 
   async function handleListDeletion(list) {
@@ -22,9 +22,30 @@ export default function ListCard({ list, removeList }) {
       >
         <HiOutlineTrash />
       </div>
-      <Link to={list.listName} className="w-[200px] h-[200px] center">
+      <Link to={list.listID} className="w-[200px] h-[200px] center">
         {list.listName}
       </Link>
+    </li>
+  );
+}
+
+export function ListCardInline({ list, data }) {
+  const user = useStateStore((state) => state.user);
+
+  async function handleAddToList() {
+    await DB.setFirestoreDoc(
+      ['lists', user.uid, list.listID, data.movieID],
+      data
+    );
+    // console.log(data);
+  }
+
+  return (
+    <li
+      onClick={handleAddToList}
+      className="relative w-full py-2 text-xl font-bold text-black border-2 rounded-lg cursor-pointer center"
+    >
+      {list.listName}
     </li>
   );
 }

@@ -15,7 +15,11 @@ export default function Favorites() {
     async function fetchData() {
       const DB = new ConnectDB();
       try {
-        const fetchedData = await DB.getFirestoreDocs([user.uid, 'favorites']);
+        const fetchedData = await DB.getFirestoreDocs([
+          'lists',
+          user.uid,
+          'e7603004-d17c-4d29-bdb4-e759302fb5d5',
+        ]);
         setComponentData({
           ...componentData,
           data: fetchedData,

@@ -5,18 +5,16 @@ import ReactModal from 'react-modal';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 import { v4 as uuid } from 'uuid';
-import ListCard from './listCard';
+import { ListCardBlock } from './listCard';
 
 export default function UserLists() {
   const user = useStateStore((state) => state.user);
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  // add list modal append to root
-  ReactModal.setAppElement(document.getElementById('root'));
-
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [lists, setLists] = useState([]);
-
   const DB = new ConnectDB();
+
+  // append modal to root
+  ReactModal.setAppElement(document.getElementById('root'));
 
   useEffect(() => {
     async function fetchData() {
@@ -37,7 +35,24 @@ export default function UserLists() {
   });
 
   function toggleAddNewListModal() {
-    setIsOpen(!modalIsOpen);
+    setModalIsOpen(!modalIsOpen);
+  }
+
+  async function handleSubmit(formValues) {
+    const listID = uuid();
+    // update the state with the new lsit
+    setLists([...lists, { listName: formValues.listName, listID: listID }]);
+    // update user object in DB with the new list
+    await DB.updateFirestoreDocInArray(['users', user.uid], {
+      listName: formValues.listName
+        .toString()
+        .toLowerCase()
+        .replace(/[\s_]+/g, '-'),
+      listID: listID,
+    });
+    // create new list collection in list DB
+    await DB.setFirestoreDoc(['lists', user.uid, listID, 'movies'], {});
+    toggleAddNewListModal();
   }
 
   const customStyles = {
@@ -70,19 +85,8 @@ export default function UserLists() {
       >
         <Formik
           initialValues={{ listName: '' }}
-          onSubmit={async (values) => {
-            console.log(values);
-            const listID = uuid();
-            setLists([...lists, { listName: values.listName, listID: listID }]);
-            await DB.updateFirestoreDocInArray(['users', user.uid], {
-              listName: values.listName
-                .toString()
-                .toLowerCase()
-                .replace(/[\s_]+/g, '-'),
-              listID: listID,
-            });
-            await DB.setFirestoreDoc(['lists', user.uid, listID, 'test'], {});
-            toggleAddNewListModal();
+          onSubmit={(formValues) => {
+            handleSubmit(formValues);
           }}
         >
           <Form className="center-col">
@@ -107,7 +111,7 @@ export default function UserLists() {
         </li>
         {lists.map((list) => {
           return (
-            <ListCard
+            <ListCardBlock
               list={list}
               removeList={(listToDelete) => {
                 const newLists = lists.filter(
