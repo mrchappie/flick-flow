@@ -19,12 +19,34 @@ import PrivateRoute from 'utils/hoc/PrivateRoute';
 import Favorites from 'pages/user-profile/favorites/page';
 import UserLists from 'pages/user-profile/user-lists/userLists';
 import List from 'pages/user-profile/user-lists/[list]';
+import AnonymousRoute from 'utils/hoc/AnonymousRoute';
 
 function RoutesContext(props) {
   const routes = [
-    { path: '/', element: <LandingPage /> },
-    { path: '/login', element: <Login /> },
-    { path: '/register', element: <Register /> },
+    {
+      path: '/',
+      element: (
+        <AnonymousRoute redirectTo="/">
+          <LandingPage />
+        </AnonymousRoute>
+      ),
+    },
+    {
+      path: '/login',
+      element: (
+        <AnonymousRoute redirectTo="/login">
+          <Login />
+        </AnonymousRoute>
+      ),
+    },
+    {
+      path: '/register',
+      element: (
+        <AnonymousRoute redirectTo="/register">
+          <Register />
+        </AnonymousRoute>
+      ),
+    },
     {
       path: '/home',
       element: (
