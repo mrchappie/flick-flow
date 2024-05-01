@@ -19,6 +19,7 @@ export default function MovieCardsContainer({ title, data = [] }) {
     year: '2020',
     poster: '/images/movie_poster.jpg',
     movieID: uuid(),
+    addedByUser: false,
   };
 
   return (

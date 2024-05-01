@@ -7,8 +7,8 @@ const movieDetails = {
   year: '2020',
   poster: `${process.env.REACT_APP_TMDB_IMAGE_API_ORIGIN}/original/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg`,
   movieID: uuid(),
+  addedByUser: false,
 };
-
 export default function LatestMovies() {
   return (
     <section className="items-start w-full gap-6 my-12 col-span-full center-col">

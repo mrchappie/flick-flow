@@ -8,8 +8,17 @@ export function ListCardBlock({ list, removeList }) {
   const user = useStateStore((state) => state.user);
 
   async function handleListDeletion(list) {
-    await DB.deleteFirestoreDocFromArray(['users', user.uid], list);
-    removeList(list);
+    try {
+      // delete list for user from users DB
+      await DB.deleteFirestoreDocFromArray(['users', user.uid], list);
+
+      // delete list from lists DB
+      // await DB.deleteFirestoreDoc(['lists', user.uid, list.listID]);
+
+      removeList(list);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

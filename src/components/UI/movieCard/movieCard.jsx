@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom';
-import { HiBookmark, HiHeart } from 'react-icons/hi';
+import {
+  HiBookmark,
+  HiHeart,
+  HiOutlineBookmark,
+  HiOutlineHeart,
+} from 'react-icons/hi';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 import ReactModal from 'react-modal';
@@ -28,16 +33,17 @@ export default function MovieCard({ details, customStyle }) {
       }
     }
 
-    // because user auth check is async, I check for the user to not be null
+    // check for the user to not be null
     if (user) {
       fetchData();
     }
-  });
+  }, []);
 
   function handleAddToFavorites(movieID) {
     const favListID = lists.filter((list) => list.listName === 'favorites');
     DB.setFirestoreDoc(['lists', user.uid, favListID[0].listID, movieID], {
-      type: 'movies',
+      type: 'movie',
+      addedByUser: true,
     });
   }
 
@@ -45,11 +51,6 @@ export default function MovieCard({ details, customStyle }) {
     // db.setFirestoreDoc(['lists', user.uid, 'watchlist', movieID]);
     setModalIsOpen(!modalIsOpen);
     setSelectedItem(itemDetails);
-  }
-
-  function handleAddToWatchlist(movieID) {
-    // db.setFirestoreDoc(['lists', user.uid, 'watchlist', movieID]);
-    setModalIsOpen(!modalIsOpen);
   }
 
   const customStyles = {
@@ -71,7 +72,7 @@ export default function MovieCard({ details, customStyle }) {
       transform: 'translate(-50%, -50%)',
     },
   };
-
+  // console.log(details);
   return (
     <div className="relative">
       <ReactModal
@@ -104,14 +105,22 @@ export default function MovieCard({ details, customStyle }) {
               handleAddToFavorites(details.movieID);
             }}
           >
-            <HiHeart className="text-[30px] hover:scale-125" />
+            {details.addedByUser === true ? (
+              <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
+            ) : (
+              <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
+            )}
           </span>
           <span
             onClick={() => {
               openListsModal(details);
             }}
           >
-            <HiBookmark className="text-[30px] hover:scale-125" />
+            {details.addedByUser === true ? (
+              <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+            ) : (
+              <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+            )}
           </span>
         </div>
         <Link

@@ -1,32 +1,37 @@
 import React, { useEffect } from 'react';
-import RoutesContext from './routes/routes';
+import RoutesContext from './routes/RoutesContext';
 import Banner from 'components/UI/banner/banner';
 import useAuthCheck from 'utils/hooks/useAuthCheck';
 import { useStateStore } from 'utils/services/state/State';
 
 function App() {
-  // check if user is authenticated
-  const { user } = useAuthCheck();
-
+  const { user, authIsLoading } = useAuthCheck();
   const updateUser = useStateStore((state) => state.updateUser);
   const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
 
   useEffect(() => {
-    if (user) {
-      updateUser(user);
-      updateIsLoggedIn(true);
-      console.log(user);
-    } else {
-      updateUser(null);
-      updateIsLoggedIn(false);
+    console.log('test App');
+    if (!authIsLoading) {
+      if (user) {
+        updateUser(user);
+        updateIsLoggedIn(true);
+        console.log(user);
+      } else {
+        updateUser(null);
+        updateIsLoggedIn(false);
+      }
     }
-  }, [user, updateIsLoggedIn, updateUser]);
+  }, [user, authIsLoading, updateUser, updateIsLoggedIn]);
+
+  if (authIsLoading) {
+    // Render a loading indicator or skeleton while authentication state is loading
+    return <div>Loading...</div>;
+  }
 
   return (
     <React.StrictMode>
-      <RoutesContext>
-        <Banner />
-      </RoutesContext>
+      <RoutesContext></RoutesContext>
+      <Banner />
     </React.StrictMode>
   );
 }

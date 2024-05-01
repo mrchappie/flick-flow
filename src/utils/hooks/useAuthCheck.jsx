@@ -11,16 +11,19 @@ export default function useAuthCheck() {
   const [authIsLoading, setAuthIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log('test auth');
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        setAuthIsLoading(false);
       } else {
         setUser(null);
-        setAuthIsLoading(false);
+        // setAuthIsLoading(true);
       }
     });
 
     return () => unsubscribe();
   }, []);
-  return { user, authIsLoading }; // Return the current authState (null or user object)
+
+  return { user, authIsLoading };
 }

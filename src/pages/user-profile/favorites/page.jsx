@@ -18,7 +18,7 @@ export default function Favorites() {
         const fetchedData = await DB.getFirestoreDocs([
           'lists',
           user.uid,
-          'e7603004-d17c-4d29-bdb4-e759302fb5d5',
+          '554a2068-020f-40dd-b598-5133998c00d7',
         ]);
         setComponentData({
           ...componentData,

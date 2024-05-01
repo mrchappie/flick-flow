@@ -5,6 +5,7 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -97,8 +98,10 @@ class ConnectDB {
     }
   }
 
-  async deleteFirestoreDoc(docPath = ['users']) {
+  async deleteFirestoreDoc(docPath) {
     try {
+      const docRef = doc(firestore, ...docPath);
+      await deleteDoc(docRef);
     } catch (error) {
       console.log(error);
     }
