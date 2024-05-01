@@ -54,3 +54,7 @@ body {
     @apply grid grid-cols-12;
   }
 }
+
+.custom-main-grid-row {
+  grid-template-rows: 100px 1fr;
+}

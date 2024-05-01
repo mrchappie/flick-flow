@@ -11,19 +11,14 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 
 export async function loginUser(formData) {
-  const rawFormData = {
-    email: formData.get('email'),
-    password: formData.get('password'),
-  };
-
   try {
     const response = await signInWithEmailAndPassword(
       auth,
-      rawFormData.email,
-      rawFormData.password
+      formData.email,
+      formData.password
     );
     document.cookie = `isLoggedIn=true`;
-    console.log(rawFormData);
+    console.log(formData);
     console.log('user logged in');
     return response;
   } catch (error) {

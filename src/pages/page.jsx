@@ -21,7 +21,7 @@ export default function LandingPage() {
     <>
       {showPageSpinner && <LoadingSpinner />}
       {!showPageSpinner && (
-        <div className="p-10">
+        <div className="p-10 col-span-full">
           <LandingPageHeroSection />
           <LatestMovies />
           <LatestShows />

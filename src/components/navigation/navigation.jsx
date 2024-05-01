@@ -28,7 +28,10 @@ export default function Navigation() {
           if (renderRoute(route)) {
             return (
               <li key={route.path}>
-                <Link to={`/${route.path}`} className="block px-6 py-4">
+                <Link
+                  to={`/${route.path}`}
+                  className="block px-6 py-4 font-bold"
+                >
                   {route.name}
                 </Link>
               </li>

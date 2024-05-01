@@ -7,7 +7,7 @@ export function ButtonTextBg(props) {
       onClick={props.handleClick}
       className="p-3 text-white rounded-sm bg-brand1"
     >
-      {props.children}
+      {props.children ? props.children : props.title}
     </button>
   );
 }
@@ -18,7 +18,7 @@ export function ButtonTextNoBg(props) {
       onClick={props.handleClick}
       className="p-3 bg-transparent rounded-sm text-brand1"
     >
-      {props.children}
+      {props.children ? props.children : props.title}
     </button>
   );
 }

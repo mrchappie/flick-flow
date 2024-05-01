@@ -34,7 +34,9 @@ function App() {
 
   return (
     <React.StrictMode>
-      <RoutesContext></RoutesContext>
+      <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
+        <RoutesContext></RoutesContext>
+      </main>
       <Banner />
     </React.StrictMode>
   );

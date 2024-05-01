@@ -27,7 +27,7 @@ export default function Header() {
   };
 
   return (
-    <header className="p-4 center justify-evenly bg-custom-bg-fade">
+    <header className="p-4 col-span-full center justify-evenly bg-custom-bg-fade">
       <div>
         <Link to={'/'}>Logo</Link>
       </div>
@@ -35,7 +35,9 @@ export default function Header() {
       <Search />
       {!isLoggedIn && (
         <div>
-          <Link to={'/login'}>Sign In</Link>
+          <Link to={'/login'} className="font-bold">
+            Sign In
+          </Link>
         </div>
       )}
       {isLoggedIn && (

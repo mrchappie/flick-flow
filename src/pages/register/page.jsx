@@ -1,3 +1,4 @@
+import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Field, Form, Formik } from 'formik';
 import { createUser } from 'utils/services/auth/Auth';
 import ConnectDB from 'utils/services/crud/crud';
@@ -42,9 +43,6 @@ export default function Register() {
   }
 
   async function handleRegister(formData) {
-    // prevent default behaviour of forms
-    // event.preventDefault();
-
     console.log(formData);
 
     try {
@@ -63,13 +61,13 @@ export default function Register() {
   }
 
   return (
-    <section className="col-span-full center ">
-      <div className="bg-black/50 rounded-md center p-[40px]">
+    <section className="col-span-full center">
+      <div className="rounded-md center p-[40px]">
         <Formik
           initialValues={{ email: 'alex@mail.com', password: 'Alex2024!' }}
           onSubmit={handleRegister}
         >
-          <Form className="center-col">
+          <Form className="items-stretch h-full center-col">
             <Field
               type="text"
               name="email"
@@ -82,9 +80,7 @@ export default function Register() {
               placeholder="Password"
               className="text-black w-[400px] h-10"
             />
-            <button type="submit" className="bg-slate-400 w-[400px] h-10">
-              Register
-            </button>
+            <ButtonTextBg type="submit">Register</ButtonTextBg>
           </Form>
         </Formik>
       </div>
