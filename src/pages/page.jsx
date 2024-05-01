@@ -21,11 +21,11 @@ export default function LandingPage() {
     <>
       {showPageSpinner && <LoadingSpinner />}
       {!showPageSpinner && (
-        <>
+        <div className="p-10">
           <LandingPageHeroSection />
           <LatestMovies />
           <LatestShows />
-        </>
+        </div>
       )}
     </>
   );

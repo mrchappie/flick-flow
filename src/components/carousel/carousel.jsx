@@ -1,5 +1,10 @@
-import ButtonMain from 'components/UI/buttons/buttonMain';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  ButtonTextBg,
+  ButtonTextNoBg,
+  CarouselArrowNext,
+  CarouselArrowPrev,
+} from 'components/UI/buttons/buttons';
+import { useCallback, useState } from 'react';
 import Slide from './slide';
 
 export default function Carousel() {
@@ -64,12 +69,7 @@ export default function Carousel() {
   return (
     <section className="w-full h-[70vh] col-span-full center">
       <div className="w-[30px] h-full center">
-        <button
-          onClick={handlePrevSlide}
-          className="p-4 text-black bg-white rounded-md"
-        >
-          P
-        </button>
+        <CarouselArrowPrev handleClick={handlePrevSlide}></CarouselArrowPrev>
       </div>
       <div className="relative w-full h-full center">
         {slideDetails.map((slide, index) => {
@@ -90,8 +90,8 @@ export default function Carousel() {
                   <p>{slide.description}</p>
                 </div>
                 <div className="gap-4 center">
-                  <ButtonMain title="Play Now" />
-                  <ButtonMain title="Add to WatchList" />
+                  <ButtonTextBg title="Play Now" />
+                  <ButtonTextNoBg title="Add to WatchList" />
                 </div>
               </div>
               <div className="absolute top-0 left-0 z-10 w-full h-full rotate-180 bg-custom-bg-fade"></div>
@@ -101,12 +101,7 @@ export default function Carousel() {
         })}
       </div>
       <div className="w-[30px] h-full center">
-        <button
-          onClick={handleNextSlide}
-          className="p-4 text-black bg-white rounded-md"
-        >
-          N
-        </button>
+        <CarouselArrowNext handleClick={handleNextSlide}></CarouselArrowNext>
       </div>
     </section>
   );

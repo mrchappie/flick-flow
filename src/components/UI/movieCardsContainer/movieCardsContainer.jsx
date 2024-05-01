@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ButtonMain from '../buttons/buttonMain';
+import { ButtonTextBg } from '../buttons/buttons';
 import Filters from '../filters/filters';
 import Heading from '../heading/heading';
 import MovieCard from '../movieCard/movieCard';
@@ -26,7 +26,7 @@ export default function MovieCardsContainer({ title, data = [] }) {
     <section className="w-full col-span-full center-col">
       <div className="justify-between w-full center">
         <Heading title={title} />
-        <ButtonMain title="Filters" handleClick={handleClick} />
+        <ButtonTextBg title="Filters" handleClick={handleClick} />
       </div>
       {showFilters && <Filters />}
       <div className="my-[50px] w-full h-full center flex-wrap">

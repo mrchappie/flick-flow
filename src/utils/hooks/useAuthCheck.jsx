@@ -18,7 +18,7 @@ export default function useAuthCheck() {
         setAuthIsLoading(false);
       } else {
         setUser(null);
-        // setAuthIsLoading(true);
+        setAuthIsLoading(false);
       }
     });
 

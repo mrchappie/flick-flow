@@ -20,6 +20,7 @@ import UserLists from 'pages/user-profile/user-lists/userLists';
 import List from 'pages/user-profile/user-lists/[list]';
 import AnonymousRoute from 'utils/hoc/AnonymousRoute';
 import Header from 'components/header/header';
+import Footer from 'components/footer/footer';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       <AnonymousRoute redirectTo="/">
         <Header />
         <LandingPage />
+        <Footer />
       </AnonymousRoute>
     ),
     path: '/',
@@ -37,6 +39,7 @@ const router = createBrowserRouter([
       <AnonymousRoute redirectTo="/login">
         <Header />
         <Login />
+        <Footer />
       </AnonymousRoute>
     ),
   },
@@ -46,6 +49,7 @@ const router = createBrowserRouter([
       <AnonymousRoute redirectTo="/register">
         <Header />
         <Register />
+        <Footer />
       </AnonymousRoute>
     ),
   },
@@ -55,6 +59,7 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Header />
         <Home />
+        <Footer />
       </PrivateRoute>
     ),
   },
@@ -64,6 +69,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Movies />
+        <Footer />
       </>
     ),
   },
@@ -73,6 +79,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <TvShows />
+        <Footer />
       </>
     ),
   },
@@ -82,6 +89,7 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Header />
         <Details />
+        <Footer />
       </PrivateRoute>
     ),
   },
@@ -91,6 +99,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Genre />
+        <Footer />
       </>
     ),
   },
@@ -100,6 +109,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <GenreCategory />
+        <Footer />
       </>
     ),
   },
@@ -109,6 +119,7 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Header />
         <UserProfile />
+        <Footer />
       </PrivateRoute>
     ),
   },
@@ -118,6 +129,7 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Header />
         <Settings />
+        <Footer />
       </PrivateRoute>
     ),
   },
@@ -127,6 +139,7 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Header />
         <WatchList />
+        <Footer />
       </PrivateRoute>
     ),
   },
@@ -136,6 +149,7 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Header />
         <Favorites />
+        <Footer />
       </PrivateRoute>
     ),
   },
@@ -145,6 +159,7 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Header />
         <WatchHistory />
+        <Footer />
       </PrivateRoute>
     ),
   },
@@ -154,6 +169,7 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Header />
         <UserLists />
+        <Footer />
       </PrivateRoute>
     ),
   },
@@ -163,6 +179,7 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Header />
         <List />
+        <Footer />
       </PrivateRoute>
     ),
   },
@@ -172,6 +189,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <NotFound />
+        <Footer />
       </>
     ),
   },

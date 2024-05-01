@@ -18,9 +18,6 @@ export default function MovieCard({ details, customStyle }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [lists, setLists] = useState([]);
 
-  // append modal to root
-  ReactModal.setAppElement(document.getElementById('root'));
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -133,7 +130,7 @@ export default function MovieCard({ details, customStyle }) {
         style={customStyle}
       >
         <div className="absolute w-full h-full rotate-180 z-1 bg-custom-bg-fade"></div>
-        <div className="absolute z-1 bottom-2 left-4 text-md">
+        <div className="absolute font-semibold text-md z-1 bottom-2 left-4">
           <h2>
             {details.title} - <span>{details.year}</span>
           </h2>
