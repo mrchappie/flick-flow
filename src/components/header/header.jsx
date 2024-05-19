@@ -29,7 +29,12 @@ export default function Header() {
   return (
     <header className="p-4 col-span-full center justify-evenly bg-custom-bg-fade">
       <div>
-        <Link to={'/'}>{`<FlickFlow/>`}</Link>
+        <Link to={'/'}>
+          <div className="center">
+            <img src="/icons/logo.svg" alt="Flick Flow logo" />
+            <span className="text-3xl font-bold">Flick Flow</span>
+          </div>
+        </Link>
       </div>
       <Navigation />
       <Search />
