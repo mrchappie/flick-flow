@@ -75,7 +75,7 @@ export default function UserLists() {
   };
 
   return (
-    <div className="w-full">
+    <section className="w-full col-span-full center-col">
       <Heading title="Your Custom Lists" />
       <ReactModal
         isOpen={modalIsOpen}
@@ -124,6 +124,6 @@ export default function UserLists() {
           );
         })}
       </ul>
-    </div>
+    </section>
   );
 }

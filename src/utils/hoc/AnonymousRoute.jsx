@@ -7,7 +7,7 @@ function AnonymousRoute({ children, redirectTo }) {
   const { user, authIsLoading } = useAuthCheck();
 
   useEffect(() => {
-    if (authIsLoading) {
+    if (!authIsLoading) {
       // if auth state is not loading
       if (user) {
         // if we have an user authenticated redirect to homepage

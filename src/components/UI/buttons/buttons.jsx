@@ -23,6 +23,17 @@ export function ButtonTextNoBg(props) {
   );
 }
 
+export function ButtonWithTextAndIcon(props) {
+  return (
+    <button
+      onClick={props.handleClick}
+      className="p-3 bg-transparent rounded-sm center-col hover:text-brand4"
+    >
+      {props.children ? props.children : props.title}
+    </button>
+  );
+}
+
 export function CarouselArrowNext(props) {
   return (
     <button

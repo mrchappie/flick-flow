@@ -9,11 +9,11 @@ function PrivateRoute({ children }) {
   useEffect(() => {
     if (!authIsLoading) {
       // if auth state is not loading
-      if (user) {
-        // if we have an user authenticated redirect to homepage
-        navigate('/home');
-        return;
-      }
+      // if (user) {
+      //   // if we have an user authenticated redirect to homepage
+      //   navigate('/home');
+      //   return;
+      // }
 
       if (user === null) {
         // if user is not authenticated redirect to login page

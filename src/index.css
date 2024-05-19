@@ -49,10 +49,6 @@ body {
   .center-col {
     @apply flex flex-col items-center justify-center gap-2;
   }
-
-  .custom-grid {
-    @apply grid grid-cols-12;
-  }
 }
 
 .custom-main-grid-row {

@@ -32,11 +32,5 @@ export default function WatchList() {
     }
   }, [user]);
 
-  return (
-    <div className="w-full">
-      <div>
-        <MovieCardsContainer {...componentData} />
-      </div>
-    </div>
-  );
+  return <MovieCardsContainer {...componentData} />;
 }
