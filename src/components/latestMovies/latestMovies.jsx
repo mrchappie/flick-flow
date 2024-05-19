@@ -11,7 +11,7 @@ const movieDetails = {
 };
 export default function LatestMovies() {
   return (
-    <section className="items-start w-full gap-6 my-12 col-span-full center-col">
+    <section className="items-start w-full gap-6 px-8 my-12 col-span-full center-col">
       <Heading title="Latest Movies" />
       <section className="items-start gap-4 center">
         <MovieCard details={movieDetails} />

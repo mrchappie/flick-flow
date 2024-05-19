@@ -29,7 +29,7 @@ export default function Header() {
   return (
     <header className="p-4 col-span-full center justify-evenly bg-custom-bg-fade">
       <div>
-        <Link to={'/'}>Logo</Link>
+        <Link to={'/'}>{`<FlickFlow/>`}</Link>
       </div>
       <Navigation />
       <Search />

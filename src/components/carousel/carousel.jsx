@@ -4,8 +4,9 @@ import {
   CarouselArrowNext,
   CarouselArrowPrev,
 } from 'components/UI/buttons/buttons';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Slide from './slide';
+import styles from './styles.module.css';
 
 export default function Carousel() {
   const slideDetails = [
@@ -77,8 +78,10 @@ export default function Carousel() {
           return (
             <div
               key={slide.movieID}
-              className={`w-full h-full absolute top-0`}
-              style={{ left: `${slideOffset}px` }}
+              className={`absolute top-0 w-full h-full ${styles.customCarouselTransition}`}
+              style={{
+                left: `${slideOffset}px`,
+              }}
             >
               <div className="absolute bottom-0 left-0 z-20 items-start p-4 center-col">
                 <h1 className="text-[4  0px] font-bold">{slide.title}</h1>
