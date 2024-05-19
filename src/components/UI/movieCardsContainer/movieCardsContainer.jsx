@@ -1,26 +1,41 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ButtonTextBg } from '../buttons/buttons';
 import Filters from '../filters/filters';
 import Heading from '../heading/heading';
 import MovieCard from '../movieCard/movieCard';
 import { v4 as uuid } from 'uuid';
+import { data } from 'data';
 
-export default function MovieCardsContainer({ title, data = [] }) {
+export default function MovieCardsContainer({ title }) {
   const [showFilters, setShowFilters] = useState(false);
 
   function handleClick() {
     setShowFilters(!showFilters);
   }
 
-  console.log(data);
+  const movieDetails = useMemo(() => {
+    const movies = [...data];
 
-  const movieDetails = {
-    title: 'Greenland',
-    year: '2020',
-    poster: '/images/movie_poster.jpg',
-    movieID: uuid(),
-    addedByUser: false,
-  };
+    return movies.map((movie) => {
+      return {
+        poster: `${process.env.REACT_APP_TMDB_IMAGE_API_ORIGIN}/original/${movie.poster_path}`,
+        description: movie.overview,
+        title: movie.original_title,
+        duration: '120',
+        year: movie.release_date,
+        genre: movie.genre_ids,
+        movieID: movie.id,
+      };
+    });
+  }, []);
+
+  // const movieDetails = {
+  //   title: 'Greenland',
+  //   year: '2020',
+  //   poster: '/images/movie_poster.jpg',
+  //   movieID: uuid(),
+  //   addedByUser: false,
+  // };
 
   return (
     <section className="w-full col-span-full center-col">
@@ -30,8 +45,10 @@ export default function MovieCardsContainer({ title, data = [] }) {
       </div>
       {showFilters && <Filters />}
       <div className="my-[50px] w-full h-full center flex-wrap">
-        {data.map((movie) => {
-          return <MovieCard details={movieDetails} key={Math.random()} />;
+        {movieDetails.map((movie) => {
+          return (
+            <MovieCard details={movie} key={movie.movieID + Math.random()} />
+          );
         })}
       </div>
     </section>

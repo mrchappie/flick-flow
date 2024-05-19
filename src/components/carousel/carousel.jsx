@@ -4,40 +4,56 @@ import {
   CarouselArrowNext,
   CarouselArrowPrev,
 } from 'components/UI/buttons/buttons';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Slide from './slide';
 import styles from './styles.module.css';
+import { getRandomMovies } from 'data';
 
 export default function Carousel() {
-  const slideDetails = [
-    {
-      poster: '/images/movie_poster_l.jpg',
-      description: 'lorem inpsum dolor blah blah blah',
-      title: 'Greenland',
-      duration: '120',
-      year: '2023',
-      genre: ['action, comedy, sf'],
-      movieID: 'sae21ewd32ed3wd',
-    },
-    {
-      poster: '/images/movie_poster_l_2.jpg',
-      description: 'lorem inpsum dolor blah blah blah',
-      title: 'Independence Day',
-      duration: '120',
-      year: '2023',
-      genre: ['action, comedy, sf'],
-      movieID: 'sae21ewd32edas3wd',
-    },
-    {
-      poster: '/images/movie_poster_l_3.jpg',
-      description: 'lorem inpsum dolor blah blah blah',
-      title: 'Transformers',
-      duration: '120',
-      year: '2023',
-      genre: ['action, comedy, sf'],
-      movieID: 'sae21ewd32ed3saswd',
-    },
-  ];
+  // const slideDetails = [
+  //   {
+  //     poster: '/images/movie_poster_l.jpg',
+  //     description: 'lorem inpsum dolor blah blah blah',
+  //     title: 'Greenland',
+  //     duration: '120',
+  //     year: '2023',
+  //     genre: ['action, comedy, sf'],
+  //     movieID: 'sae21ewd32ed3wd',
+  //   },
+  //   {
+  //     poster: '/images/movie_poster_l_2.jpg',
+  //     description: 'lorem inpsum dolor blah blah blah',
+  //     title: 'Independence Day',
+  //     duration: '120',
+  //     year: '2023',
+  //     genre: ['action, comedy, sf'],
+  //     movieID: 'sae21ewd32edas3wd',
+  //   },
+  //   {
+  //     poster: '/images/movie_poster_l_3.jpg',
+  //     description: 'lorem inpsum dolor blah blah blah',
+  //     title: 'Transformers',
+  //     duration: '120',
+  //     year: '2023',
+  //     genre: ['action, comedy, sf'],
+  //     movieID: 'sae21ewd32ed3saswd',
+  //   },
+  // ];
+  const slideDetails = useMemo(() => {
+    const movies = getRandomMovies().slice(5);
+
+    return movies.map((movie) => {
+      return {
+        poster: `${process.env.REACT_APP_TMDB_IMAGE_API_ORIGIN}/original/${movie.backdrop_path}`,
+        description: movie.overview,
+        title: movie.original_title,
+        duration: '120',
+        year: movie.release_date,
+        genre: movie.genre_ids,
+        movieID: movie.id,
+      };
+    });
+  }, []);
 
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -77,7 +93,7 @@ export default function Carousel() {
           const slideOffset = 2000 * (index - activeSlide);
           return (
             <div
-              key={slide.movieID}
+              key={slide.movieID + Math.random()}
               className={`absolute top-0 w-full h-full ${styles.customCarouselTransition}`}
               style={{
                 left: `${slideOffset}px`,
@@ -86,8 +102,16 @@ export default function Carousel() {
               <div className="absolute bottom-0 left-0 z-20 items-start p-4 center-col">
                 <h1 className="text-[4  0px] font-bold">{slide.title}</h1>
                 <div>
-                  <span>{slide.genre}</span> | <span>{slide.duration}</span> |{' '}
-                  <span>{slide.year}</span>
+                  <span>
+                    {slide.genre.map((genre) => {
+                      return (
+                        <span key={genre} className="p-2">
+                          {genre}
+                        </span>
+                      );
+                    })}
+                  </span>{' '}
+                  | <span>{slide.duration}</span> | <span>{slide.year}</span>
                 </div>
                 <div>
                   <p>{slide.description}</p>
