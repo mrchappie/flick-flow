@@ -1,37 +1,23 @@
-import Heading from 'components/UI/heading/heading';
-import MovieCard from 'components/UI/movieCard/movieCard';
-import { v4 as uuid } from 'uuid';
+import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
+import { useEffect, useState } from 'react';
+import useAPI from 'utils/hooks/useAPI';
 
-const movieDetails = {
-  title: 'Godzilla x Kong: The New Empire',
-  year: '2020',
-  poster: `${process.env.REACT_APP_TMDB_IMAGE_API_ORIGIN}/original/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg`,
-  movieID: uuid(),
-  addedByUser: false,
-};
 export default function LatestMovies() {
-  return (
-    <section className="items-start w-full gap-6 px-8 my-12 col-span-full center-col">
-      <Heading title="Latest Movies" />
-      <section className="items-start gap-4 center">
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-      </section>
-    </section>
-  );
+  const [movieDetails, setMovieDetails] = useState([]);
+
+  const { response, loading, error } = useAPI({
+    paths: { category: 'movie', subCategory: ['top_rated'] },
+  });
+
+  useEffect(() => {
+    if (response && response.results) {
+      setMovieDetails(response.results.slice(0, 8));
+    }
+  }, [response]);
+
+  const componentData = {
+    title: 'Cele Mai Căutate',
+    data: movieDetails,
+  };
+  return <MovieCardsContainer {...componentData} />;
 }

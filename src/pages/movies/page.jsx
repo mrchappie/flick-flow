@@ -1,13 +1,23 @@
 import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
+import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
 export default function Movies() {
-  // const data = useAPI({
-  //   url: 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1',
-  // });
+  const [movieDetails, setMovieDetails] = useState([]);
+
+  const { response, loading, error } = useAPI({
+    paths: { category: 'movie', subCategory: ['now_playing'] },
+  });
+
+  useEffect(() => {
+    if (response && response.results) {
+      setMovieDetails(response.results);
+    }
+  }, [response]);
 
   const componentData = {
     title: 'Most popolar movies',
+    data: movieDetails,
   };
 
   return <MovieCardsContainer {...componentData} />;

@@ -17,6 +17,7 @@ export default function MovieCard({ details, customStyle }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [lists, setLists] = useState([]);
+  const tmdbImagesOrigin = process.env.REACT_APP_TMDB_IMAGE_API_ORIGIN;
 
   useEffect(() => {
     async function fetchData() {
@@ -69,7 +70,9 @@ export default function MovieCard({ details, customStyle }) {
       transform: 'translate(-50%, -50%)',
     },
   };
-  // console.log(details);
+
+  console.log(details);
+
   return (
     <div className="relative">
       <ReactModal
@@ -99,7 +102,7 @@ export default function MovieCard({ details, customStyle }) {
         <div className="relative z-10 flex justify-between p-2 cursor-pointer">
           <span
             onClick={() => {
-              handleAddToFavorites(details.movieID);
+              handleAddToFavorites(details.id);
             }}
           >
             {details.addedByUser === true ? (
@@ -121,7 +124,7 @@ export default function MovieCard({ details, customStyle }) {
           </span>
         </div>
         <Link
-          to={`/details?movie_id=${details.movieID}`}
+          to={`/details?movie_id=${details.id}`}
           className="absolute top-0 left-0 z-0 block w-full h-full"
         ></Link>
       </div>
@@ -131,11 +134,20 @@ export default function MovieCard({ details, customStyle }) {
       >
         <div className="absolute w-full h-full rotate-180 z-1 bg-custom-bg-fade"></div>
         <div className="absolute font-semibold text-md z-1 bottom-2 left-4">
-          <h2>
-            {details.title} - <span>{details.year}</span>
+          <h2 className="flex flex-wrap">
+            <span>{details.title ? details.title : details.name}</span> -
+            <span>
+              {details.release_date
+                ? details.release_date.split('-')[0]
+                : details.first_air_date.split('-')[0]}
+            </span>
           </h2>
         </div>
-        <img src={details.poster} alt="author" className="z-0" />
+        <img
+          src={tmdbImagesOrigin + '/w342' + details.poster_path}
+          alt="author"
+          className="z-0"
+        />
       </div>
     </div>
   );

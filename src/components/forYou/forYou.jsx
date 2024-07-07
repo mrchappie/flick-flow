@@ -1,37 +1,24 @@
-import MovieCard from 'components/UI/movieCard/movieCard';
-import Title from 'components/UI/heading/heading';
-import { v4 as uuid } from 'uuid';
-
-const movieDetails = {
-  title: 'Greenland',
-  year: '2020',
-  poster: '/images/movie_poster.jpg',
-  movieID: uuid(),
-};
+import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
+import { useEffect, useState } from 'react';
+import useAPI from 'utils/hooks/useAPI';
 
 export default function ForYou() {
-  return (
-    <section className="items-start w-full gap-6 px-8 my-12 col-span-full center-col">
-      <Title title="For You" />
-      <section className="items-start gap-4 center">
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-      </section>
-    </section>
-  );
+  const [movieDetails, setMovieDetails] = useState([]);
+
+  const { response, loading, error } = useAPI({
+    paths: { category: 'movie', subCategory: ['now_playing'] },
+  });
+
+  useEffect(() => {
+    if (response && response.results) {
+      setMovieDetails(response.results.slice(0, 8));
+    }
+  }, [response]);
+
+  const componentData = {
+    title: 'For You',
+    data: movieDetails,
+  };
+
+  return <MovieCardsContainer {...componentData} />;
 }
