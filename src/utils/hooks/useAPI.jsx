@@ -1,26 +1,30 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export default async function useAPI({ movieID, method, body = null, paths }) {
-  const tmdbAccessToken = process.env.REACT_APP_TMDB_ACCESS_TOKEN;
-  const movieId = movieID;
-  try {
-    useEffect(() => {
-      const options = {
-        method: method,
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${tmdbAccessToken}`,
-        },
-      };
+export default function useAPI({ method = 'GET', body = null, paths }) {
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-      // if body is not null in params
-      // add the body to the options objects
-      if (body) {
-        options.body = body;
-      }
+  useEffect(() => {
+    const tmdbAccessToken = process.env.REACT_APP_TMDB_ACCESS_TOKEN;
+    const options = {
+      method: method,
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${tmdbAccessToken}`,
+      },
+    };
 
-      const { category, subCategory, params } = paths;
-      const fetchData = async () => {
+    // if body exists
+    // add the body to the options object
+    if (body) {
+      options.body = body;
+    }
+
+    const { category, subCategory, params = {} } = paths;
+    const fetchData = async () => {
+      setLoading(true);
+      try {
         const data = await fetch(
           `${process.env.REACT_APP_TMDB_API_ORIGIN}/${category}${
             subCategory.length > 0 ? `/${subCategory.join('/')}` : ''
@@ -31,13 +35,22 @@ export default async function useAPI({ movieID, method, body = null, paths }) {
           }`,
           options
         );
-        const response = await data.json();
-        console.log(response);
-      };
 
-      fetchData();
-    }, [movieId, tmdbAccessToken, method, body, paths]);
-  } catch (error) {
-    console.log(error);
-  }
+        console.log(data);
+        if (!data.ok) throw new Error(data.statusText);
+
+        const response = await data.json();
+        setResponse(response);
+        console.log(response);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return { response, loading, error };
 }

@@ -7,55 +7,34 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import Slide from './slide';
 import styles from './styles.module.css';
+import useAPI from 'utils/hooks/useAPI';
 
 export default function Carousel() {
-  const slideDetails = [
-    {
-      poster: '/images/movie_poster_l.jpg',
-      description: 'lorem inpsum dolor blah blah blah',
-      title: 'Greenland',
-      duration: '120',
-      year: '2023',
-      genre: ['action, comedy, sf'],
-      movieID: 'sae21ewd32ed3wd',
-    },
-    {
-      poster: '/images/movie_poster_l_2.jpg',
-      description: 'lorem inpsum dolor blah blah blah',
-      title: 'Independence Day',
-      duration: '120',
-      year: '2023',
-      genre: ['action, comedy, sf'],
-      movieID: 'sae21ewd32edas3wd',
-    },
-    {
-      poster: '/images/movie_poster_l_3.jpg',
-      description: 'lorem inpsum dolor blah blah blah',
-      title: 'Transformers',
-      duration: '120',
-      year: '2023',
-      genre: ['action, comedy, sf'],
-      movieID: 'sae21ewd32ed3saswd',
-    },
-  ];
-
+  const [slideDetails, setSlideDetails] = useState([]);
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const handleNextSlide = useCallback(() => {
-    if (activeSlide < slideDetails.length - 1) {
-      setActiveSlide(activeSlide + 1);
-    } else {
-      setActiveSlide(0);
-    }
-  }, [activeSlide, slideDetails.length]);
+  const { response, loading, error } = useAPI({
+    paths: { category: 'movie', subCategory: ['now_playing'] },
+  });
 
-  const handlePrevSlide = () => {
-    if (activeSlide > 0) {
-      setActiveSlide(activeSlide - 1);
-    } else {
-      setActiveSlide(slideDetails.length - 1);
+  useEffect(() => {
+    if (response && response.results) {
+      console.log(response.results);
+      setSlideDetails(response.results);
     }
-  };
+  }, [response]);
+
+  const handleNextSlide = useCallback(() => {
+    setActiveSlide((prevActiveSlide) =>
+      prevActiveSlide < slideDetails.length - 1 ? prevActiveSlide + 1 : 0
+    );
+  }, [slideDetails.length]);
+
+  const handlePrevSlide = useCallback(() => {
+    setActiveSlide((prevActiveSlide) =>
+      prevActiveSlide > 0 ? prevActiveSlide - 1 : slideDetails.length - 1
+    );
+  }, [slideDetails.length]);
 
   // useEffect(() => {
   //   const changeSlide = setTimeout(() => {
@@ -68,11 +47,13 @@ export default function Carousel() {
   // }, [activeSlide, handleNextSlide]);
 
   return (
-    <section className="w-full h-[70vh] col-span-full center">
-      <div className="w-[30px] h-full center">
+    <section className="w-full h-[75vh] col-span-full center">
+      <div className="w-[30px] h-full center z-10">
         <CarouselArrowPrev handleClick={handlePrevSlide}></CarouselArrowPrev>
       </div>
-      <div className="relative w-full h-full center">
+      {loading && <div>Loading...</div>}
+      {error && <div>Loading...</div>}
+      <div className="relative z-0 w-full h-full center">
         {slideDetails.map((slide, index) => {
           const slideOffset = 2000 * (index - activeSlide);
           return (
@@ -87,10 +68,10 @@ export default function Carousel() {
                 <h1 className="text-[4  0px] font-bold">{slide.title}</h1>
                 <div>
                   <span>{slide.genre}</span> | <span>{slide.duration}</span> |{' '}
-                  <span>{slide.year}</span>
+                  <span>{slide.release_date}</span>
                 </div>
                 <div>
-                  <p>{slide.description}</p>
+                  <p>{slide.overview}</p>
                 </div>
                 <div className="gap-4 center">
                   <ButtonTextBg title="Play Now" />
@@ -103,7 +84,7 @@ export default function Carousel() {
           );
         })}
       </div>
-      <div className="w-[30px] h-full center">
+      <div className="w-[30px] h-full center z-10">
         <CarouselArrowNext handleClick={handleNextSlide}></CarouselArrowNext>
       </div>
     </section>
