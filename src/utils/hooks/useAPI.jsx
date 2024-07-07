@@ -36,12 +36,10 @@ export default function useAPI({ method = 'GET', body = null, paths }) {
           options
         );
 
-        console.log(data);
         if (!data.ok) throw new Error(data.statusText);
 
         const response = await data.json();
         setResponse(response);
-        console.log(response);
       } catch (error) {
         setError(error.message);
       } finally {

@@ -19,8 +19,7 @@ export default function Carousel() {
 
   useEffect(() => {
     if (response && response.results) {
-      console.log(response.results);
-      setSlideDetails(response.results);
+      setSlideDetails(response.results.slice(0, 5));
     }
   }, [response]);
 

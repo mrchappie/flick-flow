@@ -3,7 +3,7 @@ export default function Slide(props) {
   return (
     <div className="relative w-full h-full overflow-hidden">
       <img
-        src={tmdbImagesOrigin + '/w1280' + props.backdrop_path}
+        src={tmdbImagesOrigin + '/original' + props.backdrop_path}
         alt="author"
         className="object-cover w-full"
       />
