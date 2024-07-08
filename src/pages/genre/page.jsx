@@ -52,7 +52,10 @@ export default function Genre() {
           {moviesGenresList.map((genre) => {
             return (
               <Link
-                to={`/genre/${genre.name.toLowerCase()}?genre_id=${genre.id}`}
+                to={`/genre/${genre.name.toLowerCase()}?${new URLSearchParams({
+                  movie_or_tv: toggleGenres ? 'movie' : 'tv',
+                  genre_id: genre.id,
+                }).toString()}`}
                 key={genre.id}
               >
                 <li className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70">
@@ -68,7 +71,10 @@ export default function Genre() {
           {tvGenresList.map((genre) => {
             return (
               <Link
-                to={`/genre/${genre.name.toLowerCase()}?genre_id=${genre.id}`}
+                to={`/genre/${genre.name.toLowerCase()}?${new URLSearchParams({
+                  movie_or_tv: toggleGenres ? 'movie' : 'tv',
+                  genre_id: genre.id,
+                }).toString()}`}
                 key={genre.id}
               >
                 <li className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70">
