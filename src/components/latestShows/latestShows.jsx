@@ -1,37 +1,23 @@
-import Heading from 'components/UI/heading/heading';
-import MovieCard from 'components/UI/movieCard/movieCard';
-import { v4 as uuid } from 'uuid';
-
-const movieDetails = {
-  title: 'Greenland',
-  year: '2020',
-  poster: '/images/movie_poster.jpg',
-  movieID: uuid(),
-};
+import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
+import { useEffect, useState } from 'react';
+import useAPI from 'utils/hooks/useAPI';
 
 export default function LatestShows() {
-  return (
-    <section className="items-start w-full gap-6 my-12 col-span-full center-col">
-      <Heading title="Latest TV Shows" />
-      <section className="items-start gap-4 center">
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-        <MovieCard details={movieDetails} />
-      </section>
-    </section>
-  );
+  const [tvShowsDetails, setTvShowsDetails] = useState([]);
+
+  const { response, loading, error } = useAPI({
+    paths: { category: 'tv', subCategory: ['on_the_air'] },
+  });
+
+  useEffect(() => {
+    if (response && response.results) {
+      setTvShowsDetails(response.results.slice(0, 8));
+    }
+  }, [response]);
+
+  const componentData = {
+    title: 'Cele Mai Căutate',
+    data: tvShowsDetails,
+  };
+  return <MovieCardsContainer {...componentData} />;
 }

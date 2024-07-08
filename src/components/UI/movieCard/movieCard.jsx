@@ -10,6 +10,8 @@ import { useStateStore } from 'utils/services/state/State';
 import ReactModal from 'react-modal';
 import { useEffect, useState } from 'react';
 import { ListCardInline } from 'pages/user-profile/user-lists/listCard';
+import { extractReleaseYear } from './helpers';
+import { tmdbImagesOrigin } from 'utils/utils';
 
 export default function MovieCard({ details, customStyle }) {
   const DB = new ConnectDB();
@@ -17,7 +19,6 @@ export default function MovieCard({ details, customStyle }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [lists, setLists] = useState([]);
-  const tmdbImagesOrigin = process.env.REACT_APP_TMDB_IMAGE_API_ORIGIN;
 
   useEffect(() => {
     async function fetchData() {
@@ -70,8 +71,6 @@ export default function MovieCard({ details, customStyle }) {
       transform: 'translate(-50%, -50%)',
     },
   };
-
-  console.log(details);
 
   return (
     <div className="relative">
@@ -136,11 +135,7 @@ export default function MovieCard({ details, customStyle }) {
         <div className="absolute font-semibold text-md z-1 bottom-2 left-4">
           <h2 className="flex flex-wrap">
             <span>{details.title ? details.title : details.name}</span> -
-            <span>
-              {details.release_date
-                ? details.release_date.split('-')[0]
-                : details.first_air_date.split('-')[0]}
-            </span>
+            <span>{extractReleaseYear(details)}</span>
           </h2>
         </div>
         <img

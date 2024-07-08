@@ -11,8 +11,6 @@ export default function MovieCardsContainer({ title, data = [] }) {
     setShowFilters(!showFilters);
   }
 
-  console.log(data);
-
   return (
     <section className="w-full col-span-full center-col">
       <div className="justify-between w-full center">

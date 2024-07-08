@@ -6,7 +6,7 @@ export default function LatestMovies() {
   const [movieDetails, setMovieDetails] = useState([]);
 
   const { response, loading, error } = useAPI({
-    paths: { category: 'movie', subCategory: ['top_rated'] },
+    paths: { category: 'movie', subCategory: ['now_playing'] },
   });
 
   useEffect(() => {

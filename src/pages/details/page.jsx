@@ -1,71 +1,64 @@
 import ForYou from 'components/forYou/forYou';
 import { ButtonWithTextAndIcon } from 'components/UI/buttons/buttons';
 import Heading from 'components/UI/heading/heading';
-import MovieCard from 'components/UI/movieCard/movieCard';
 import { useSearchParams } from 'react-router-dom';
-import { v4 as uuid } from 'uuid';
 import {
   MdFormatListBulletedAdd,
   MdFileDownload,
   MdOutlineShare,
 } from 'react-icons/md';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import useAPI from 'utils/hooks/useAPI';
+import { formatRunningTime } from './helpers';
+import Recomandations from 'components/recomandations/Recomandations';
+import { extractReleaseYear } from 'components/UI/movieCard/helpers';
+import { tmdbImagesOrigin } from 'utils/utils';
 
 export default function Details() {
-  const forYouMoviesContainerWidth = useRef(null);
+  // fetch the desired movie data
+  const [searchParams] = useSearchParams();
+  const movieID = searchParams.get('movie_id');
+  const [genres, setGenres] = useState([]);
 
-  const [
-    customMovieCardStyleForDetailsPage,
-    setCustomMovieCardStyleForDetailsPage,
-  ] = useState({
-    width: '207px',
-    aspectRatio: '9/16',
+  const [movieDetails, setMovieDetails] = useState([]);
+
+  const { response, loading, error } = useAPI({
+    paths: {
+      category: 'movie',
+      subCategory: [movieID],
+      params: { language: 'en-US' },
+    },
   });
 
   useEffect(() => {
-    setCustomMovieCardStyleForDetailsPage({
-      ...customMovieCardStyleForDetailsPage,
-      width: `${forYouMoviesContainerWidth / 2 - 16}px`,
-    });
-  }, []);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const movieID = searchParams.get('movie_id');
-  // console.log(movieID);
-  const movieDetails = {
-    title: 'Greenland',
-    year: '2020',
-    poster: '/images/movie_poster.jpg',
-    movieID: uuid(),
-  };
-
-  function formatRunningTime(time) {
-    // time is minutes
-    const hours = Math.floor(time / 60);
-    const minutes = time - hours * 60;
-    return `${hours}h ${minutes.toString().padStart(2, '0')}m`;
-  }
-
-  const genres = ['action', 'comedy', 'sf', 'horror'];
+    if (response) {
+      setMovieDetails(response);
+      setGenres(response.genres);
+    }
+  }, [response]);
 
   return (
     <section className="grid grid-cols-12 gap-8 px-10 col-span-full">
       <section className="w-full h-full col-span-9 center-col">
-        <div className="w-full h-[70%] relative">
-          <img src={'/images/movie_poster_l.jpg'} alt="" />
+        <div className="w-full h-[70%] relative overflow-hidden">
+          <img
+            src={tmdbImagesOrigin + '/w1280' + movieDetails.backdrop_path}
+            alt={movieDetails.title}
+            className="object-cover w-full"
+          />
         </div>
-        <header className="h-[30%] center-col justify-start gap-10">
+        <header className="h-[30%] center-col justify-start gap-10 w-full">
           <div className="justify-between w-full center">
             <div className="items-start center-col">
-              <Heading title={'Movie Name'} />
+              <Heading title={movieDetails.title} />
               <div className="text-xl font-semibold center">
-                <span>2018</span>
+                <span>{extractReleaseYear(movieDetails)}</span>
                 <span>&#8226;</span>
-                <span>{formatRunningTime(65)}</span>
+                <span>{formatRunningTime(movieDetails.runtime)}</span>
               </div>
               <div className="text-white/50 center">
                 {genres.map((genre) => {
-                  return <span key={genre}>{genre}</span>;
+                  return <span key={genre.id}>{genre.name}</span>;
                 })}
               </div>
             </div>
@@ -84,48 +77,15 @@ export default function Details() {
               </ButtonWithTextAndIcon>
             </div>
           </div>
-          <div>
+          <div className="items-start w-full">
             <h2 className="py-2 text-2xl font-semibold">Description</h2>
-            <p className="text-white/50 text-md">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum,
-              reprehenderit fugiat eveniet aut vitae aspernatur. Sit facere
-              reprehenderit fugiat dolorum exercitationem consequatur quam
-              laborum error quod. Temporibus accusamus repudiandae error.
-            </p>
+            <p className="text-white/50 text-md">{movieDetails.overview}</p>
           </div>
         </header>
       </section>
       <section className="h-full col-span-3 center-col">
         <Heading title={'Movies for you'} />
-        <div
-          className="grid grid-cols-2 gap-4"
-          ref={forYouMoviesContainerWidth}
-        >
-          <MovieCard
-            details={movieDetails}
-            customStyle={customMovieCardStyleForDetailsPage}
-          />
-          <MovieCard
-            details={movieDetails}
-            customStyle={customMovieCardStyleForDetailsPage}
-          />
-          <MovieCard
-            details={movieDetails}
-            customStyle={customMovieCardStyleForDetailsPage}
-          />
-          <MovieCard
-            details={movieDetails}
-            customStyle={customMovieCardStyleForDetailsPage}
-          />
-          <MovieCard
-            details={movieDetails}
-            customStyle={customMovieCardStyleForDetailsPage}
-          />
-          <MovieCard
-            details={movieDetails}
-            customStyle={customMovieCardStyleForDetailsPage}
-          />
-        </div>
+        <Recomandations movieID={movieID} />
       </section>
       <ForYou />
     </section>
