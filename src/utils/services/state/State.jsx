@@ -4,6 +4,9 @@ export const useStateStore = create((set) => ({
   isLoggedIn: false,
   showPageSpinner: true,
   user: null,
+  genres: [],
+
+  initState: () => set({ isLoggedIn: false }),
 
   updateIsLoggedIn: (isLoggedIn) => set(() => ({ isLoggedIn: isLoggedIn })),
 
@@ -12,5 +15,5 @@ export const useStateStore = create((set) => ({
 
   updateUser: (user) => set(() => ({ user: user })),
 
-  initState: () => set({ isLoggedIn: false }),
+  updateGenresMap: (genres) => set(() => ({ genres: genres })),
 }));

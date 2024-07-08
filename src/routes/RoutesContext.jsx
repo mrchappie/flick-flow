@@ -104,7 +104,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/genre/:genreID',
+    path: '/genre/:genreName',
     element: (
       <>
         <Header />

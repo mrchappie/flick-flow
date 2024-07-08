@@ -84,7 +84,7 @@ export default function Details() {
         </header>
       </section>
       <section className="h-full col-span-3 center-col">
-        <Heading title={'Movies for you'} />
+        <Heading title={'Similar movies'} />
         <Recomandations movieID={movieID} />
       </section>
       <ForYou />

@@ -1,14 +1,36 @@
 import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
+import useAPI from 'utils/hooks/useAPI';
+import { capitalize } from 'utils/utils';
 
 export default function GenreCategory() {
-  const { genreID } = useParams();
+  const { genreName } = useParams();
+  const [searchParams] = useSearchParams();
+  const genreID = searchParams.get('genre_id');
+
+  const [movieDetails, setMovieDetails] = useState([]);
+
+  const { response, loading, error } = useAPI({
+    paths: {
+      category: 'discover',
+      subCategory: ['movie'],
+      params: {
+        with_genres: genreID,
+      },
+    },
+  });
+
+  useEffect(() => {
+    if (response && response.results) {
+      setMovieDetails(response.results);
+    }
+  }, [response]);
 
   const componentData = {
-    title: `${genreID} movies`,
+    title: `${capitalize(genreName)} movies`,
+    data: movieDetails,
   };
-
-  console.log(componentData);
 
   return <MovieCardsContainer {...componentData} />;
 }
