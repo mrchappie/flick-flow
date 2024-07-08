@@ -49,6 +49,5 @@ export default function useAPI({ method = 'GET', body = null, paths }) {
 
     fetchData();
   }, []);
-
   return { response, loading, error };
 }

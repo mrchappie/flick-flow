@@ -1,4 +1,4 @@
-import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
+import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import useAPI from 'utils/hooks/useAPI';
@@ -32,5 +32,5 @@ export default function GenreCategory() {
     data: movieDetails,
   };
 
-  return <MovieCardsContainer {...componentData} />;
+  return <CardsInfoContainer {...componentData} />;
 }

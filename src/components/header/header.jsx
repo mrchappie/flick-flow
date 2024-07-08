@@ -59,7 +59,7 @@ export default function Header() {
                 alt=""
               />
             </div>
-            <div>*</div>
+            {/* <div>Alexandru</div> */}
           </div>
           <AnimatePresence>
             {toggleMenu && (

@@ -16,6 +16,7 @@ import { tmdbImagesOrigin } from 'utils/utils';
 export default function MovieCard({ details, customStyle }) {
   const DB = new ConnectDB();
   const user = useStateStore((state) => state.user);
+  const isLoggedIn = useStateStore((state) => state.isLoggedIn);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [lists, setLists] = useState([]);
@@ -98,37 +99,39 @@ export default function MovieCard({ details, customStyle }) {
         </ul>
       </ReactModal>
       <div className="absolute z-10 w-full h-full opacity-0 hover:bg-black/40 hover:opacity-100">
-        <div className="relative z-10 flex justify-between p-2 cursor-pointer">
-          <span
-            onClick={() => {
-              handleAddToFavorites(details.id);
-            }}
-          >
-            {details.addedByUser === true ? (
-              <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
-            ) : (
-              <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
-            )}
-          </span>
-          <span
-            onClick={() => {
-              openListsModal(details);
-            }}
-          >
-            {details.addedByUser === true ? (
-              <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-            ) : (
-              <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-            )}
-          </span>
-        </div>
+        {isLoggedIn && (
+          <div className="relative z-10 flex justify-between p-2 cursor-pointer">
+            <span
+              onClick={() => {
+                handleAddToFavorites(details.id);
+              }}
+            >
+              {details.addedByUser === true ? (
+                <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
+              ) : (
+                <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
+              )}
+            </span>
+            <span
+              onClick={() => {
+                openListsModal(details);
+              }}
+            >
+              {details.addedByUser === true ? (
+                <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+              ) : (
+                <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+              )}
+            </span>
+          </div>
+        )}
         <Link
           to={`/details?movie_id=${details.id}`}
           className="absolute top-0 left-0 z-0 block w-full h-full"
         ></Link>
       </div>
       <div
-        className="w-[214px] h-[290px] overflow-hidden relative cursor-pointer bg-black"
+        className="max-w-[214px] max-h-[290px] min-w-[200px] min-h-[270px] overflow-hidden relative cursor-pointer bg-black"
         style={customStyle}
       >
         <div className="absolute w-full h-full rotate-180 z-1 bg-custom-bg-fade"></div>

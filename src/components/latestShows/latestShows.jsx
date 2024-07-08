@@ -1,4 +1,4 @@
-import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
+import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
@@ -19,5 +19,5 @@ export default function LatestShows() {
     title: 'Cele Mai Căutate',
     data: tvShowsDetails,
   };
-  return <MovieCardsContainer {...componentData} />;
+  return <CardsInfoContainer {...componentData} />;
 }

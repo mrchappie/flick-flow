@@ -1,4 +1,4 @@
-import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
+import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
@@ -20,5 +20,5 @@ export default function ForYou() {
     data: movieDetails,
   };
 
-  return <MovieCardsContainer {...componentData} />;
+  return <CardsInfoContainer {...componentData} />;
 }

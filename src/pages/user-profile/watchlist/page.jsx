@@ -1,4 +1,4 @@
-import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
+import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
 import { useEffect, useState } from 'react';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
@@ -32,5 +32,5 @@ export default function WatchList() {
     }
   }, [user]);
 
-  return <MovieCardsContainer {...componentData} />;
+  return <CardsInfoContainer {...componentData} />;
 }
