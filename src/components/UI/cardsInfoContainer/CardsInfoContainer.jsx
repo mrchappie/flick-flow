@@ -2,7 +2,6 @@ import Heading from '../heading/heading';
 import MovieCard from '../movieCard/movieCard';
 
 export default function CardsInfoContainer({ title, data = [], style }) {
-  console.log(data);
   return (
     <section className="w-full col-span-full center-col">
       {title && (

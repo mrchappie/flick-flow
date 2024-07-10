@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
-// import { HiMagnifyingGlass } from 'react-icons/hi2';
+import { useEffect, useState } from 'react';
+import { HiMagnifyingGlass } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 
 export default function SearchBar() {
@@ -11,14 +11,17 @@ export default function SearchBar() {
     const query = formData.searchQuery;
     if (query) {
       setSearchQuery({ query: formData.searchQuery });
-      navigate(`/search?${new URLSearchParams(searchQuery).toString()}`);
     }
   }
 
+  useEffect(() => {
+    navigate(`/search?${new URLSearchParams(searchQuery).toString()}`);
+  }, [navigate, searchQuery]);
+
   return (
-    <div className="bg-white rounded-sm center">
+    <div className="bg-white rounded-sm">
       <Formik initialValues={{ searchQuery: '' }} onSubmit={handleOnSubmit}>
-        <Form>
+        <Form className="center">
           <Field
             type="text"
             name="searchQuery"
@@ -28,11 +31,12 @@ export default function SearchBar() {
           />
           <button
             type="submit"
-            className="w-8 h-8 p-2 text-white cursor-pointer rounded-e-sm bg-brand1"
-          ></button>
+            className="p-2 text-white cursor-pointer rounded-e-sm bg-brand1"
+          >
+            <HiMagnifyingGlass />
+          </button>
         </Form>
       </Formik>
-      {/* <HiMagnifyingGlass /> */}
     </div>
   );
 }

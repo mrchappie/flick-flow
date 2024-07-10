@@ -2,7 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 
 const tmdbAccessToken = process.env.REACT_APP_TMDB_ACCESS_TOKEN;
 
-export default function useAPI({ method = 'GET', body = null, paths }) {
+export default function useAPI({
+  method = 'GET',
+  body = null,
+  paths,
+  shouldFetch = true,
+}) {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -31,6 +36,7 @@ export default function useAPI({ method = 'GET', body = null, paths }) {
   }`;
 
   useEffect(() => {
+    if (!shouldFetch) return;
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -48,6 +54,6 @@ export default function useAPI({ method = 'GET', body = null, paths }) {
     };
 
     fetchData();
-  }, [options, url]);
+  }, [options, url, shouldFetch]);
   return { response, loading, error };
 }

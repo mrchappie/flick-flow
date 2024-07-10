@@ -5,26 +5,26 @@ import useAPI from 'utils/hooks/useAPI';
 
 export default function Search() {
   const [searchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(
-    searchParams.get('query') || ''
-  );
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('query'));
   const [searchedData, setSearchedData] = useState([]);
 
   useEffect(() => {
     setSearchQuery(searchParams.get('query'));
   }, [searchParams]);
 
-  const { response, loading, error } = useAPI({
+  const shouldFetch = Boolean(searchQuery);
+
+  const { response, error } = useAPI({
     paths: {
       category: 'search',
       subCategory: ['multi'],
       params: { query: searchQuery, language: 'en-US', include_adult: false },
     },
+    shouldFetch,
   });
 
   useEffect(() => {
     if (response) {
-      console.log(response.results);
       setSearchedData(response.results);
     }
   }, [response]);
@@ -35,5 +35,10 @@ export default function Search() {
     style: 'max-w-[1200px]',
   };
 
-  return <CardsInfoContainer {...componentData} />;
+  return (
+    <>
+      {!error && <CardsInfoContainer {...componentData} />}
+      {error && <h2>No search query provided, please search for something.</h2>}
+    </>
+  );
 }
