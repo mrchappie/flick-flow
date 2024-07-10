@@ -1,5 +1,5 @@
 import Navigation from '../navigation/navigation';
-import Search from '../search/search';
+import Search from '../searchBar/searchBar';
 import { logoutUser } from 'utils/services/auth/Auth';
 import { useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';

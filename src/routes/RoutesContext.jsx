@@ -21,6 +21,7 @@ import List from 'pages/user-profile/user-lists/[list]';
 import AnonymousRoute from 'utils/hoc/AnonymousRoute';
 import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
+import Search from 'pages/search/Search';
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,16 @@ const router = createBrowserRouter([
       <>
         <Header />
         <TvShows />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: '/search',
+    element: (
+      <>
+        <Header />
+        <Search />
         <Footer />
       </>
     ),

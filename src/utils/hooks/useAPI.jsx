@@ -40,7 +40,6 @@ export default function useAPI({ method = 'GET', body = null, paths }) {
 
         const response = await data.json();
         setResponse(response);
-        console.log(response);
       } catch (error) {
         setError(error.message);
       } finally {
