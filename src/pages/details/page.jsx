@@ -17,10 +17,14 @@ import { tmdbImagesOrigin } from 'utils/utils';
 export default function Details() {
   // fetch the desired movie data
   const [searchParams] = useSearchParams();
-  const movieID = searchParams.get('movie_id');
-  const [genres, setGenres] = useState([]);
+  const [movieID, setMovieID] = useState(searchParams.get('movie_id'));
 
+  const [genres, setGenres] = useState([]);
   const [movieDetails, setMovieDetails] = useState([]);
+
+  useEffect(() => {
+    setMovieID(searchParams.get('movie_id'));
+  }, [searchParams]);
 
   const { response, loading, error } = useAPI({
     paths: {
@@ -32,6 +36,7 @@ export default function Details() {
 
   useEffect(() => {
     if (response) {
+      console.log(response);
       setMovieDetails(response);
       setGenres(response.genres);
     }
