@@ -172,7 +172,14 @@ function RoutesContext() {
   return (
     <Routes>
       {routes.map((route) => {
-        return <Route exact path={route.path} element={route.element} />;
+        return (
+          <Route
+            exact
+            path={route.path}
+            element={route.element}
+            key={route.path}
+          />
+        );
       })}
     </Routes>
   );

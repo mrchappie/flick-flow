@@ -39,12 +39,9 @@ export default function MovieCard({ details, customStyle }) {
     }
   }, []);
 
-  function handleAddToFavorites(movieID) {
+  function handleAddToFavorites(movie) {
     const favListID = lists.filter((list) => list.listName === 'favorites');
-    DB.setFirestoreDoc(['lists', user.uid, favListID[0].listID, movieID], {
-      type: 'movie',
-      addedByUser: true,
-    });
+    DB.updateFirestoreDocInArray(['lists', favListID[0].listID], movie);
   }
 
   function openListsModal(itemDetails) {
@@ -103,7 +100,7 @@ export default function MovieCard({ details, customStyle }) {
           <div className="relative z-10 flex justify-between p-2 cursor-pointer">
             <span
               onClick={() => {
-                handleAddToFavorites(details.id);
+                handleAddToFavorites(details);
               }}
             >
               {details.addedByUser === true ? (

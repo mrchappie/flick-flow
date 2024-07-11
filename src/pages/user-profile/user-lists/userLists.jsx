@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
-import { v4 as uuid } from 'uuid';
 import { ListCardBlock } from './listCard';
 
 export default function UserLists() {
@@ -38,20 +37,18 @@ export default function UserLists() {
     setModalIsOpen(!modalIsOpen);
   }
 
+  // add new list to DB
   async function handleSubmit(formValues) {
-    const listID = uuid();
-    // update the state with the new lsit
-    setLists([...lists, { listName: formValues.listName, listID: listID }]);
-    // update user object in DB with the new list
-    await DB.updateFirestoreDocInArray(['users', user.uid], {
-      listName: formValues.listName
-        .toString()
-        .toLowerCase()
-        .replace(/[\s_]+/g, '-'),
-      listID: listID,
+    const list = await DB.createNewList({
+      uid: user.uid,
+      listName: formValues.listName,
     });
-    // create new list collection in list DB
-    await DB.setFirestoreDoc(['lists', user.uid, listID, 'movies'], {});
+
+    setLists([
+      ...lists,
+      { listName: formValues.listName, listID: list.listID },
+    ]);
+
     toggleAddNewListModal();
   }
 

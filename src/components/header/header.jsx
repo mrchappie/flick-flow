@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';
 import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion as m } from 'framer-motion';
+import { HiMiniChevronDown } from 'react-icons/hi2';
 
 export default function Header() {
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
@@ -59,7 +60,9 @@ export default function Header() {
                 alt=""
               />
             </div>
-            {/* <div>Alexandru</div> */}
+            {/* <div className="text-2xl center">
+              <HiMiniChevronDown />
+            </div> */}
           </div>
           <AnimatePresence>
             {toggleMenu && (

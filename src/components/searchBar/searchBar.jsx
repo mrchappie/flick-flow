@@ -14,7 +14,13 @@ export default function SearchBar() {
 
   return (
     <div className="bg-white rounded-sm">
-      <Formik initialValues={{ searchQuery: '' }} onSubmit={handleOnSubmit}>
+      <Formik
+        initialValues={{ searchQuery: '' }}
+        onSubmit={(values, { resetForm }) => {
+          handleOnSubmit(values);
+          resetForm();
+        }}
+      >
         <Form className="center">
           <Field
             type="text"

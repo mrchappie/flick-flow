@@ -17,9 +17,6 @@ export async function loginUser(formData) {
       formData.email,
       formData.password
     );
-    document.cookie = `isLoggedIn=true`;
-    console.log(formData);
-    console.log('user logged in');
     return response;
   } catch (error) {
     console.log(error);
@@ -33,8 +30,6 @@ export async function createUser(formData) {
       formData.email,
       formData.password
     );
-    console.log(formData);
-    console.log('user created');
     return userCredentials;
   } catch (error) {
     console.log(error);
@@ -44,8 +39,6 @@ export async function createUser(formData) {
 export async function logoutUser() {
   try {
     await signOut(auth);
-    document.cookie = 'isLoggedIn=false';
-    console.log('user logged out');
   } catch (error) {
     console.log(error);
   }
