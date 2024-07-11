@@ -7,100 +7,40 @@ import {
 } from 'react-icons/hi';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
-import ReactModal from 'react-modal';
-import { useEffect, useState } from 'react';
-import { ListCardInline } from 'pages/user-profile/user-lists/listCard';
 import { extractReleaseYear } from './helpers';
 import { tmdbImagesOrigin } from 'utils/utils';
 
+const DB = new ConnectDB();
+
 export default function MovieCard({ details, customStyle }) {
-  const DB = new ConnectDB();
   const user = useStateStore((state) => state.user);
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [lists, setLists] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // get user object from db
-        const userData = await DB.getFirestoreDoc(['users', user.uid]);
-        setLists(Object.values(userData.lists));
-      } catch (error) {
-        // Handle error if needed
-        console.error('Error fetching data:', error);
-      }
-    }
-
-    // check for the user to not be null
-    if (user) {
-      fetchData();
-    }
-  }, []);
-
-  function handleAddToFavorites(movie) {
-    const favListID = lists.filter((list) => list.listName === 'favorites');
-    DB.updateFirestoreDocInArray(['lists', favListID[0].listID], movie);
+  function handleAddToList(itemDetails, defaultListName = 'favorites') {
+    const favListID = user.lists.filter(
+      (list) => list.listName === defaultListName
+    );
+    DB.updateFirestoreDocInArray(['lists', favListID[0].listID], itemDetails);
   }
+
+  const updateShowModal = useStateStore((state) => state.updateShowModal);
+  const updateItemToAddInDB = useStateStore(
+    (state) => state.updateItemToAddInDB
+  );
 
   function openListsModal(itemDetails) {
-    // db.setFirestoreDoc(['lists', user.uid, 'watchlist', movieID]);
-    setModalIsOpen(!modalIsOpen);
-    setSelectedItem(itemDetails);
+    updateShowModal(true);
+    updateItemToAddInDB(itemDetails);
   }
-
-  const customStyles = {
-    overlay: {
-      position: 'fixed',
-      zIndex: 10,
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.75)',
-    },
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
 
   return (
     <div className="relative">
-      <ReactModal
-        isOpen={modalIsOpen}
-        onRequestClose={() => {
-          setModalIsOpen(false);
-        }}
-        contentLabel="Example Modal"
-        style={customStyles}
-      >
-        <h1 className="text-black">
-          Click the list you want to add this movie:
-        </h1>
-        <ul className="gap-4 p-4 center-col">
-          {lists.map((list) => {
-            return (
-              <ListCardInline
-                list={list}
-                data={selectedItem}
-                key={list.listID}
-              />
-            );
-          })}
-        </ul>
-      </ReactModal>
       <div className="absolute z-10 w-full h-full opacity-0 hover:bg-black/40 hover:opacity-100">
         {isLoggedIn && (
           <div className="relative z-10 flex justify-between p-2 cursor-pointer">
             <span
               onClick={() => {
-                handleAddToFavorites(details);
+                handleAddToList(details);
               }}
             >
               {details.addedByUser === true ? (

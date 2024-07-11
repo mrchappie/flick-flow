@@ -6,6 +6,7 @@ import { useStateStore } from 'utils/services/state/State';
 import ReactModal from 'react-modal';
 import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
+import Modal from 'components/UI/modal/modal';
 
 function App() {
   const { user, authIsLoading } = useAuthCheck();
@@ -16,6 +17,7 @@ function App() {
     if (!authIsLoading) {
       if (user) {
         updateUser(user);
+        console.log(user);
         updateIsLoggedIn(true);
       } else {
         updateUser(null);
@@ -34,6 +36,7 @@ function App() {
 
   return (
     <React.StrictMode>
+      <Modal />
       <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
         <Header />
         <RoutesContext></RoutesContext>

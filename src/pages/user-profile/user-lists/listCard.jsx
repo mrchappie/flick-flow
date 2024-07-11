@@ -38,19 +38,12 @@ export function ListCardBlock({ list, removeList }) {
   );
 }
 
-export function ListCardInline({ list, data }) {
-  async function handleAddToList() {
-    await DB.updateFirestoreDocInArray(
-      ['lists', `${list.listID}.content`],
-      data
-    );
-  }
-
+export function ListCardInline({ list, onAddToCustomList }) {
   return (
     <li
-      onClick={handleAddToList}
+      onClick={onAddToCustomList}
       key={list.listID}
-      className="relative w-full py-2 text-xl font-bold text-black border-2 rounded-lg cursor-pointer center"
+      className="relative w-full py-2 text-xl font-bold text-white bg-gray-500 border-2 rounded-lg cursor-pointer center"
     >
       {list.listName}
     </li>

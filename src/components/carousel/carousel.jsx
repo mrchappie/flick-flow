@@ -57,7 +57,7 @@ export default function Carousel() {
           const slideOffset = 2000 * (index - activeSlide);
           return (
             <div
-              key={slide.movieID}
+              key={slide.id}
               className={`absolute top-0 w-full h-full ${styles.customCarouselTransition}`}
               style={{
                 left: `${slideOffset}px`,

@@ -9,7 +9,6 @@ export default function List() {
 
   const [searchParams] = useSearchParams();
   const [listID] = useState(searchParams.get('list_id'));
-  console.log(listID);
 
   const [listFetchedData, setListFetchedData] = useState([]);
 
@@ -24,7 +23,6 @@ export default function List() {
     async function fetchData() {
       try {
         const fetchedData = await DB.getFirestoreDoc(['lists', listID]);
-        console.log(fetchedData);
         setListFetchedData(fetchedData.content);
       } catch (error) {
         console.error('Error fetching data:', error);
