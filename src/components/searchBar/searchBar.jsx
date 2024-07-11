@@ -1,22 +1,17 @@
 import { Field, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 export default function SearchBar() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
+  const [, setSearchParams] = useSearchParams();
 
   function handleOnSubmit(formData) {
     const query = formData.searchQuery;
-    if (query) {
-      setSearchQuery({ query: formData.searchQuery });
+    if (query !== '') {
+      setSearchParams({ query: formData.searchQuery });
     }
   }
-
-  useEffect(() => {
-    navigate(`/search?${new URLSearchParams(searchQuery).toString()}`);
-  }, [navigate, searchQuery]);
 
   return (
     <div className="bg-white rounded-sm">

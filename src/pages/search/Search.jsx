@@ -14,7 +14,7 @@ export default function Search() {
 
   const shouldFetch = Boolean(searchQuery);
 
-  const { response, error } = useAPI({
+  const { response } = useAPI({
     paths: {
       category: 'search',
       subCategory: ['multi'],
@@ -30,15 +30,21 @@ export default function Search() {
   }, [response]);
 
   const componentData = {
-    title: 'For You',
+    title: `Search results for "${searchQuery}"`,
     data: searchedData,
     style: 'max-w-[1200px]',
   };
 
   return (
     <>
-      {!error && <CardsInfoContainer {...componentData} />}
-      {error && <h2>No search query provided, please search for something.</h2>}
+      {searchQuery && <CardsInfoContainer {...componentData} />}
+      {!searchQuery && (
+        <section className="w-full col-span-full center-col">
+          <h2 className="text-3xl">
+            No search query provided, please search for something.
+          </h2>
+        </section>
+      )}
     </>
   );
 }
