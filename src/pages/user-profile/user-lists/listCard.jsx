@@ -9,11 +9,7 @@ export function ListCardBlock({ list, removeList }) {
 
   async function handleListDeletion(list) {
     try {
-      // delete list for user from users DB
-      await DB.deleteFirestoreDocFromArray(['users', user.uid], list);
-
-      // delete list from lists DB
-      // await DB.deleteFirestoreDoc(['lists', user.uid, list.listID]);
+      await DB.deleteList({ uid: user.uid, list });
 
       removeList(list);
     } catch (error) {
@@ -31,28 +27,23 @@ export function ListCardBlock({ list, removeList }) {
       >
         <HiOutlineTrash />
       </div>
-      <Link to={list.listID} className="w-[200px] h-[200px] center">
+      <Link
+        to={`${list.listName}?list_id=${list.listID}`}
+        key={list.listID}
+        className="w-[200px] h-[200px] center"
+      >
         {list.listName}
       </Link>
     </li>
   );
 }
 
-export function ListCardInline({ list, data }) {
-  const user = useStateStore((state) => state.user);
-
-  async function handleAddToList() {
-    await DB.setFirestoreDoc(
-      ['lists', user.uid, list.listID, data.movieID],
-      data
-    );
-    // console.log(data);
-  }
-
+export function ListCardInline({ list, onAddToCustomList }) {
   return (
     <li
-      onClick={handleAddToList}
-      className="relative w-full py-2 text-xl font-bold text-black border-2 rounded-lg cursor-pointer center"
+      onClick={onAddToCustomList}
+      key={list.listID}
+      className="relative w-full py-2 text-xl font-bold text-white bg-gray-500 border-2 rounded-lg cursor-pointer center"
     >
       {list.listName}
     </li>

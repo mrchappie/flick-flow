@@ -14,6 +14,7 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
+import { v4 as uuid } from 'uuid';
 
 initializeApp(firebaseConfig);
 getAuth();
@@ -79,7 +80,7 @@ class ConnectDB {
       const docRef = doc(firestore, ...docPath);
 
       await updateDoc(docRef, {
-        lists: arrayUnion(data),
+        content: arrayUnion(data),
       });
     } catch (error) {
       console.log(error);
@@ -89,7 +90,7 @@ class ConnectDB {
   async deleteFirestoreDocFromArray(docPath, data) {
     try {
       const docRef = doc(firestore, ...docPath);
-
+      console.log(data);
       await updateDoc(docRef, {
         lists: arrayRemove(data),
       });
@@ -105,6 +106,62 @@ class ConnectDB {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  // HANDLE LISTS
+  async createNewList(listData) {
+    const { uid, listName } = listData;
+    const listID = uuid();
+
+    const listTemplateForListsDB = {
+      userID: uid,
+      createdAt: new Date().getTime(),
+      updatedAt: null,
+      content: [],
+      listID,
+      listName,
+    };
+
+    try {
+      const listTemplateForUsersDB = {
+        listName: listName
+          .toString()
+          .toLowerCase()
+          .replace(/[\s_]+/g, '_'),
+        listID: listID,
+      };
+      // update user object in DB with the new list
+      await this.updateFirestoreDocInArray(
+        ['users', uid],
+        listTemplateForUsersDB
+      );
+
+      // create new list collection in list DB
+      await this.setFirestoreDoc(['lists', listID], listTemplateForListsDB);
+      return listTemplateForUsersDB;
+    } catch (error) {}
+  }
+
+  async deleteList(listData) {
+    try {
+      const { uid, list } = listData;
+
+      // delete list for user from users DB
+      await this.deleteFirestoreDocFromArray(['users', uid], list);
+
+      // delete list from lists DB
+      await this.deleteFirestoreDoc(['lists', list.listID]);
+    } catch (error) {}
+  }
+
+  async getList(docPath) {
+    try {
+    } catch (error) {}
+  }
+
+  async getLists(docPath) {
+    try {
+    } catch (error) {}
   }
 }
 

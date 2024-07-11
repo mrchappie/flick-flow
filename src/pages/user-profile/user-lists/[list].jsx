@@ -1,31 +1,29 @@
-import MovieCardsContainer from 'components/UI/movieCardsContainer/movieCardsContainer';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 
 export default function List() {
   const user = useStateStore((state) => state.user);
-  const { listID } = useParams();
 
-  const [componentData, setComponentData] = useState({
+  const [searchParams] = useSearchParams();
+  const [listID] = useState(searchParams.get('list_id'));
+
+  const [listFetchedData, setListFetchedData] = useState([]);
+
+  const componentData = {
     title: 'Your Favorite Movies',
-    data: [],
-  });
+    data: listFetchedData,
+  };
+
+  const DB = useMemo(() => new ConnectDB(), []);
 
   useEffect(() => {
     async function fetchData() {
-      const DB = new ConnectDB();
       try {
-        const fetchedData = await DB.getFirestoreDocs([
-          'lists',
-          user.uid,
-          listID,
-        ]);
-        setComponentData({
-          ...componentData,
-          data: fetchedData,
-        });
+        const fetchedData = await DB.getFirestoreDoc(['lists', listID]);
+        setListFetchedData(fetchedData.content);
       } catch (error) {
         console.error('Error fetching data:', error);
         // Handle error if needed
@@ -36,7 +34,7 @@ export default function List() {
     if (user) {
       fetchData();
     }
-  }, [user]);
+  }, [DB, listID, user]);
 
-  return <MovieCardsContainer {...componentData} />;
+  return <CardsInfoContainer {...componentData} />;
 }

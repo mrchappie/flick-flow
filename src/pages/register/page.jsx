@@ -12,6 +12,13 @@ export default function Register() {
     const watchListID = uuid();
     const historyListID = uuid();
 
+    const listData = {
+      userID: user.uid,
+      createdAt: new Date().getTime(),
+      updatedAt: null,
+      content: [],
+    };
+
     // init user object in DB
     await DB.setFirestoreDoc(['users', user.uid], {
       uid: user.uid,
@@ -29,22 +36,32 @@ export default function Register() {
         },
         {
           listID: historyListID,
-          listName: 'watch-history',
+          listName: 'history',
         },
       ],
     });
 
     // init user default lists in DB
-    await DB.setFirestoreDoc(['lists', user.uid, favListID, 'test'], {});
+    await DB.setFirestoreDoc(['lists', favListID], {
+      ...listData,
+      name: 'favorites',
+      listID: favListID,
+    });
 
-    await DB.setFirestoreDoc(['lists', user.uid, watchListID, 'test'], {});
+    await DB.setFirestoreDoc(['lists', watchListID], {
+      ...listData,
+      name: 'watchlist',
+      listID: watchListID,
+    });
 
-    await DB.setFirestoreDoc(['lists', user.uid, historyListID, 'test'], {});
+    await DB.setFirestoreDoc(['lists', historyListID], {
+      ...listData,
+      name: 'history',
+      listID: historyListID,
+    });
   }
 
   async function handleRegister(formData) {
-    console.log(formData);
-
     try {
       // attempt to login the user
       const userCredentials = await createUser(formData);

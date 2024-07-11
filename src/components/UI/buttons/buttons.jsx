@@ -23,6 +23,17 @@ export function ButtonTextNoBg(props) {
   );
 }
 
+export function ButtonTextNoBgWithBorder(props) {
+  return (
+    <button
+      onClick={props.handleClick}
+      className="p-3 bg-transparent border-2 rounded-sm text-brand1 border-brand1"
+    >
+      {props.children ? props.children : props.title}
+    </button>
+  );
+}
+
 export function ButtonWithTextAndIcon(props) {
   return (
     <button

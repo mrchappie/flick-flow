@@ -1,37 +1,90 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
+import Heading from 'components/UI/heading/heading';
 
 export default function Genre() {
-  const [genresList, setGenresList] = useState([]);
+  const [moviesGenresList, setMoviesGenresList] = useState([]);
+  const [tvGenresList, setTVGenresList] = useState([]);
+  const [toggleGenres, setToggleGenres] = useState(true);
 
   const { response, loading, error } = useAPI({
     paths: { category: 'genre', subCategory: ['movie', 'list'] },
   });
 
+  const {
+    response: responseTV,
+    loading: loadingTV,
+    loading: errorTV,
+  } = useAPI({
+    paths: { category: 'genre', subCategory: ['tv', 'list'] },
+  });
+
   useEffect(() => {
-    console.log(response);
     if (response) {
-      setGenresList(response.genres);
+      setMoviesGenresList(response.genres);
     }
-  }, [response]);
+    if (responseTV) {
+      setTVGenresList(responseTV.genres);
+    }
+  }, [response, responseTV]);
+
+  function toggleGenresFn() {
+    setToggleGenres(!toggleGenres);
+  }
 
   return (
-    <section className="w-full p-10 col-span-full">
-      <ul className="flex-wrap w-full gap-5 center">
-        {genresList.map((genre) => {
-          return (
-            <Link
-              to={`/genre/${genre.name.toLowerCase()}?genre_id=${genre.id}`}
-              key={genre.id}
-            >
-              <li className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70">
-                <span className="text-center">{genre.name}</span>
-              </li>
-            </Link>
-          );
-        })}
-      </ul>
+    <section className="w-full col-span-6 col-start-4 p-10">
+      <div className="center">
+        <Heading
+          title={'Movies Genres'}
+          toggleGen={toggleGenresFn}
+          customStyle={`cursor-pointer ${!toggleGenres ? 'opacity-50' : ''}`}
+        />
+        <Heading
+          title={'TV Genres'}
+          toggleGen={toggleGenresFn}
+          customStyle={`cursor-pointer ${toggleGenres ? 'opacity-50' : ''}`}
+        />
+      </div>
+      {toggleGenres && (
+        <ul className="flex-wrap w-full gap-5 center">
+          {moviesGenresList.map((genre) => {
+            return (
+              <Link
+                to={`/genre/${genre.name.toLowerCase()}?${new URLSearchParams({
+                  movie_or_tv: toggleGenres ? 'movie' : 'tv',
+                  genre_id: genre.id,
+                }).toString()}`}
+                key={genre.id}
+              >
+                <li className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70">
+                  <span className="text-center">{genre.name}</span>
+                </li>
+              </Link>
+            );
+          })}
+        </ul>
+      )}
+      {!toggleGenres && (
+        <ul className="flex-wrap w-full gap-5 center">
+          {tvGenresList.map((genre) => {
+            return (
+              <Link
+                to={`/genre/${genre.name.toLowerCase()}?${new URLSearchParams({
+                  movie_or_tv: toggleGenres ? 'movie' : 'tv',
+                  genre_id: genre.id,
+                }).toString()}`}
+                key={genre.id}
+              >
+                <li className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70">
+                  <span className="text-center">{genre.name}</span>
+                </li>
+              </Link>
+            );
+          })}
+        </ul>
+      )}
     </section>
   );
 }

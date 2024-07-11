@@ -5,6 +5,8 @@ export const useStateStore = create((set) => ({
   showPageSpinner: true,
   user: null,
   genres: [],
+  showModal: false,
+  itemToAddInDB: {},
 
   initState: () => set({ isLoggedIn: false }),
 
@@ -16,4 +18,9 @@ export const useStateStore = create((set) => ({
   updateUser: (user) => set(() => ({ user: user })),
 
   updateGenresMap: (genres) => set(() => ({ genres: genres })),
+
+  updateShowModal: (showModal) => set(() => ({ showModal: showModal })),
+
+  updateItemToAddInDB: (itemToAddInDB) =>
+    set(() => ({ itemToAddInDB: itemToAddInDB })),
 }));

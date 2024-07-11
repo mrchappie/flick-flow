@@ -4,6 +4,9 @@ import Banner from 'components/UI/banner/banner';
 import useAuthCheck from 'utils/hooks/useAuthCheck';
 import { useStateStore } from 'utils/services/state/State';
 import ReactModal from 'react-modal';
+import Header from 'components/header/header';
+import Footer from 'components/footer/footer';
+import Modal from 'components/UI/modal/modal';
 
 function App() {
   const { user, authIsLoading } = useAuthCheck();
@@ -11,12 +14,11 @@ function App() {
   const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
 
   useEffect(() => {
-    console.log('test App');
     if (!authIsLoading) {
       if (user) {
         updateUser(user);
-        updateIsLoggedIn(true);
         console.log(user);
+        updateIsLoggedIn(true);
       } else {
         updateUser(null);
         updateIsLoggedIn(false);
@@ -34,8 +36,11 @@ function App() {
 
   return (
     <React.StrictMode>
+      <Modal />
       <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
+        <Header />
         <RoutesContext></RoutesContext>
+        <Footer />
       </main>
       <Banner />
     </React.StrictMode>

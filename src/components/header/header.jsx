@@ -1,10 +1,11 @@
 import Navigation from '../navigation/navigation';
-import Search from '../search/search';
+import Search from '../searchBar/searchBar';
 import { logoutUser } from 'utils/services/auth/Auth';
 import { useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';
 import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion as m } from 'framer-motion';
+import { HiMiniChevronDown } from 'react-icons/hi2';
 
 export default function Header() {
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
@@ -59,7 +60,9 @@ export default function Header() {
                 alt=""
               />
             </div>
-            <div>*</div>
+            {/* <div className="text-2xl center">
+              <HiMiniChevronDown />
+            </div> */}
           </div>
           <AnimatePresence>
             {toggleMenu && (
