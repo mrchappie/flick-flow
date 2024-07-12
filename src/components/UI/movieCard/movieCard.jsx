@@ -12,7 +12,7 @@ import { tmdbImagesOrigin } from 'utils/utils';
 
 const DB = new ConnectDB();
 
-export default function MovieCard({ details, customStyle }) {
+export default function MovieCard({ details, customStyle, onHandleShowModal }) {
   const user = useStateStore((state) => state.user);
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
 
@@ -24,13 +24,10 @@ export default function MovieCard({ details, customStyle }) {
   }
 
   const updateShowModal = useStateStore((state) => state.updateShowModal);
-  const updateItemToAddInDB = useStateStore(
-    (state) => state.updateItemToAddInDB
-  );
 
   function openListsModal(itemDetails) {
     updateShowModal(true);
-    updateItemToAddInDB(itemDetails);
+    onHandleShowModal(itemDetails);
   }
 
   return (

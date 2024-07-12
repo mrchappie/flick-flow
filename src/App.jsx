@@ -6,12 +6,12 @@ import { useStateStore } from 'utils/services/state/State';
 import ReactModal from 'react-modal';
 import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
-import Modal from 'components/UI/modal/modal';
 
 function App() {
   const { user, authIsLoading } = useAuthCheck();
   const updateUser = useStateStore((state) => state.updateUser);
   const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
+  const showModalState = useStateStore((state) => state.showModal);
 
   useEffect(() => {
     if (!authIsLoading) {
@@ -26,6 +26,10 @@ function App() {
     }
   }, [user, authIsLoading, updateUser, updateIsLoggedIn]);
 
+  useEffect(() => {
+    document.body.style.overflow = showModalState ? 'hidden' : null;
+  }, [showModalState]);
+
   if (authIsLoading) {
     // Render a loading indicator or skeleton while authentication state is loading
     return <div>Loading...</div>;
@@ -36,7 +40,6 @@ function App() {
 
   return (
     <React.StrictMode>
-      <Modal />
       <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
         <Header />
         <RoutesContext></RoutesContext>

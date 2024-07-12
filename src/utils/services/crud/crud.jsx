@@ -131,10 +131,10 @@ class ConnectDB {
         listID: listID,
       };
       // update user object in DB with the new list
-      await this.updateFirestoreDocInArray(
-        ['users', uid],
-        listTemplateForUsersDB
-      );
+      const docRef = doc(firestore, ...['users', uid]);
+      await updateDoc(docRef, {
+        lists: arrayUnion(listTemplateForUsersDB),
+      });
 
       // create new list collection in list DB
       await this.setFirestoreDoc(['lists', listID], listTemplateForListsDB);
