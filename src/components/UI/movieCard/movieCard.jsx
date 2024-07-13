@@ -40,7 +40,7 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
                 handleAddToList(details);
               }}
             >
-              {details.addedByUser === true ? (
+              {details.addedByUser !== true ? (
                 <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
               ) : (
                 <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
@@ -51,7 +51,7 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
                 openListsModal(details);
               }}
             >
-              {details.addedByUser === true ? (
+              {details.addedByUser !== true ? (
                 <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
               ) : (
                 <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />

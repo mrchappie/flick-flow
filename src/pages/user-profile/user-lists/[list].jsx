@@ -1,15 +1,16 @@
 import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
+
+const DB = new ConnectDB();
 
 export default function List() {
   const user = useStateStore((state) => state.user);
 
   const [searchParams] = useSearchParams();
-  const [listID] = useState(searchParams.get('list_id'));
-
+  const [listID, setListID] = useState(searchParams.get('list_id'));
   const [listFetchedData, setListFetchedData] = useState([]);
 
   const componentData = {
@@ -17,7 +18,11 @@ export default function List() {
     data: listFetchedData,
   };
 
-  const DB = useMemo(() => new ConnectDB(), []);
+  useEffect(() => {
+    if (searchParams) {
+      setListID(searchParams.get('list_id'));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     async function fetchData() {
@@ -34,7 +39,7 @@ export default function List() {
     if (user) {
       fetchData();
     }
-  }, [DB, listID, user]);
+  }, [listID, user]);
 
   return <CardsInfoContainer {...componentData} />;
 }
