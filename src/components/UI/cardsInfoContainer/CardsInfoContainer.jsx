@@ -13,8 +13,9 @@ export default function CardsInfoContainer({ title, data = [], style }) {
   const [itemToAddToList, setItemToAddToList] = useState(null);
   const showModalState = useStateStore((state) => state.showModal);
 
-  function handleShowModal(itemDetails) {
+  function handleShowModal(itemDetails, listsItemIsIn) {
     setItemToAddToList(itemDetails);
+    console.log(listsItemIsIn);
   }
 
   function handleAddToList(itemDetails, defaultListName = 'favorites') {

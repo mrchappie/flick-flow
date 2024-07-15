@@ -5,25 +5,48 @@ import useAuthCheck from 'utils/hooks/useAuthCheck';
 import { useStateStore } from 'utils/services/state/State';
 import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
+import useFetch from 'utils/hooks/useFetch';
 
 function App() {
-  const { user, authIsLoading } = useAuthCheck();
+  const { user, authIsLoading, userAuthToken } = useAuthCheck();
   const updateUser = useStateStore((state) => state.updateUser);
+  const updateUserAuthToken = useStateStore(
+    (state) => state.updateUserAuthToken
+  );
   const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
   const showModalState = useStateStore((state) => state.showModal);
+
+  const updateItemsInAList = useStateStore((state) => state.updateItemsInAList);
+  const { response } = useFetch({
+    url: 'https://getmovieids-6cjkhsqjsq-uc.a.run.app',
+  });
+
+  useEffect(() => {
+    if (response) {
+      updateItemsInAList(response);
+      console.log(response);
+    }
+  }, [response, updateItemsInAList]);
 
   useEffect(() => {
     if (!authIsLoading) {
       if (user) {
         updateUser(user);
-        console.log(user);
+        updateUserAuthToken(userAuthToken);
         updateIsLoggedIn(true);
       } else {
         updateUser(null);
         updateIsLoggedIn(false);
       }
     }
-  }, [user, authIsLoading, updateUser, updateIsLoggedIn]);
+  }, [
+    user,
+    authIsLoading,
+    updateUser,
+    updateIsLoggedIn,
+    updateUserAuthToken,
+    userAuthToken,
+  ]);
 
   useEffect(() => {
     document.body.style.overflow = showModalState ? 'hidden' : null;

@@ -15,6 +15,7 @@ const DB = new ConnectDB();
 export default function MovieCard({ details, customStyle, onHandleShowModal }) {
   const user = useStateStore((state) => state.user);
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
+  const itemsInAList = useStateStore((state) => state.itemsInAList);
 
   function handleAddToList(itemDetails, defaultListName = 'favorites') {
     const favListID = user.lists.filter(
@@ -27,7 +28,29 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
 
   function openListsModal(itemDetails) {
     updateShowModal(true);
-    onHandleShowModal(itemDetails);
+    onHandleShowModal(itemDetails, handleMovieAlreadyInAList(itemDetails.id));
+  }
+
+  function handleMovieAlreadyInAList(movieID) {
+    const itemToReturn = itemsInAList.filter(
+      (item) => item.movieID === movieID
+    );
+    console.log(itemToReturn);
+    if (itemToReturn) {
+      return itemToReturn;
+    }
+    return false;
+  }
+
+  function handleMovieAlreadyInFavorites(movieID) {
+    const itemToReturn = itemsInAList.filter(
+      (item) => item.movieID === movieID && item.listName === 'favorites'
+    );
+    console.log(itemToReturn, 'movie card');
+    if (itemToReturn) {
+      return itemToReturn;
+    }
+    return false;
   }
 
   return (
@@ -40,10 +63,11 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
                 handleAddToList(details);
               }}
             >
-              {details.addedByUser !== true ? (
-                <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
-              ) : (
+              {handleMovieAlreadyInFavorites(details.id).listName ===
+              'favorites' ? (
                 <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
+              ) : (
+                <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
               )}
             </span>
             <span
@@ -51,10 +75,10 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
                 openListsModal(details);
               }}
             >
-              {details.addedByUser !== true ? (
-                <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-              ) : (
+              {handleMovieAlreadyInAList(details.id) ? (
                 <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+              ) : (
+                <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
               )}
             </span>
           </div>

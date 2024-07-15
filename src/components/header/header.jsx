@@ -19,8 +19,6 @@ export default function Header() {
 
   const navigate = useNavigate();
 
-  console.log(user);
-
   // handle logout
   const handleLogOut = async () => {
     await logoutUser();

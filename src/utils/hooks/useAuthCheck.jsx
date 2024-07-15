@@ -10,6 +10,7 @@ const DB = new ConnectDB();
 
 export default function useAuthCheck() {
   const [user, setUser] = useState(null);
+  const [userAuthToken, setUserAuthToken] = useState(null);
   const [authIsLoading, setAuthIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export default function useAuthCheck() {
         async function getUserData() {
           const userData = await DB.getFirestoreDoc(['users', user.uid]);
           setUser(userData);
+          setUserAuthToken(user.accessToken);
           setAuthIsLoading(false);
         }
         getUserData();
@@ -32,5 +34,5 @@ export default function useAuthCheck() {
     return () => unsubscribe();
   }, []);
 
-  return { user, authIsLoading };
+  return { user, authIsLoading, userAuthToken };
 }
