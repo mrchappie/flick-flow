@@ -5,17 +5,19 @@ import MovieCard from '../movieCard/movieCard';
 import { ListCardInline } from 'pages/user-profile/user-lists/listCard';
 import ConnectDB from 'utils/services/crud/crud';
 import { useState } from 'react';
+import { handleFilterLists, handleWhatListToShow } from './helper';
 
 const DB = new ConnectDB();
 
 export default function CardsInfoContainer({ title, data = [], style }) {
   const user = useStateStore((state) => state.user);
   const [itemToAddToList, setItemToAddToList] = useState(null);
+  const [listsItemIsIn, setListsItemIsIn] = useState(null);
   const showModalState = useStateStore((state) => state.showModal);
 
-  function handleShowModal(itemDetails, listsItemIsIn) {
+  function handleShowModal(itemDetails, itemLists) {
     setItemToAddToList(itemDetails);
-    console.log(listsItemIsIn);
+    setListsItemIsIn(itemLists);
   }
 
   function handleAddToList(itemDetails, defaultListName = 'favorites') {
@@ -48,7 +50,10 @@ export default function CardsInfoContainer({ title, data = [], style }) {
       {showModalState && (
         <Modal>
           <ul className="gap-4 p-4 center-col">
-            {user.lists.map((list) => {
+            {handleWhatListToShow(
+              handleFilterLists(user.lists),
+              listsItemIsIn
+            ).map((list) => {
               return (
                 <ListCardInline
                   list={list}

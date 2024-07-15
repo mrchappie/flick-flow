@@ -26,31 +26,40 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
 
   const updateShowModal = useStateStore((state) => state.updateShowModal);
 
+  // open more lists modal
   function openListsModal(itemDetails) {
     updateShowModal(true);
     onHandleShowModal(itemDetails, handleMovieAlreadyInAList(itemDetails.id));
   }
 
+  // handle which icon to show for favorites list
   function handleMovieAlreadyInAList(movieID) {
     const itemToReturn = itemsInAList.filter(
       (item) => item.movieID === movieID
     );
-    console.log(itemToReturn);
+    if (itemToReturn.length > 0) {
+      return itemToReturn;
+    }
+    return false;
+  }
+
+  function removeFromFavorites(itemDetails) {
+    console.log(itemDetails);
+  }
+
+  // handle what icon to show for more lists
+  function handleMovieAlreadyInFavorites(movieID) {
+    const itemToReturn = itemsInAList.find(
+      (item) => item.movieID === movieID && item.listName === 'favorites'
+    );
     if (itemToReturn) {
       return itemToReturn;
     }
     return false;
   }
 
-  function handleMovieAlreadyInFavorites(movieID) {
-    const itemToReturn = itemsInAList.filter(
-      (item) => item.movieID === movieID && item.listName === 'favorites'
-    );
-    console.log(itemToReturn, 'movie card');
-    if (itemToReturn) {
-      return itemToReturn;
-    }
-    return false;
+  function removeFromOtherList(itemDetails) {
+    console.log(itemDetails);
   }
 
   return (
@@ -59,27 +68,40 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
         {isLoggedIn && (
           <div className="relative z-10 flex justify-between p-2 cursor-pointer">
             <span
-              onClick={() => {
-                handleAddToList(details);
-              }}
+            // onClick={() => {
+            //   handleAddToList(details);
+            // }}
             >
-              {handleMovieAlreadyInFavorites(details.id).listName ===
-              'favorites' ? (
-                <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
-              ) : (
-                <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
-              )}
+              <div
+                onClick={() => {
+                  removeFromFavorites(details);
+                }}
+              >
+                {handleMovieAlreadyInFavorites(details.id) ? (
+                  <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
+                ) : (
+                  <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
+                )}
+              </div>
             </span>
             <span
-              onClick={() => {
-                openListsModal(details);
-              }}
+            // onClick={() => {
+            //   openListsModal(details, () => {
+            //     handleMovieAlreadyInAList(details.id);
+            //   });
+            // }}
             >
-              {handleMovieAlreadyInAList(details.id) ? (
-                <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-              ) : (
-                <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-              )}
+              <div
+                onClick={() => {
+                  removeFromOtherList(details);
+                }}
+              >
+                {handleMovieAlreadyInAList(details.id) ? (
+                  <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+                ) : (
+                  <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+                )}
+              </div>
             </span>
           </div>
         )}
