@@ -15,6 +15,7 @@ export default function useAuthCheck() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log(user.accessToken);
         // if user is logged in, fetch user data
         async function getUserData() {
           const userData = await DB.getFirestoreDoc(['users', user.uid]);

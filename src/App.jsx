@@ -3,7 +3,6 @@ import RoutesContext from './routes/RoutesContext';
 import Banner from 'components/UI/banner/banner';
 import useAuthCheck from 'utils/hooks/useAuthCheck';
 import { useStateStore } from 'utils/services/state/State';
-import ReactModal from 'react-modal';
 import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
 
@@ -34,9 +33,6 @@ function App() {
     // Render a loading indicator or skeleton while authentication state is loading
     return <div>Loading...</div>;
   }
-
-  // append modal to root
-  ReactModal.setAppElement(document.getElementById('root'));
 
   return (
     <React.StrictMode>
