@@ -17,7 +17,7 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
   const itemsInAList = useStateStore((state) => state.itemsInAList);
 
-  function handleAddToList(itemDetails, defaultListName = 'favorites') {
+  function handleAddToFavorites(itemDetails, defaultListName = 'favorites') {
     const favListID = user.lists.filter(
       (list) => list.listName === defaultListName
     );
@@ -58,10 +58,6 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
     return false;
   }
 
-  function removeFromOtherList(itemDetails) {
-    console.log(itemDetails);
-  }
-
   return (
     <div className="relative">
       <div className="absolute z-10 w-full h-full opacity-0 hover:bg-black/40 hover:opacity-100">
@@ -69,7 +65,7 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
           <div className="relative z-10 flex justify-between p-2 cursor-pointer">
             <span
             // onClick={() => {
-            //   handleAddToList(details);
+            //   handleAddToFavorites(details);
             // }}
             >
               <div
@@ -91,17 +87,11 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
             //   });
             // }}
             >
-              <div
-                onClick={() => {
-                  removeFromOtherList(details);
-                }}
-              >
-                {handleMovieAlreadyInAList(details.id) ? (
-                  <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-                ) : (
-                  <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-                )}
-              </div>
+              {handleMovieAlreadyInAList(details.id) ? (
+                <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+              ) : (
+                <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+              )}
             </span>
           </div>
         )}

@@ -1,0 +1,314 @@
+[debug] [2024-07-15T18:42:39.773Z] ----------------------------------------------------------------------
+[debug] [2024-07-15T18:42:39.777Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\mr._.chappie\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2024-07-15T18:42:39.777Z] CLI Version:   13.13.2
+[debug] [2024-07-15T18:42:39.777Z] Platform:      win32
+[debug] [2024-07-15T18:42:39.778Z] Node Version:  v20.11.0
+[debug] [2024-07-15T18:42:39.778Z] Time:          Mon Jul 15 2024 21:42:39 GMT+0300 (Eastern European Summer Time)
+[debug] [2024-07-15T18:42:39.778Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-07-15T18:42:39.859Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-15T18:42:39.859Z] > authorizing via signed-in user (boscu20@gmail.com)
+[debug] [2024-07-15T18:42:39.860Z] [iam] checking project flick-flow for permissions ["firebase.projects.get"]
+[debug] [2024-07-15T18:42:39.862Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/flick-flow:testIamPermissions [none]
+[debug] [2024-07-15T18:42:39.862Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/flick-flow:testIamPermissions x-goog-quota-user=projects/flick-flow
+[debug] [2024-07-15T18:42:39.863Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/flick-flow:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-07-15T18:42:40.747Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/flick-flow:testIamPermissions 200
+[debug] [2024-07-15T18:42:40.747Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/flick-flow:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-07-15T18:42:40.749Z] >>> [apiv2][query] GET http://127.0.0.1:4400/emulators [none]
+[debug] [2024-07-15T18:42:40.754Z] <<< [apiv2][status] GET http://127.0.0.1:4400/emulators 200
+[debug] [2024-07-15T18:42:40.754Z] <<< [apiv2][body] GET http://127.0.0.1:4400/emulators {"hub":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"name":"hub","host":"127.0.0.1","port":4400},"ui":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4001},{"address":"::1","family":"IPv6","port":4001}],"name":"ui","host":"127.0.0.1","port":4001,"pid":13108},"logging":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"name":"logging","host":"127.0.0.1","port":4500},"functions":{"name":"functions","host":"127.0.0.1","port":5001},"firestore":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"name":"firestore","host":"127.0.0.1","port":8080,"pid":4020,"reservedPorts":[9150],"webSocketHost":"127.0.0.1","webSocketPort":9150},"eventarc":{"name":"eventarc","host":"127.0.0.1","port":9299}}
+[debug] [2024-07-15T18:42:40.754Z] Running emulators:  {"hub":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"name":"hub","host":"127.0.0.1","port":4400},"ui":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4001},{"address":"::1","family":"IPv6","port":4001}],"name":"ui","host":"127.0.0.1","port":4001,"pid":13108},"logging":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"name":"logging","host":"127.0.0.1","port":4500},"functions":{"name":"functions","host":"127.0.0.1","port":5001},"firestore":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"name":"firestore","host":"127.0.0.1","port":8080,"pid":4020,"reservedPorts":[9150],"webSocketHost":"127.0.0.1","webSocketPort":9150},"eventarc":{"name":"eventarc","host":"127.0.0.1","port":9299}}
+[warn] !  functions: You are already running the Cloud Functions emulator on port 5001. Running the emulator and the Functions shell simultaenously can result in unexpected behavior. 
+[debug] [2024-07-15T18:42:40.760Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-07-15T18:42:40.762Z] defaultcredentials: writing to file C:\Users\mr._.chappie\AppData\Roaming\firebase\boscu20_gmail_com_application_default_credentials.json
+[debug] [2024-07-15T18:42:40.763Z] DEBUG: Setting GAC to C:\Users\mr._.chappie\AppData\Roaming\firebase\boscu20_gmail_com_application_default_credentials.json
+[debug] [2024-07-15T18:42:40.764Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/flick-flow/adminSdkConfig [none]
+[debug] [2024-07-15T18:42:41.170Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/flick-flow/adminSdkConfig 200
+[debug] [2024-07-15T18:42:41.170Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/flick-flow/adminSdkConfig {"projectId":"flick-flow","storageBucket":"flick-flow.appspot.com"}
+[debug] [2024-07-15T18:42:41.185Z] [functions] Watching "E:\dev\projects\github\public\flick-flow\functions" for Cloud Functions...
+[debug] [2024-07-15T18:42:41.190Z] Validating nodejs source
+[debug] [2024-07-15T18:42:42.660Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.2.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-07-15T18:42:42.660Z] Building nodejs source
+[debug] [2024-07-15T18:42:42.660Z] Failed to find version of module node: reached end of search path E:\dev\projects\github\public\flick-flow\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-07-15T18:42:42.663Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-07-15T18:42:42.670Z] Found firebase-functions binary at 'E:\dev\projects\github\public\flick-flow\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8685
+
+[debug] [2024-07-15T18:42:43.348Z] Got response from /__/functions.yaml {"endpoints":{"getMovieIDs":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"getMovieIDs"},"removeMovieFromList":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"removeMovieFromList"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2024-07-15T18:42:48.393Z] [functions] Loaded functions definitions from source: getMovieIDs, removeMovieFromList.
+[debug] [2024-07-15T18:42:48.394Z] [functions[us-central1-getMovieIDs]] http function initialized (http://127.0.0.1:5000/flick-flow/us-central1/getMovieIDs).
+[debug] [2024-07-15T18:42:48.395Z] [functions[us-central1-removeMovieFromList]] http function initialized (http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList).
+[info] i  functions: Loaded functions: getMovieIDs, removeMovieFromList 
+[info] i  functions: Connected to running firestore emulator at 127.0.0.1:8080, calls to this service will affect the emulator 
+[info] i  functions: Connected to running eventarc emulator at 127.0.0.1:9299, calls to this service will affect the emulator 
+[warn] !  functions: The following emulators are not running, calls to these services will affect production: database, pubsub, storage 
+[debug] [2024-07-15T18:43:22.938Z] >>> [apiv2][query] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ [none]
+[debug] [2024-07-15T18:43:22.938Z] >>> [apiv2][body] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ {"data":{"id":"asaaslabdiuasf","title":"The Shawshank Redemption","useID":"dCZIpEKPGbhA8qgWE8FlWrPCOln2"}}
+[debug] [2024-07-15T18:43:22.946Z] [work-queue] {"queuedWork":["/flick-flow/us-central1/removeMovieFromList/-2024-07-15T18:43:22.946Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-07-15T18:43:22.947Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/flick-flow/us-central1/removeMovieFromList/-2024-07-15T18:43:22.946Z"],"workRunningCount":1}
+[debug] [2024-07-15T18:43:22.947Z] Accepted request POST /flick-flow/us-central1/removeMovieFromList/ --> us-central1-removeMovieFromList
+[debug] [2024-07-15T18:43:22.949Z] DEBUG: [functions] Runtime ready! Sending request!
+[debug] [2024-07-15T18:43:22.950Z] DEBUG: [functions] Got req.url=/flick-flow/us-central1/removeMovieFromList/, mapping to path=/
+[debug] [2024-07-15T18:43:22.960Z] DEBUG: [worker-pool] addWorker(us-central1-removeMovieFromList)
+[debug] [2024-07-15T18:43:22.962Z] DEBUG: [worker-pool] Adding worker with key us-central1-removeMovieFromList, total=1
+[debug] [2024-07-15T18:43:24.433Z] DEBUG: [runtime-status] [15780] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.2.0","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2024-07-15T18:43:24.434Z] DEBUG: [runtime-status] [15780] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-07-15T18:43:24.434Z] DEBUG: [runtime-status] [15780] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}]
+[debug] [2024-07-15T18:43:24.435Z] DEBUG: [runtime-status] [15780] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-07-15T18:43:24.696Z] DEBUG: [runtime-status] [15780] Checked functions.config() {"config":{}}
+[debug] [2024-07-15T18:43:24.697Z] DEBUG: [runtime-status] [15780] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}}
+[debug] [2024-07-15T18:43:24.697Z] DEBUG: [runtime-status] [15780] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-07-15T18:43:24.698Z] DEBUG: [runtime-status] [15780] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.2.0","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2024-07-15T18:43:24.700Z] DEBUG: [runtime-status] [15780] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-07-15T18:43:24.701Z] DEBUG: [runtime-status] [15780] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.2.0","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[debug] [2024-07-15T18:43:24.706Z] DEBUG: [runtime-status] [15780] initializeApp(DEFAULT) {"storageBucket":"flick-flow.appspot.com","projectId":"flick-flow"}
+[debug] [2024-07-15T18:43:24.718Z] DEBUG: [runtime-status] [15780] Functions runtime initialized. {"cwd":"E:\\dev\\projects\\github\\public\\flick-flow\\functions","node_version":"20.11.0"}
+[debug] [2024-07-15T18:43:24.719Z] DEBUG: [runtime-status] [15780] Listening to port: \\?\pipe\fire_emu_283dccd5f0658246
+[debug] [2024-07-15T18:43:24.827Z] DEBUG: [worker-us-central1-removeMovieFromList-eb327ea2-cb92-4567-8d82-4a1a172c733c]: IDLE
+[debug] [2024-07-15T18:43:24.828Z] DEBUG: [worker-pool] submitRequest(triggerId=us-central1-removeMovieFromList)
+[debug] [2024-07-15T18:43:24.828Z] [functions] Beginning execution of "us-central1-removeMovieFromList"
+[debug] [2024-07-15T18:43:24.828Z] DEBUG: [worker-us-central1-removeMovieFromList-eb327ea2-cb92-4567-8d82-4a1a172c733c]: BUSY
+[info] >  {"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"} {"user":{"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"verifications\":{\"app\":\"MISSING\",\"auth\":\"MISSING\"},\"logging.googleapis.com/labels\":{\"firebase-log-type\":\"callable-request-verification\"},\"severity\":\"DEBUG\",\"message\":\"Callable request verification passed\"}"}}
+[info] >  Error: Value for argument "value" is not a valid query constraint. Cannot use "undefined" as a Firestore value. If you want to ignore undefined values, enable `ignoreUndefinedProperties`. {"user":"Error: Value for argument \"value\" is not a valid query constraint. Cannot use \"undefined\" as a Firestore value. If you want to ignore undefined values, enable `ignoreUndefinedProperties`.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m Error: Value for argument \"value\" is not a valid query constraint. Cannot use \"undefined\" as a Firestore value. If you want to ignore undefined values, enable `ignoreUndefinedProperties`."}}
+[info] >      at validateUserInput (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\serializer.js:383:19) {"user":"    at validateUserInput (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\serializer.js:383:19)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at validateUserInput (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\serializer.js:383:19)"}}
+[info] >      at validateQueryValue (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\helpers.js:98:40) {"user":"    at validateQueryValue (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\helpers.js:98:40)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at validateQueryValue (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\helpers.js:98:40)"}}
+[info] >      at Query._parseFieldFilter (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\query.js:166:42) {"user":"    at Query._parseFieldFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:166:42)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at Query._parseFieldFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:166:42)"}}
+[info] >      at Query._parseFilter (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\query.js:152:25) {"user":"    at Query._parseFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:152:25)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at Query._parseFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:152:25)"}}
+[info] >      at Query.where (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\query.js:136:35) {"user":"    at Query.where (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:136:35)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at Query.where (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:136:35)"}}
+[info] >      at E:\dev\projects\github\public\flick-flow\functions\src\removeMovieFromList.js:25:8 {"user":"    at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\src\\removeMovieFromList.js:25:8","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\src\\removeMovieFromList.js:25:8"}}
+[info] >      at E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-functions\lib\common\onInit.js:33:16 {"user":"    at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\onInit.js:33:16","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\onInit.js:33:16"}}
+[info] >      at fixedLen (E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-functions\lib\v2\providers\https.js:135:62) {"user":"    at fixedLen (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v2\\providers\\https.js:135:62)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at fixedLen (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v2\\providers\\https.js:135:62)"}}
+[info] >      at E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-functions\lib\common\providers\https.js:467:32 {"user":"    at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:467:32","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:467:32"}}
+[info] >      at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {"user":"    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"}}
+[debug] [2024-07-15T18:43:24.876Z] DEBUG: Finishing up request with event=pause
+[debug] [2024-07-15T18:43:24.876Z] [functions] Finished "us-central1-removeMovieFromList" in 47.9632ms
+[debug] [2024-07-15T18:43:24.877Z] DEBUG: [worker-us-central1-removeMovieFromList-eb327ea2-cb92-4567-8d82-4a1a172c733c]: IDLE
+[debug] [2024-07-15T18:43:24.877Z] DEBUG: Finishing up request with event=finish
+[debug] [2024-07-15T18:43:24.877Z] DEBUG: Finishing up request with event=close
+[debug] [2024-07-15T18:43:24.878Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-07-15T18:43:24.881Z] <<< [apiv2][status] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ 500
+[debug] [2024-07-15T18:43:24.881Z] <<< [apiv2][body] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ {"error":{"details":{},"message":"Something went wrong:","status":"UNKNOWN"}}
+[debug] [2024-07-15T18:47:17.374Z] >>> [apiv2][query] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ [none]
+[debug] [2024-07-15T18:47:17.374Z] >>> [apiv2][body] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ {"data":{"itemToRemove":{"id":"asaaslabdiuasf","title":"The Shawshank Redemption","useID":"dCZIpEKPGbhA8qgWE8FlWrPCOln2"},"listName":"favorites 1"}}
+[debug] [2024-07-15T18:47:17.379Z] [work-queue] {"queuedWork":["/flick-flow/us-central1/removeMovieFromList/-2024-07-15T18:47:17.379Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-07-15T18:47:17.379Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/flick-flow/us-central1/removeMovieFromList/-2024-07-15T18:47:17.379Z"],"workRunningCount":1}
+[debug] [2024-07-15T18:47:17.379Z] Accepted request POST /flick-flow/us-central1/removeMovieFromList/ --> us-central1-removeMovieFromList
+[debug] [2024-07-15T18:47:17.382Z] DEBUG: [functions] Runtime ready! Sending request!
+[debug] [2024-07-15T18:47:17.382Z] DEBUG: [functions] Got req.url=/flick-flow/us-central1/removeMovieFromList/, mapping to path=/
+[debug] [2024-07-15T18:47:17.382Z] DEBUG: [worker-pool] submitRequest(triggerId=us-central1-removeMovieFromList)
+[debug] [2024-07-15T18:47:17.382Z] [functions] Beginning execution of "us-central1-removeMovieFromList"
+[debug] [2024-07-15T18:47:17.383Z] DEBUG: [worker-us-central1-removeMovieFromList-eb327ea2-cb92-4567-8d82-4a1a172c733c]: BUSY
+[info] >  {"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"} {"user":{"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"verifications\":{\"app\":\"MISSING\",\"auth\":\"MISSING\"},\"logging.googleapis.com/labels\":{\"firebase-log-type\":\"callable-request-verification\"},\"severity\":\"DEBUG\",\"message\":\"Callable request verification passed\"}"}}
+[info] >  Error: Value for argument "value" is not a valid query constraint. Cannot use "undefined" as a Firestore value. If you want to ignore undefined values, enable `ignoreUndefinedProperties`. {"user":"Error: Value for argument \"value\" is not a valid query constraint. Cannot use \"undefined\" as a Firestore value. If you want to ignore undefined values, enable `ignoreUndefinedProperties`.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m Error: Value for argument \"value\" is not a valid query constraint. Cannot use \"undefined\" as a Firestore value. If you want to ignore undefined values, enable `ignoreUndefinedProperties`."}}
+[info] >      at validateUserInput (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\serializer.js:383:19) {"user":"    at validateUserInput (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\serializer.js:383:19)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at validateUserInput (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\serializer.js:383:19)"}}
+[info] >      at validateQueryValue (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\helpers.js:98:40) {"user":"    at validateQueryValue (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\helpers.js:98:40)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at validateQueryValue (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\helpers.js:98:40)"}}
+[info] >      at Query._parseFieldFilter (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\query.js:166:42) {"user":"    at Query._parseFieldFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:166:42)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at Query._parseFieldFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:166:42)"}}
+[info] >      at Query._parseFilter (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\query.js:152:25) {"user":"    at Query._parseFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:152:25)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at Query._parseFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:152:25)"}}
+[info] >      at Query.where (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\query.js:136:35) {"user":"    at Query.where (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:136:35)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at Query.where (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:136:35)"}}
+[info] >      at E:\dev\projects\github\public\flick-flow\functions\src\removeMovieFromList.js:25:8 {"user":"    at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\src\\removeMovieFromList.js:25:8","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\src\\removeMovieFromList.js:25:8"}}
+[info] >      at E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-functions\lib\common\onInit.js:33:16 {"user":"    at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\onInit.js:33:16","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\onInit.js:33:16"}}
+[info] >      at fixedLen (E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-functions\lib\v2\providers\https.js:135:62) {"user":"    at fixedLen (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v2\\providers\\https.js:135:62)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at fixedLen (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v2\\providers\\https.js:135:62)"}}
+[info] >      at E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-functions\lib\common\providers\https.js:467:32 {"user":"    at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:467:32","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:467:32"}}
+[info] >      at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {"user":"    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"}}
+[debug] [2024-07-15T18:47:17.395Z] DEBUG: Finishing up request with event=pause
+[debug] [2024-07-15T18:47:17.396Z] [functions] Finished "us-central1-removeMovieFromList" in 13.0544ms
+[debug] [2024-07-15T18:47:17.396Z] DEBUG: [worker-us-central1-removeMovieFromList-eb327ea2-cb92-4567-8d82-4a1a172c733c]: IDLE
+[debug] [2024-07-15T18:47:17.396Z] DEBUG: Finishing up request with event=finish
+[debug] [2024-07-15T18:47:17.396Z] DEBUG: Finishing up request with event=close
+[debug] [2024-07-15T18:47:17.396Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-07-15T18:47:17.398Z] <<< [apiv2][status] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ 500
+[debug] [2024-07-15T18:47:17.399Z] <<< [apiv2][body] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ {"error":{"details":{},"message":"Something went wrong:","status":"UNKNOWN"}}
+[debug] [2024-07-15T18:48:17.049Z] DEBUG: File E:\dev\projects\github\public\flick-flow\functions\src\removeMovieFromList.js changed, reloading triggers
+[debug] [2024-07-15T18:48:18.051Z] Validating nodejs source
+[debug] [2024-07-15T18:48:20.175Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.2.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-07-15T18:48:20.175Z] Building nodejs source
+[debug] [2024-07-15T18:48:20.176Z] Failed to find version of module node: reached end of search path E:\dev\projects\github\public\flick-flow\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-07-15T18:48:20.178Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-07-15T18:48:20.191Z] Found firebase-functions binary at 'E:\dev\projects\github\public\flick-flow\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8548
+
+[error] FirebaseAppError: The default Firebase app already exists. This means you called initializeApp() more than once without providing an app name as the second argument. In most cases you only need to call initializeApp() once. But if you do want to initialize multiple apps, pass a second argument to initializeApp() to give each app a unique name.
+    at AppStore.initializeApp (E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-admin\lib\app\lifecycle.js:41:23)
+    at FirebaseNamespaceInternals.initializeApp (E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:43:35)
+    at FirebaseNamespace.initializeApp (E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-admin\lib\app\firebase-namespace.js:246:30)
+    at Object.<anonymous> (E:\dev\projects\github\public\flick-flow\functions\src\removeMovieFromList.js:6:7)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+    at require (node:internal/modules/helpers:176:18) {
+  errorInfo: {
+    code: 'app/duplicate-app',
+    message: 'The default Firebase app already exists. This means you called initializeApp() more than once without providing an app name as the second argument. In most cases you only need to call initializeApp() once. But if you do want to initialize multiple apps, pass a second argument to initializeApp() to give each app a unique name.'
+  },
+  codePrefix: 'app'
+}
+
+[debug] [2024-07-15T18:48:21.157Z] Got response code 400; body Failed to generate manifest from function source: Error: The default Firebase app already exists. This means you called initializeApp() more than once without providing an app name as the second argument. In most cases you only need to call initializeApp() once. But if you do want to initialize multiple apps, pass a second argument to initializeApp() to give each app a unique name.
+[error] !!  functions: Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error"}}
+[debug] [2024-07-15T18:48:44.989Z] DEBUG: File E:\dev\projects\github\public\flick-flow\functions\index.js changed, reloading triggers
+[debug] [2024-07-15T18:48:45.996Z] Validating nodejs source
+[debug] [2024-07-15T18:48:48.068Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.2.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-07-15T18:48:48.069Z] Building nodejs source
+[debug] [2024-07-15T18:48:48.069Z] Failed to find version of module node: reached end of search path E:\dev\projects\github\public\flick-flow\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-07-15T18:48:48.070Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-07-15T18:48:48.077Z] Found firebase-functions binary at 'E:\dev\projects\github\public\flick-flow\functions\node_modules\.bin\firebase-functions'
+[debug] [2024-07-15T18:48:48.085Z] DEBUG: File E:\dev\projects\github\public\flick-flow\functions\src\removeMovieFromList.js changed, reloading triggers
+[info] Serving at port 8808
+
+[debug] [2024-07-15T18:48:48.872Z] Got response from /__/functions.yaml {"endpoints":{"removeMovieFromList":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"removeMovieFromList"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2024-07-15T18:48:49.094Z] Validating nodejs source
+[debug] [2024-07-15T18:48:50.777Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.2.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-07-15T18:48:50.777Z] Building nodejs source
+[debug] [2024-07-15T18:48:50.777Z] Failed to find version of module node: reached end of search path E:\dev\projects\github\public\flick-flow\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-07-15T18:48:50.779Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-07-15T18:48:50.788Z] Found firebase-functions binary at 'E:\dev\projects\github\public\flick-flow\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8485
+
+[debug] [2024-07-15T18:48:51.685Z] Got response from /__/functions.yaml {"endpoints":{"removeMovieFromList":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"removeMovieFromList"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2024-07-15T18:48:53.926Z] [functions] Loaded functions definitions from source: removeMovieFromList.
+[debug] [2024-07-15T18:48:53.926Z] DEBUG: [worker-pool] Shutting down IDLE worker (us-central1-removeMovieFromList)
+[debug] [2024-07-15T18:48:53.927Z] DEBUG: [worker-us-central1-removeMovieFromList-eb327ea2-cb92-4567-8d82-4a1a172c733c]: FINISHING
+[debug] [2024-07-15T18:48:53.942Z] DEBUG: [worker-us-central1-removeMovieFromList-eb327ea2-cb92-4567-8d82-4a1a172c733c]: exited
+[debug] [2024-07-15T18:48:53.942Z] DEBUG: [worker-us-central1-removeMovieFromList-eb327ea2-cb92-4567-8d82-4a1a172c733c]: FINISHED
+[debug] [2024-07-15T18:48:56.712Z] [functions] Loaded functions definitions from source: removeMovieFromList.
+[debug] [2024-07-15T18:49:17.283Z] >>> [apiv2][query] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ [none]
+[debug] [2024-07-15T18:49:17.284Z] >>> [apiv2][body] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ {"data":{"itemToRemove":{"id":"asaaslabdiuasf","title":"The Shawshank Redemption","useID":"dCZIpEKPGbhA8qgWE8FlWrPCOln2"},"listName":"favorites 1"}}
+[debug] [2024-07-15T18:49:17.288Z] [work-queue] {"queuedWork":["/flick-flow/us-central1/removeMovieFromList/-2024-07-15T18:49:17.288Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-07-15T18:49:17.288Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/flick-flow/us-central1/removeMovieFromList/-2024-07-15T18:49:17.288Z"],"workRunningCount":1}
+[debug] [2024-07-15T18:49:17.288Z] Accepted request POST /flick-flow/us-central1/removeMovieFromList/ --> us-central1-removeMovieFromList
+[debug] [2024-07-15T18:49:17.292Z] DEBUG: [functions] Runtime ready! Sending request!
+[debug] [2024-07-15T18:49:17.292Z] DEBUG: [functions] Got req.url=/flick-flow/us-central1/removeMovieFromList/, mapping to path=/
+[debug] [2024-07-15T18:49:17.292Z] DEBUG: [worker-pool] Cleaned up workers for us-central1-removeMovieFromList: 1 --> 0
+[debug] [2024-07-15T18:49:17.302Z] DEBUG: [worker-pool] addWorker(us-central1-removeMovieFromList)
+[debug] [2024-07-15T18:49:17.303Z] DEBUG: [worker-pool] Adding worker with key us-central1-removeMovieFromList, total=1
+[debug] [2024-07-15T18:49:18.661Z] DEBUG: [runtime-status] [2788] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.2.0","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2024-07-15T18:49:18.662Z] DEBUG: [runtime-status] [2788] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-07-15T18:49:18.663Z] DEBUG: [runtime-status] [2788] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}]
+[debug] [2024-07-15T18:49:18.664Z] DEBUG: [runtime-status] [2788] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-07-15T18:49:18.942Z] DEBUG: [runtime-status] [2788] Checked functions.config() {"config":{}}
+[debug] [2024-07-15T18:49:18.942Z] DEBUG: [runtime-status] [2788] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}}
+[debug] [2024-07-15T18:49:18.943Z] DEBUG: [runtime-status] [2788] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-07-15T18:49:18.944Z] DEBUG: [runtime-status] [2788] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.2.0","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2024-07-15T18:49:18.946Z] DEBUG: [runtime-status] [2788] Resolved module firebase-functions {"declared":true,"installed":true,"version":"5.0.1","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}
+[debug] [2024-07-15T18:49:18.947Z] DEBUG: [runtime-status] [2788] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.2.0","resolution":"E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[debug] [2024-07-15T18:49:18.952Z] DEBUG: [runtime-status] [2788] initializeApp(DEFAULT) {"storageBucket":"flick-flow.appspot.com","projectId":"flick-flow"}
+[debug] [2024-07-15T18:49:18.962Z] DEBUG: [runtime-status] [2788] Functions runtime initialized. {"cwd":"E:\\dev\\projects\\github\\public\\flick-flow\\functions","node_version":"20.11.0"}
+[debug] [2024-07-15T18:49:18.963Z] DEBUG: [runtime-status] [2788] Listening to port: \\?\pipe\fire_emu_6cede2cb965881f4
+[debug] [2024-07-15T18:49:19.052Z] DEBUG: [worker-us-central1-removeMovieFromList-f8a5eeff-1590-4fec-b938-43827cc06464]: IDLE
+[debug] [2024-07-15T18:49:19.053Z] DEBUG: [worker-pool] submitRequest(triggerId=us-central1-removeMovieFromList)
+[debug] [2024-07-15T18:49:19.053Z] [functions] Beginning execution of "us-central1-removeMovieFromList"
+[debug] [2024-07-15T18:49:19.053Z] DEBUG: [worker-us-central1-removeMovieFromList-f8a5eeff-1590-4fec-b938-43827cc06464]: BUSY
+[info] >  {"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"} {"user":{"verifications":{"app":"MISSING","auth":"MISSING"},"logging.googleapis.com/labels":{"firebase-log-type":"callable-request-verification"},"severity":"DEBUG","message":"Callable request verification passed"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"verifications\":{\"app\":\"MISSING\",\"auth\":\"MISSING\"},\"logging.googleapis.com/labels\":{\"firebase-log-type\":\"callable-request-verification\"},\"severity\":\"DEBUG\",\"message\":\"Callable request verification passed\"}"}}
+[info] >  Error: Value for argument "value" is not a valid query constraint. Cannot use "undefined" as a Firestore value. If you want to ignore undefined values, enable `ignoreUndefinedProperties`. {"user":"Error: Value for argument \"value\" is not a valid query constraint. Cannot use \"undefined\" as a Firestore value. If you want to ignore undefined values, enable `ignoreUndefinedProperties`.","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m Error: Value for argument \"value\" is not a valid query constraint. Cannot use \"undefined\" as a Firestore value. If you want to ignore undefined values, enable `ignoreUndefinedProperties`."}}
+[info] >      at validateUserInput (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\serializer.js:383:19) {"user":"    at validateUserInput (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\serializer.js:383:19)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at validateUserInput (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\serializer.js:383:19)"}}
+[info] >      at validateQueryValue (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\helpers.js:98:40) {"user":"    at validateQueryValue (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\helpers.js:98:40)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at validateQueryValue (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\helpers.js:98:40)"}}
+[info] >      at Query._parseFieldFilter (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\query.js:166:42) {"user":"    at Query._parseFieldFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:166:42)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at Query._parseFieldFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:166:42)"}}
+[info] >      at Query._parseFilter (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\query.js:152:25) {"user":"    at Query._parseFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:152:25)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at Query._parseFilter (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:152:25)"}}
+[info] >      at Query.where (E:\dev\projects\github\public\flick-flow\functions\node_modules\@google-cloud\firestore\build\src\reference\query.js:136:35) {"user":"    at Query.where (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:136:35)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at Query.where (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\@google-cloud\\firestore\\build\\src\\reference\\query.js:136:35)"}}
+[info] >      at E:\dev\projects\github\public\flick-flow\functions\src\removeMovieFromList.js:27:8 {"user":"    at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\src\\removeMovieFromList.js:27:8","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\src\\removeMovieFromList.js:27:8"}}
+[info] >      at E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-functions\lib\common\onInit.js:33:16 {"user":"    at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\onInit.js:33:16","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\onInit.js:33:16"}}
+[info] >      at fixedLen (E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-functions\lib\v2\providers\https.js:135:62) {"user":"    at fixedLen (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v2\\providers\\https.js:135:62)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at fixedLen (E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\v2\\providers\\https.js:135:62)"}}
+[info] >      at E:\dev\projects\github\public\flick-flow\functions\node_modules\firebase-functions\lib\common\providers\https.js:467:32 {"user":"    at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:467:32","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at E:\\dev\\projects\\github\\public\\flick-flow\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:467:32"}}
+[info] >      at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {"user":"    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-removeMovieFromList"},"extension":{},"message":"\u001b[90m> \u001b[39m     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"}}
+[debug] [2024-07-15T18:49:19.083Z] DEBUG: Finishing up request with event=pause
+[debug] [2024-07-15T18:49:19.084Z] [functions] Finished "us-central1-removeMovieFromList" in 30.7835ms
+[debug] [2024-07-15T18:49:19.084Z] DEBUG: [worker-us-central1-removeMovieFromList-f8a5eeff-1590-4fec-b938-43827cc06464]: IDLE
+[debug] [2024-07-15T18:49:19.084Z] DEBUG: Finishing up request with event=finish
+[debug] [2024-07-15T18:49:19.084Z] DEBUG: Finishing up request with event=close
+[debug] [2024-07-15T18:49:19.084Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-07-15T18:49:19.085Z] <<< [apiv2][status] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ 500
+[debug] [2024-07-15T18:49:19.085Z] <<< [apiv2][body] POST http://127.0.0.1:5000/flick-flow/us-central1/removeMovieFromList/ {"error":{"details":{},"message":"Something went wrong:","status":"UNKNOWN"}}
