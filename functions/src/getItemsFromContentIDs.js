@@ -1,16 +1,17 @@
 const { onRequest } = require('firebase-functions/v2/https');
-const admin = require('firebase-admin');
 const authUser = require('./utils/authUser');
+const { DB } = require('./utils/initialize');
 
-admin.initializeApp();
-const DB = admin.firestore();
-
-const getMovieIDs = onRequest({ cors: true }, async (req, res) => {
+const getItemsFromContentIDs = onRequest({ cors: true }, async (req, res) => {
+  if (req.method !== 'GET') {
+    res.status(405).send('Method not allowed');
+    return;
+  }
   authUser(req, res, async () => {
     try {
-      const userId = req.user.uid;
+      const userID = req.user.uid;
       const movieListSnapshot = await DB.collection('lists')
-        .where('userID', '==', userId)
+        .where('userID', '==', userID)
         .get();
       const movieIds = [];
       movieListSnapshot.forEach((doc) => {
@@ -35,4 +36,4 @@ const getMovieIDs = onRequest({ cors: true }, async (req, res) => {
   });
 });
 
-module.exports = getMovieIDs;
+module.exports = getItemsFromContentIDs;

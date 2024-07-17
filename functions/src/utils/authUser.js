@@ -5,7 +5,9 @@ const authUser = async (req, res, next) => {
     req.headers.authorization && req.headers.authorization.split('Bearer ')[1];
 
   if (!idToken) {
-    return res.status(401).json({ message: 'Unauthorized no token' });
+    return res
+      .status(401)
+      .json({ message: 'Unauthorized, no authorization token provided' });
   }
 
   try {
