@@ -15,13 +15,15 @@ const removeItemFromList = onRequest({ cors: true }, async (req, res) => {
         return res.status(401).json({ message: 'Unauthorized' });
       }
 
-      if (isObjectEmpty(req.body)) {
+      const bodyData = JSON.parse(req.body);
+
+      if (isObjectEmpty(bodyData)) {
         return res
           .status(401)
           .json({ message: 'Please provide data to delete' });
       }
 
-      const { listName, data: itemToRemove } = req.body;
+      const { listName, data: itemToRemove } = bodyData;
       const snapshot = await DB.collection('lists')
         .where('userID', '==', userID)
         .where('name', '==', listName)

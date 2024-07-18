@@ -17,9 +17,15 @@ function App() {
   const showModalState = useStateStore((state) => state.showModal);
 
   const updateItemsInAList = useStateStore((state) => state.updateItemsInAList);
-  const { response } = useFetch({
-    url: 'https://getmovieids-6cjkhsqjsq-uc.a.run.app',
+  const { response, fetchData } = useFetch({
+    url: process.env.REACT_APP_FIREBASE_GET_ITEM_IDS,
+    shouldFetch: true,
   });
+
+  // fetch item IDs from user lists
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (response) {

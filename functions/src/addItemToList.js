@@ -15,13 +15,15 @@ const addItemToList = onRequest({ cors: true }, async (req, res) => {
         return res.status(401).json({ message: 'Unauthorized' });
       }
 
-      if (isObjectEmpty(req.body)) {
+      const bodyData = JSON.parse(req.body);
+
+      if (isObjectEmpty(bodyData)) {
         return res
           .status(401)
           .json({ message: 'Please provide data to delete' });
       }
 
-      const { listName, data: itemToAdd } = req.body;
+      const { listName, data: itemToAdd } = bodyData;
       const snapshot = await DB.collection('lists')
         .where('userID', '==', userID)
         .where('name', '==', listName)

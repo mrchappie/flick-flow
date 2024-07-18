@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';
 
 export default function useFetch({
   method = 'GET',
   body = null,
   url,
-  shouldFetch = true,
+  shouldFetch = false,
 }) {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,17 +21,20 @@ export default function useFetch({
       },
     };
     if (body) {
-      opts.body = body;
+      opts.body = JSON.stringify(body);
     }
     return opts;
   }, [method, body, userAuthToken]);
 
-  useEffect(() => {
-    if (!shouldFetch) return;
-    const fetchData = async () => {
+  const fetchData = useCallback(
+    async (customURL = url, customMethod) => {
       setLoading(true);
       try {
-        const data = await fetch(url, options);
+        if (customMethod) {
+          options.method = customMethod;
+        }
+        console.log(options);
+        const data = await fetch(customURL, options);
 
         if (!data.ok) throw new Error(data.statusText);
 
@@ -42,9 +45,15 @@ export default function useFetch({
       } finally {
         setLoading(false);
       }
-    };
+    },
+    [url, options]
+  );
 
-    fetchData();
-  }, [options, url, shouldFetch]);
-  return { response, loading, error };
+  useEffect(() => {
+    if (shouldFetch) {
+      fetchData();
+    }
+  }, [fetchData, shouldFetch]);
+
+  return { response, loading, error, fetchData };
 }
