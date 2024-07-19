@@ -27,6 +27,10 @@ body {
   overflow-x: hidden;
 }
 
+svg {
+  pointer-events: none;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

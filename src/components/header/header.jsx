@@ -9,6 +9,7 @@ import { HiMiniChevronDown } from 'react-icons/hi2';
 
 export default function Header() {
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
+  const user = useStateStore((state) => state.user);
   const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
 
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -106,14 +107,20 @@ export default function Header() {
                 </Link>
                 <Link
                   onClick={handleShowMenu}
-                  to={'/user-profile/favorites'}
+                  to={`/user-profile/user-lists/favorites?list_id=${
+                    user.lists.find((list) => list.listName === 'favorites')
+                      .listID
+                  }`}
                   className="text-xl"
                 >
                   Favorites
                 </Link>
                 <Link
                   onClick={handleShowMenu}
-                  to={'/user-profile/watchlist'}
+                  to={`/user-profile/user-lists/watchlist?list_id=${
+                    user.lists.find((list) => list.listName === 'watchlist')
+                      .listID
+                  }`}
                   className="text-xl"
                 >
                   Watchlist

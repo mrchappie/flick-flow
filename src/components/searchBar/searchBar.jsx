@@ -33,7 +33,7 @@ export default function SearchBar() {
             type="submit"
             className="p-2 text-white cursor-pointer rounded-e-sm bg-brand1"
           >
-            <HiMagnifyingGlass />
+            <HiMagnifyingGlass className="pointer-events-none" />
           </button>
         </Form>
       </Formik>

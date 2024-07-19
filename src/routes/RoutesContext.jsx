@@ -151,7 +151,7 @@ const routes = [
     ),
   },
   {
-    path: '/user-profile/user-lists/:listID',
+    path: '/user-profile/user-lists/:listName',
     element: (
       <PrivateRoute>
         <List />

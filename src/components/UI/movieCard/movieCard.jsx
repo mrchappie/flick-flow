@@ -1,65 +1,20 @@
 import { Link } from 'react-router-dom';
-import {
-  HiBookmark,
-  HiHeart,
-  HiOutlineBookmark,
-  HiOutlineHeart,
-} from 'react-icons/hi';
-import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 import { extractReleaseYear } from './helpers';
 import { tmdbImagesOrigin } from 'utils/utils';
+import AddToFavorites from './components/addToFavorites';
+import AddToOtherList from './components/addToOtherList';
 
-const DB = new ConnectDB();
-
-export default function MovieCard({ details, customStyle }) {
-  const user = useStateStore((state) => state.user);
+export default function MovieCard({ details, customStyle, onHandleShowModal }) {
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
-
-  function handleAddToList(itemDetails, defaultListName = 'favorites') {
-    const favListID = user.lists.filter(
-      (list) => list.listName === defaultListName
-    );
-    DB.updateFirestoreDocInArray(['lists', favListID[0].listID], itemDetails);
-  }
-
-  const updateShowModal = useStateStore((state) => state.updateShowModal);
-  const updateItemToAddInDB = useStateStore(
-    (state) => state.updateItemToAddInDB
-  );
-
-  function openListsModal(itemDetails) {
-    updateShowModal(true);
-    updateItemToAddInDB(itemDetails);
-  }
 
   return (
     <div className="relative">
       <div className="absolute z-10 w-full h-full opacity-0 hover:bg-black/40 hover:opacity-100">
         {isLoggedIn && (
           <div className="relative z-10 flex justify-between p-2 cursor-pointer">
-            <span
-              onClick={() => {
-                handleAddToList(details);
-              }}
-            >
-              {details.addedByUser === true ? (
-                <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
-              ) : (
-                <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
-              )}
-            </span>
-            <span
-              onClick={() => {
-                openListsModal(details);
-              }}
-            >
-              {details.addedByUser === true ? (
-                <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-              ) : (
-                <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-              )}
-            </span>
+            <AddToFavorites details={details} />
+            <AddToOtherList details={details} showModal={onHandleShowModal} />
           </div>
         )}
         <Link
