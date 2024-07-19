@@ -10,21 +10,31 @@ import { handleFilterLists, handleWhatListToShow } from './helper';
 const DB = new ConnectDB();
 
 export default function CardsInfoContainer({ title, data = [], style }) {
-  const user = useStateStore((state) => state.user);
+  const { user } = useStateStore();
+  const { showModal } = useStateStore();
+  const { updateShowModal } = useStateStore();
+  const { addItemInList } = useStateStore();
   const [itemToAddToList, setItemToAddToList] = useState(null);
   const [listsItemIsIn, setListsItemIsIn] = useState(null);
-  const showModalState = useStateStore((state) => state.showModal);
+  const [itemDetails, setItemDetails] = useState({});
 
-  function handleShowModal(itemDetails, itemLists) {
+  function handleShowModal(itemDetails, itemLists, details) {
     setItemToAddToList(itemDetails);
     setListsItemIsIn(itemLists);
+    setItemDetails(details);
   }
 
-  function handleAddToList(itemDetails, defaultListName = 'favorites') {
-    const favListID = user.lists.filter(
-      (list) => list.listName === defaultListName
+  async function handleAddToList(itemDetails, listName = 'favorites') {
+    const favListID = user.lists.filter((list) => list.listName === listName);
+    const response = await DB.updateFirestoreDocInArray(
+      ['lists', favListID[0].listID],
+      itemDetails
     );
-    DB.updateFirestoreDocInArray(['lists', favListID[0].listID], itemDetails);
+
+    if (response.status === 200) {
+      addItemInList([{ movieID: itemDetails.id, listName: listName }]);
+      updateShowModal(false);
+    }
   }
 
   return (
@@ -47,17 +57,16 @@ export default function CardsInfoContainer({ title, data = [], style }) {
         })}
       </div>
 
-      {showModalState && (
+      {showModal && (
         <Modal>
           <ul className="gap-4 p-4 center-col">
-            {handleWhatListToShow(
-              handleFilterLists(user.lists),
-              listsItemIsIn
-            ).map((list) => {
+            {handleFilterLists(user.lists).map((list) => {
               return (
                 <ListCardInline
                   list={list}
                   key={list.listID}
+                  details={itemDetails}
+                  isInList={handleWhatListToShow(listsItemIsIn, list.listName)}
                   onAddToCustomList={() => {
                     handleAddToList(itemToAddToList, list.listName);
                   }}

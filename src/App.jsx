@@ -6,6 +6,7 @@ import { useStateStore } from 'utils/services/state/State';
 import Header from 'components/header/header';
 import Footer from 'components/footer/footer';
 import useFetch from 'utils/hooks/useFetch';
+import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
 
 function App() {
   const { user, authIsLoading, userAuthToken } = useAuthCheck();
@@ -16,7 +17,7 @@ function App() {
   const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
   const showModalState = useStateStore((state) => state.showModal);
 
-  const updateItemsInAList = useStateStore((state) => state.updateItemsInAList);
+  const { addItemInList } = useStateStore();
   const { response, fetchData } = useFetch({
     url: process.env.REACT_APP_FIREBASE_GET_ITEM_IDS,
     shouldFetch: true,
@@ -28,11 +29,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (response) {
-      updateItemsInAList(response);
-      console.log(response);
+    if (response && response.response) {
+      addItemInList(response.response);
     }
-  }, [response, updateItemsInAList]);
+  }, [response, addItemInList]);
 
   useEffect(() => {
     if (!authIsLoading) {
@@ -60,7 +60,7 @@ function App() {
 
   if (authIsLoading) {
     // Render a loading indicator or skeleton while authentication state is loading
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return (

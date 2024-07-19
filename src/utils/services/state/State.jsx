@@ -8,7 +8,7 @@ export const useStateStore = create((set) => ({
   genres: [],
   showModal: false,
   itemToAddInDB: {},
-  itemsInAList: [],
+  itemsInList: [],
 
   initState: () => set({ isLoggedIn: false }),
 
@@ -28,6 +28,16 @@ export const useStateStore = create((set) => ({
   updateItemToAddInDB: (itemToAddInDB) =>
     set(() => ({ itemToAddInDB: itemToAddInDB })),
 
-  updateItemsInAList: (itemsInAList) =>
-    set(() => ({ itemsInAList: itemsInAList })),
+  addItemInList: (newItem) =>
+    set((state) => ({ itemsInList: [...state.itemsInList, ...newItem] })),
+
+  removeItemFromList: (itemToRemove, listName) =>
+    set((state) => ({
+      itemsInList: state.itemsInList.filter((item) => {
+        if (item.movieID !== itemToRemove.id || item.listName !== listName) {
+          return true;
+        }
+        return false;
+      }),
+    })),
 }));

@@ -10,14 +10,7 @@ export function handleFilterLists(listArray) {
   });
 }
 
-export function handleWhatListToShow(filteredLists, listsItemIsIn) {
-  for (let i = 0; i < listsItemIsIn.length; i++) {
-    for (let j = 0; j < filteredLists.length; j++) {
-      if (listsItemIsIn[i].listName === filteredLists[j].listName) {
-        filteredLists[j].hasMovie = true;
-      }
-    }
-  }
-
-  return filteredLists;
+export function handleWhatListToShow(itemLists, currentListName) {
+  console.log(itemLists);
+  return itemLists.some((list) => list.listName === currentListName);
 }

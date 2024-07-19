@@ -4,22 +4,24 @@ import useFetch from 'utils/hooks/useFetch';
 import { useStateStore } from 'utils/services/state/State';
 
 export default function AddToFavorites({ details }) {
-  const itemsInAList = useStateStore((state) => state.itemsInAList);
-  const updateItemsInAList = useStateStore((state) => state.updateItemsInAList);
+  const { itemsInList } = useStateStore();
+  const { addItemInList, removeItemFromList } = useStateStore();
   const [isFavorite, setIsFavorite] = useState(false);
 
   const { response, fetchData } = useFetch({
     body: { listName: 'favorites', data: details },
   });
 
-  function handleAddToFavorites() {
+  function addToFavorites() {
     fetchData(process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST, 'POST');
     setIsFavorite(true);
+    addItemInList([{ movieID: details.id, listName: 'favorites' }]);
   }
 
   function removeFromFavorites() {
     fetchData(process.env.REACT_APP_FIREBASE_RMV_ITEM_TO_LIST, 'DELETE');
     setIsFavorite(false);
+    removeItemFromList(details, 'favorites');
   }
 
   useEffect(() => {
@@ -28,20 +30,16 @@ export default function AddToFavorites({ details }) {
     }
   }, [response]);
 
-  // handle what type of icon to shoe for favorites
-  function handleMovieAlreadyInFavorites(movieID) {
-    const itemInFavorites = itemsInAList.some(
-      (item) => item.movieID === movieID && item.listName === 'favorites'
-    );
-    console.log(itemInFavorites);
-    setIsFavorite(itemInFavorites);
-  }
-
   useEffect(() => {
-    if (itemsInAList.length > 0) {
-      handleMovieAlreadyInFavorites(details.id);
-    }
-  }, [itemsInAList]);
+    const itemInList = itemsInList.some((item) => {
+      if (item.movieID === details.id && item.listName === 'favorites') {
+        return true;
+      }
+      return false;
+    });
+
+    setIsFavorite(itemInList);
+  }, [details.id, itemsInList]);
 
   return (
     <span>
@@ -52,7 +50,7 @@ export default function AddToFavorites({ details }) {
       )}
 
       {!isFavorite && (
-        <div onClick={handleAddToFavorites}>
+        <div onClick={addToFavorites}>
           <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
         </div>
       )}

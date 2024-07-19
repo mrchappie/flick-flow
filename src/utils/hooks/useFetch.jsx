@@ -22,6 +22,7 @@ export default function useFetch({
     };
     if (body) {
       opts.body = JSON.stringify(body);
+      // console.log(body);
     }
     return opts;
   }, [method, body, userAuthToken]);
@@ -33,7 +34,7 @@ export default function useFetch({
         if (customMethod) {
           options.method = customMethod;
         }
-        console.log(options);
+
         const data = await fetch(customURL, options);
 
         if (!data.ok) throw new Error(data.statusText);

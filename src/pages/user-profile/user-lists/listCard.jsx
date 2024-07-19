@@ -1,6 +1,7 @@
 import { HiOutlineTrash } from 'react-icons/hi';
-import { HiCheckCircle } from 'react-icons/hi2';
+import { HiXMark } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
+import useFetch from 'utils/hooks/useFetch';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 const DB = new ConnectDB();
@@ -33,21 +34,43 @@ export function ListCardBlock({ list, removeList }) {
         key={list.listID}
         className="w-[200px] h-[200px] center"
       >
-        {list.listName}
+        {formatListName(list.listName)}
       </Link>
     </li>
   );
 }
 
-export function ListCardInline({ list, onAddToCustomList }) {
+export function ListCardInline({ list, onAddToCustomList, isInList, details }) {
+  const { fetchData } = useFetch({
+    body: { listName: list.listName, data: details },
+  });
+  const { removeItemFromList } = useStateStore();
+
+  function removeFromFavorites() {
+    fetchData(process.env.REACT_APP_FIREBASE_RMV_ITEM_TO_LIST, 'DELETE');
+    removeItemFromList(details, list.listName);
+  }
+
   return (
     <li
       onClick={onAddToCustomList}
       key={list.listID}
-      className="relative w-full py-2 text-xl font-bold text-white bg-gray-500 border-2 rounded-lg cursor-pointer center"
+      className="relative w-full py-2 text-xl font-bold text-white transition-transform bg-gray-500 border-2 rounded-lg cursor-pointer center hover:scale-95"
     >
-      {list.listName}
-      {list.hasMovie && <HiCheckCircle />}
+      {formatListName(list.listName)}
+      {isInList && (
+        <div
+          onClick={removeFromFavorites}
+          className="p-2 text-black bg-white rounded-lg"
+        >
+          <HiXMark />
+        </div>
+      )}
     </li>
   );
+}
+
+function formatListName(listName) {
+  const trimedName = listName.replaceAll('_', ' ');
+  return trimedName.slice(0, 1).toUpperCase() + trimedName.slice(1);
 }

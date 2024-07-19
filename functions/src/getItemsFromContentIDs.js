@@ -4,15 +4,23 @@ const { DB } = require('./utils/initialize');
 
 const getItemsFromContentIDs = onRequest({ cors: true }, async (req, res) => {
   if (req.method !== 'GET') {
-    res.status(405).send('Method not allowed');
+    res.status(405).json({ message: 'Method not allowed', status: 405 });
     return;
   }
   authUser(req, res, async () => {
     try {
       const userID = req.user.uid;
+      if (!userID) {
+        return res.status(401).json({ message: 'Unauthorized', status: 401 });
+      }
       const movieListSnapshot = await DB.collection('lists')
         .where('userID', '==', userID)
         .get();
+
+      if (movieListSnapshot.empty) {
+        res.status(404).json({ message: 'Lists not found!', status: 401 });
+      }
+
       const movieIds = [];
       movieListSnapshot.forEach((doc) => {
         const movieList = doc.data();
@@ -28,10 +36,14 @@ const getItemsFromContentIDs = onRequest({ cors: true }, async (req, res) => {
         }
       });
 
-      res.status(200).json(movieIds);
+      res.status(200).json({ response: movieIds, status: 200 });
     } catch (error) {
       console.log(error);
-      res.status(500).send('Error getting movie IDs');
+      res.status(500).send({
+        error: 'Something went wrong',
+        details: error,
+        status: 500,
+      });
     }
   });
 });

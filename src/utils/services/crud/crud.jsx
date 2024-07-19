@@ -82,6 +82,8 @@ class ConnectDB {
       await updateDoc(docRef, {
         content: arrayUnion(data),
       });
+
+      return { response: 'Item was added', status: 200 };
     } catch (error) {
       console.log(error);
     }

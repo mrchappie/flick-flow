@@ -5,14 +5,14 @@ const authUser = require('./utils/authUser');
 
 const addItemToList = onRequest({ cors: true }, async (req, res) => {
   if (req.method !== 'POST') {
-    res.status(405).send('Method not allowed');
+    res.status(405).json({ message: 'Method not allowed', status: 405 });
     return;
   }
   authUser(req, res, async () => {
     try {
       const userID = req.user.uid;
       if (!userID) {
-        return res.status(401).json({ message: 'Unauthorized' });
+        return res.status(401).json({ message: 'Unauthorized', status: 401 });
       }
 
       const bodyData = JSON.parse(req.body);
@@ -20,7 +20,7 @@ const addItemToList = onRequest({ cors: true }, async (req, res) => {
       if (isObjectEmpty(bodyData)) {
         return res
           .status(401)
-          .json({ message: 'Please provide data to delete' });
+          .json({ message: 'Please provide data to delete', status: 401 });
       }
 
       const { listName, data: itemToAdd } = bodyData;
@@ -30,7 +30,7 @@ const addItemToList = onRequest({ cors: true }, async (req, res) => {
         .get();
 
       if (snapshot.empty) {
-        res.status(404).send('List not found!');
+        res.status(404).json({ message: 'List not found!', status: 401 });
       }
 
       snapshot.forEach((doc) => {
@@ -39,12 +39,15 @@ const addItemToList = onRequest({ cors: true }, async (req, res) => {
         });
       });
 
-      res.status(200).send({ message: 'Item was added successfully!' });
+      res
+        .status(200)
+        .json({ message: 'Item was added successfully!', status: 200 });
     } catch (error) {
       console.log(error);
       res.status(500).send({
         error: 'Something went wrong',
         details: error,
+        status: 500,
       });
     }
   });
