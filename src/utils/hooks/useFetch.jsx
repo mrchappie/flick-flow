@@ -10,7 +10,7 @@ export default function useFetch({
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const userAuthToken = useStateStore((state) => state.userAuthToken);
+  const { userAuthToken } = useStateStore();
 
   const options = useMemo(() => {
     const opts = {
@@ -22,18 +22,19 @@ export default function useFetch({
     };
     if (body) {
       opts.body = JSON.stringify(body);
-      // console.log(body);
     }
     return opts;
   }, [method, body, userAuthToken]);
 
   const fetchData = useCallback(
-    async (customURL = url, customMethod) => {
+    async (customURL = url, customMethod, customBody = body) => {
       setLoading(true);
       try {
         if (customMethod) {
           options.method = customMethod;
         }
+
+        options.body = customBody;
 
         const data = await fetch(customURL, options);
 
@@ -47,10 +48,11 @@ export default function useFetch({
         setLoading(false);
       }
     },
-    [url, options]
+    [url, options, body]
   );
 
   useEffect(() => {
+    console.log(shouldFetch);
     if (shouldFetch) {
       fetchData();
     }

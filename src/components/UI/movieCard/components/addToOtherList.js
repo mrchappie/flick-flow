@@ -32,12 +32,11 @@ export default function AddToOtherList({ details, showModal }) {
       onClick={() => {
         openListsModal(details, () => {});
       }}
+      className="hover:scale-125"
     >
-      {isInList && (
-        <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-      )}
+      {isInList && <HiBookmark className="text-[30px] text-yellow-500" />}
       {!isInList && (
-        <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+        <HiOutlineBookmark className="text-[30px] text-yellow-500" />
       )}
     </span>
   );

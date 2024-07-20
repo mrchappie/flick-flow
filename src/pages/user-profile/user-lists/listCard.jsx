@@ -55,13 +55,16 @@ export function ListCardInline({ list, onAddToCustomList, isInList, details }) {
     <li
       onClick={onAddToCustomList}
       key={list.listID}
-      className="relative w-full py-2 text-xl font-bold text-white transition-transform bg-gray-500 border-2 rounded-lg cursor-pointer center hover:scale-95"
+      className={`relative w-full py-2 text-xl font-bold text-white transition-transform bg-gray-500 border-2 rounded-lg cursor-pointer center ${
+        !isInList ? 'hover:scale-95' : ''
+      }`}
+      style={{ borderColor: isInList ? 'green' : '' }}
     >
       {formatListName(list.listName)}
       {isInList && (
         <div
           onClick={removeFromFavorites}
-          className="p-2 text-black bg-white rounded-lg"
+          className="p-2 text-black bg-white rounded-lg hover:scale-125"
         >
           <HiXMark />
         </div>

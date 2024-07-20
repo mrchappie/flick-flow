@@ -10,17 +10,16 @@ import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
 
 function App() {
   const { user, authIsLoading, userAuthToken } = useAuthCheck();
-  const updateUser = useStateStore((state) => state.updateUser);
-  const updateUserAuthToken = useStateStore(
-    (state) => state.updateUserAuthToken
-  );
-  const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
-  const showModalState = useStateStore((state) => state.showModal);
+  const { updateUser } = useStateStore();
+  const { updateUserAuthToken } = useStateStore();
+  const { isLoggedIn } = useStateStore();
+  const { updateIsLoggedIn } = useStateStore();
+  const { showModalState } = useStateStore();
 
   const { addItemInList } = useStateStore();
   const { response, fetchData } = useFetch({
     url: process.env.REACT_APP_FIREBASE_GET_ITEM_IDS,
-    shouldFetch: true,
+    shouldFetch: isLoggedIn,
   });
 
   // fetch item IDs from user lists

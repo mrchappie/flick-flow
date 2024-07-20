@@ -1,65 +1,15 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Field, Form, Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import useFetch from 'utils/hooks/useFetch';
 import { createUser } from 'utils/services/auth/Auth';
-import ConnectDB from 'utils/services/crud/crud';
-import { v4 as uuid } from 'uuid';
+import { useStateStore } from 'utils/services/state/State';
 
 export default function Register() {
-  const DB = new ConnectDB();
-
-  async function initUserData(user) {
-    const favListID = uuid();
-    const watchListID = uuid();
-    const historyListID = uuid();
-
-    const listData = {
-      userID: user.uid,
-      createdAt: new Date().getTime(),
-      updatedAt: null,
-      content: [],
-    };
-
-    // init user object in DB
-    await DB.setFirestoreDoc(['users', user.uid], {
-      uid: user.uid,
-      username: null,
-      email: user.email,
-      genres: [],
-      lists: [
-        {
-          listID: favListID,
-          listName: 'favorites',
-        },
-        {
-          listID: watchListID,
-          listName: 'watchlist',
-        },
-        {
-          listID: historyListID,
-          listName: 'history',
-        },
-      ],
-    });
-
-    // init user default lists in DB
-    await DB.setFirestoreDoc(['lists', favListID], {
-      ...listData,
-      name: 'favorites',
-      listID: favListID,
-    });
-
-    await DB.setFirestoreDoc(['lists', watchListID], {
-      ...listData,
-      name: 'watchlist',
-      listID: watchListID,
-    });
-
-    await DB.setFirestoreDoc(['lists', historyListID], {
-      ...listData,
-      name: 'history',
-      listID: historyListID,
-    });
-  }
+  const navigate = useNavigate();
+  const { fetchData } = useFetch({});
+  const { updateUserAuthToken } = useStateStore();
+  const { userAuthToken } = useStateStore();
 
   async function handleRegister(formData) {
     try {
@@ -67,10 +17,17 @@ export default function Register() {
       const userCredentials = await createUser(formData);
       const user = userCredentials.user;
 
-      if (user) {
-        initUserData(user);
-      }
       console.log(user);
+      updateUserAuthToken(user.accessToken);
+      if (user) {
+        console.log(userAuthToken);
+        fetchData(process.env.REACT_APP_FIREBASE_INIT_USER, 'POST', {
+          data: { email: user.email, username: null },
+        });
+
+        // redirect to homepage
+        navigate('/home');
+      }
       return user;
     } catch (error) {
       console.log(error);

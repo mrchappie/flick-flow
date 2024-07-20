@@ -5,7 +5,7 @@ import useAuthCheck from 'utils/hooks/useAuthCheck';
 function AnonymousRoute({ children, redirectTo }) {
   const navigate = useNavigate();
   const { user, authIsLoading } = useAuthCheck();
-
+  console.log(user, authIsLoading);
   useEffect(() => {
     if (!authIsLoading) {
       // if auth state is not loading

@@ -45,13 +45,13 @@ export default function AddToFavorites({ details }) {
     <span>
       {isFavorite && (
         <div onClick={removeFromFavorites}>
-          <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
+          <HiHeart className="text-[30px] text-red-500" />
         </div>
       )}
 
       {!isFavorite && (
         <div onClick={addToFavorites}>
-          <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
+          <HiOutlineHeart className="text-[30px] text-red-500" />
         </div>
       )}
     </span>

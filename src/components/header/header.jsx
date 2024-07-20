@@ -8,9 +8,9 @@ import { AnimatePresence, motion as m } from 'framer-motion';
 import { HiMiniChevronDown } from 'react-icons/hi2';
 
 export default function Header() {
-  const isLoggedIn = useStateStore((state) => state.isLoggedIn);
-  const user = useStateStore((state) => state.user);
-  const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
+  const { isLoggedIn } = useStateStore();
+  const { user } = useStateStore();
+  const { updateIsLoggedIn } = useStateStore();
 
   const [toggleMenu, setToggleMenu] = useState(false);
   function handleShowMenu() {

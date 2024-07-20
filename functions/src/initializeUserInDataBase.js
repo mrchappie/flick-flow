@@ -1,12 +1,14 @@
 const { onRequest } = require('firebase-functions/v2/https');
 const { DB, isObjectEmpty } = require('./utils/initialize');
 const authUser = require('./utils/authUser');
+const { v4: uuid } = require('uuid');
 
-const addItemToList = onRequest({ cors: true }, async (req, res) => {
+const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ message: 'Method not allowed', status: 405 });
     return;
   }
+
   authUser(req, res, async () => {
     try {
       const userID = req.user.uid;
@@ -15,7 +17,7 @@ const addItemToList = onRequest({ cors: true }, async (req, res) => {
       }
 
       const bodyData = JSON.parse(req.body);
-      const { listName, data: itemToAdd, itemType } = bodyData;
+      const { data: userData } = bodyData;
 
       if (isObjectEmpty(bodyData)) {
         return res
@@ -23,25 +25,36 @@ const addItemToList = onRequest({ cors: true }, async (req, res) => {
           .json({ message: 'Please provide data to delete', status: 401 });
       }
 
-      const snapshot = await DB.collection('lists')
-        .where('userID', '==', userID)
-        .where('name', '==', listName)
-        .get();
+      const listData = {
+        userID: userID,
+        createdAt: new Date().getTime(),
+        updatedAt: null,
+      };
 
-      if (snapshot.empty) {
-        return res
-          .status(404)
-          .json({ message: 'List not found!', status: 401 });
-      }
+      const lists = ['favorites', 'watchlist', 'history'].map((listName) => ({
+        listID: uuid(),
+        listName,
+      }));
 
-      const updatePromises = [];
-      snapshot.forEach((doc) => {
-        updatePromises.push(
-          doc.ref.collection(itemType).doc(`${itemToAdd.id}`).set(itemToAdd)
-        );
-      });
+      const createUserObject = DB.collection('users')
+        .doc(userID)
+        .set({
+          ...userData,
+          genres: [],
+          lists: lists.map(({ listID, listName }) => ({ listID, listName })),
+        });
 
-      await Promise.all(updatePromises);
+      const createLists = lists.map(({ listID, listName }) =>
+        DB.collection('lists')
+          .doc(listID)
+          .set({
+            ...listData,
+            name: listName,
+            listID,
+          })
+      );
+
+      await Promise.all([createUserObject, ...createLists]);
 
       return res
         .status(200)
@@ -57,4 +70,4 @@ const addItemToList = onRequest({ cors: true }, async (req, res) => {
   });
 });
 
-module.exports = addItemToList;
+module.exports = initializeUserInDataBase;

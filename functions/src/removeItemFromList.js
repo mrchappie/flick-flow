@@ -1,4 +1,3 @@
-const { FieldValue } = require('firebase-admin/firestore');
 const { onRequest } = require('firebase-functions/v2/https');
 const { DB, isObjectEmpty } = require('./utils/initialize');
 const authUser = require('./utils/authUser');
@@ -16,6 +15,7 @@ const removeItemFromList = onRequest({ cors: true }, async (req, res) => {
       }
 
       const bodyData = JSON.parse(req.body);
+      const { listName, data: itemToRemove, itemType } = bodyData;
 
       if (isObjectEmpty(bodyData)) {
         return res
@@ -23,28 +23,35 @@ const removeItemFromList = onRequest({ cors: true }, async (req, res) => {
           .json({ message: 'Please provide data to delete', status: 401 });
       }
 
-      const { listName, data: itemToRemove } = bodyData;
       const snapshot = await DB.collection('lists')
         .where('userID', '==', userID)
         .where('name', '==', listName)
         .get();
 
       if (snapshot.empty) {
-        res.status(404).json({ message: 'List not found!', status: 404 });
+        return res
+          .status(404)
+          .json({ message: 'List not found!', status: 404 });
       }
 
+      const updatePromises = [];
       snapshot.forEach((doc) => {
-        doc.ref.update({
-          content: FieldValue.arrayRemove(itemToRemove),
-        });
+        updatePromises.push(
+          doc.ref
+            .collection(itemType)
+            .doc(`${itemToRemove.id}`)
+            .delete(itemToRemove)
+        );
       });
 
-      res
+      await Promise.all(updatePromises);
+
+      return res
         .status(200)
         .send({ message: 'Item was deleted successfully!', status: 200 });
     } catch (error) {
       console.log(error);
-      res.status(500).send({
+      return res.status(500).send({
         error: 'Something went wrong',
         details: error,
         status: 500,
