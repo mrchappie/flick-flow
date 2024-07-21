@@ -92,7 +92,6 @@ class ConnectDB {
   async deleteFirestoreDocFromArray(docPath, data) {
     try {
       const docRef = doc(firestore, ...docPath);
-      console.log(data);
       await updateDoc(docRef, {
         lists: arrayRemove(data),
       });
@@ -119,9 +118,8 @@ class ConnectDB {
       userID: uid,
       createdAt: new Date().getTime(),
       updatedAt: null,
-      content: [],
       listID,
-      listName,
+      name: listName,
     };
 
     try {
