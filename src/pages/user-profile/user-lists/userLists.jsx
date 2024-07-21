@@ -38,7 +38,7 @@ export default function UserLists() {
   // add new list to DB
   async function handleSubmit(formValues) {
     const list = await DB.createNewList({
-      uid: userData.uid,
+      uid: userData.userID,
       listName: formValues.listName,
     });
 

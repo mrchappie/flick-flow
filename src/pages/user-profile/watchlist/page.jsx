@@ -16,7 +16,7 @@ export default function WatchList() {
       const DB = new ConnectDB();
       try {
         const fetchedData = await DB.getFirestoreDocs([
-          userData.uid,
+          userData.userID,
           'watchlist',
         ]);
         setComponentData({

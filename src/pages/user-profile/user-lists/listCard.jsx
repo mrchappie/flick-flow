@@ -10,7 +10,7 @@ export function ListCardBlock({ list, removeList }) {
 
   async function handleListDeletion(list) {
     try {
-      await DB.deleteList({ uid: userData.uid, list });
+      await DB.deleteList({ uid: userData.userID, list });
 
       removeList(list);
     } catch (error) {

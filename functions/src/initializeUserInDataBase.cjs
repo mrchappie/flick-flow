@@ -41,6 +41,7 @@ const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
         .set({
           ...userData,
           genres: [],
+          uid: userID,
           lists: lists.map(({ listID, listName }) => ({ listID, listName })),
         });
 
