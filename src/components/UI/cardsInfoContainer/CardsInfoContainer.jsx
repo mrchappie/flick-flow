@@ -3,7 +3,7 @@ import Heading from '../heading/heading';
 import Modal from '../modal/modal';
 import MovieCard from '../movieCard/movieCard';
 import { ListCardInline } from 'pages/user-profile/user-lists/listCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { handleFilterLists, handleWhatListToShow } from './helper';
 import useFetch from 'utils/hooks/useFetch';
 import { checkMediaType } from '../movieCard/components/helper';
@@ -55,6 +55,12 @@ export default function CardsInfoContainer({ title, data = [], style }) {
     setItemDetails(itemDetails);
   }
 
+  useEffect(() => {
+    if (response) {
+      console.log(response);
+    }
+  }, [response]);
+
   return (
     <section className="w-full col-span-full center-col">
       {title && (
@@ -87,7 +93,8 @@ export default function CardsInfoContainer({ title, data = [], style }) {
                   onAddToCustomList={() => {
                     addToList(list.listName);
                   }}
-                  onRmvFromCustomList={() => {
+                  onRmvFromCustomList={(event) => {
+                    event.stopPropagation();
                     removeFromList(list.listName);
                   }}
                 />

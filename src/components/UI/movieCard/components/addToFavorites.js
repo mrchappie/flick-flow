@@ -18,7 +18,6 @@ export default function AddToFavorites({ details }) {
   });
 
   function addToFavorites() {
-    console.log(details);
     fetchData({
       customURL: process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST,
       customMethod: 'POST',
@@ -29,7 +28,7 @@ export default function AddToFavorites({ details }) {
 
   function removeFromFavorites() {
     fetchData({
-      customURL: process.env.REACT_APP_FIREBASE_RMV_ITEM_TO_LIST,
+      customURL: process.env.REACT_APP_FIREBASE_RMV_ITEM_FROM_LIST,
       customMethod: 'DELETE',
     });
     setIsFavorite(false);
