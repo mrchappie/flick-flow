@@ -1,7 +1,6 @@
 import { HiOutlineTrash } from 'react-icons/hi';
 import { HiXMark } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
-import useFetch from 'utils/hooks/useFetch';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 const DB = new ConnectDB();
@@ -40,20 +39,12 @@ export function ListCardBlock({ list, removeList }) {
   );
 }
 
-export function ListCardInline({ list, onAddToCustomList, isInList, details }) {
-  const { fetchData } = useFetch({
-    body: { listName: list.listName, data: details },
-  });
-  const { removeItemFromList } = useStateStore();
-
-  function removeFromFavorites() {
-    fetchData({
-      customURL: process.env.REACT_APP_FIREBASE_RMV_ITEM_TO_LIST,
-      customMethod: 'DELETE',
-    });
-    removeItemFromList(details, list.listName);
-  }
-
+export function ListCardInline({
+  list,
+  onAddToCustomList,
+  onRmvFromCustomList,
+  isInList,
+}) {
   return (
     <li
       onClick={onAddToCustomList}
@@ -66,7 +57,7 @@ export function ListCardInline({ list, onAddToCustomList, isInList, details }) {
       {formatListName(list.listName)}
       {isInList && (
         <div
-          onClick={removeFromFavorites}
+          onClick={onRmvFromCustomList}
           className="p-2 text-black bg-white rounded-lg hover:scale-125"
         >
           <HiXMark />

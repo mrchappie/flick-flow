@@ -25,18 +25,21 @@ export default function useFetch({
     }
     return opts;
   }, [method, body, userAuthToken]);
-
   const fetchData = useCallback(
     async ({
       customURL = url,
       customMethod = options.method,
-      customBody = options.body,
+      customBody,
       customHeaders = options.headers,
     }) => {
       setLoading(true);
       try {
         options.method = customMethod;
-        options.body = JSON.stringify(customBody);
+
+        if (customBody) {
+          options.body = JSON.stringify(customBody);
+        }
+
         options.headers = { ...options.headers, ...customHeaders };
 
         const data = await fetch(customURL, options);
@@ -55,7 +58,6 @@ export default function useFetch({
   );
 
   useEffect(() => {
-    console.log(shouldFetch);
     if (shouldFetch) {
       fetchData({});
     }

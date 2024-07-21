@@ -3,38 +3,56 @@ import Heading from '../heading/heading';
 import Modal from '../modal/modal';
 import MovieCard from '../movieCard/movieCard';
 import { ListCardInline } from 'pages/user-profile/user-lists/listCard';
-import ConnectDB from 'utils/services/crud/crud';
 import { useState } from 'react';
 import { handleFilterLists, handleWhatListToShow } from './helper';
-
-const DB = new ConnectDB();
+import useFetch from 'utils/hooks/useFetch';
+import { checkMediaType } from '../movieCard/components/helper';
 
 export default function CardsInfoContainer({ title, data = [], style }) {
   const { userData } = useStateStore();
   const { showModal } = useStateStore();
   const { updateShowModal } = useStateStore();
-  const { addItemInList } = useStateStore();
+  const { addItemInList, removeItemFromList } = useStateStore();
   const [listsItemIsIn, setListsItemIsIn] = useState(null);
   const [itemDetails, setItemDetails] = useState({});
+
+  const { response, fetchData } = useFetch({});
+
+  function addToList(listName) {
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST,
+      customMethod: 'POST',
+      customBody: {
+        listName: listName,
+        data: itemDetails,
+        itemType: checkMediaType(itemDetails),
+      },
+    });
+    // if (response.status === 200) {
+    addItemInList([{ movieID: itemDetails.id, listName: listName }]);
+    updateShowModal(false);
+    // }
+  }
+
+  function removeFromList(listName) {
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_RMV_ITEM_FROM_LIST,
+      customMethod: 'DELETE',
+      customBody: {
+        listName: listName,
+        data: itemDetails,
+        itemType: checkMediaType(itemDetails),
+      },
+    });
+    // if (response.status === 200) {
+    removeItemFromList(itemDetails, listName);
+    updateShowModal(false);
+    // }
+  }
 
   function handleShowModal(itemDetails, itemLists) {
     setListsItemIsIn(itemLists);
     setItemDetails(itemDetails);
-  }
-
-  async function handleAddToList(itemDetails, listName = 'favorites') {
-    const favListID = userData.lists.filter(
-      (list) => list.listName === listName
-    );
-    const response = await DB.updateFirestoreDocInArray(
-      ['lists', favListID[0].listID],
-      itemDetails
-    );
-
-    if (response.status === 200) {
-      addItemInList([{ movieID: itemDetails.id, listName: listName }]);
-      updateShowModal(false);
-    }
   }
 
   return (
@@ -65,10 +83,12 @@ export default function CardsInfoContainer({ title, data = [], style }) {
                 <ListCardInline
                   list={list}
                   key={list.listID}
-                  details={itemDetails}
                   isInList={handleWhatListToShow(listsItemIsIn, list.listName)}
                   onAddToCustomList={() => {
-                    handleAddToList(itemDetails, list.listName);
+                    addToList(list.listName);
+                  }}
+                  onRmvFromCustomList={() => {
+                    removeFromList(list.listName);
                   }}
                 />
               );

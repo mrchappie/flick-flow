@@ -1,9 +1,9 @@
 const { onRequest } = require('firebase-functions/v2/https');
-const { DB, isObjectEmpty } = require('./utils/initialize');
-const authUser = require('./utils/authUser');
+const { DB, isObjectEmpty } = require('./utils/initialize.cjs');
+const authUser = require('./utils/authUser.cjs');
 
-const removeItemFromList = onRequest({ cors: true }, async (req, res) => {
-  if (req.method !== 'DELETE') {
+const addItemToList = onRequest({ cors: true }, async (req, res) => {
+  if (req.method !== 'POST') {
     res.status(405).json({ message: 'Method not allowed', status: 405 });
     return;
   }
@@ -15,7 +15,7 @@ const removeItemFromList = onRequest({ cors: true }, async (req, res) => {
       }
 
       const bodyData = JSON.parse(req.body);
-      const { listName, data: itemToRemove, itemType } = bodyData;
+      const { listName, data: itemToAdd, itemType } = bodyData;
 
       if (isObjectEmpty(bodyData)) {
         return res
@@ -31,16 +31,13 @@ const removeItemFromList = onRequest({ cors: true }, async (req, res) => {
       if (snapshot.empty) {
         return res
           .status(404)
-          .json({ message: 'List not found!', status: 404 });
+          .json({ message: 'List not found!', status: 401 });
       }
 
       const updatePromises = [];
       snapshot.forEach((doc) => {
         updatePromises.push(
-          doc.ref
-            .collection(itemType)
-            .doc(`${itemToRemove.id}`)
-            .delete(itemToRemove)
+          doc.ref.collection(itemType).doc(`${itemToAdd.id}`).set(itemToAdd)
         );
       });
 
@@ -48,7 +45,7 @@ const removeItemFromList = onRequest({ cors: true }, async (req, res) => {
 
       return res
         .status(200)
-        .send({ message: 'Item was deleted successfully!', status: 200 });
+        .json({ message: 'Item was added successfully!', status: 200 });
     } catch (error) {
       console.log(error);
       return res.status(500).send({
@@ -60,4 +57,4 @@ const removeItemFromList = onRequest({ cors: true }, async (req, res) => {
   });
 });
 
-module.exports = removeItemFromList;
+module.exports = addItemToList;

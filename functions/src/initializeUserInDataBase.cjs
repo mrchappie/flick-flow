@@ -1,6 +1,6 @@
 const { onRequest } = require('firebase-functions/v2/https');
-const { DB, isObjectEmpty } = require('./utils/initialize');
-const authUser = require('./utils/authUser');
+const { DB, isObjectEmpty } = require('./utils/initialize.cjs');
+const authUser = require('./utils/authUser.cjs');
 const { v4: uuid } = require('uuid');
 
 const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {

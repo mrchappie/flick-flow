@@ -1,6 +1,6 @@
 const { onRequest } = require('firebase-functions/v2/https');
-const authUser = require('./utils/authUser');
-const { DB } = require('./utils/initialize');
+const authUser = require('./utils/authUser.cjs');
+const { DB } = require('./utils/initialize.cjs');
 
 const getItemsFromContentIDs = onRequest({ cors: true }, async (req, res) => {
   if (req.method !== 'GET') {

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi2';
 import useFetch from 'utils/hooks/useFetch';
 import { useStateStore } from 'utils/services/state/State';
+import { checkMediaType } from './helper';
 
 export default function AddToFavorites({ details }) {
   const { itemsInList } = useStateStore();
@@ -9,10 +10,15 @@ export default function AddToFavorites({ details }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const { response, fetchData } = useFetch({
-    body: { listName: 'favorites', data: details },
+    body: {
+      listName: 'favorites',
+      data: details,
+      itemType: checkMediaType(details),
+    },
   });
 
   function addToFavorites() {
+    console.log(details);
     fetchData({
       customURL: process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST,
       customMethod: 'POST',
@@ -48,7 +54,7 @@ export default function AddToFavorites({ details }) {
   }, [details.id, itemsInList]);
 
   return (
-    <span>
+    <span className="hover:scale-125">
       {isFavorite && (
         <div onClick={removeFromFavorites}>
           <HiHeart className="text-[30px] text-red-500" />

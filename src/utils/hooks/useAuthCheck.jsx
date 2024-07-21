@@ -18,7 +18,7 @@ export default function useAuthCheck() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
-          console.log(user);
+          // console.log(user);
           // if user is logged in, fetch user data
           const userData = await DB.getFirestoreDoc(['users', user.uid]);
           setUser(user);

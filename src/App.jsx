@@ -35,7 +35,6 @@ function App() {
   }, [response, addItemInList]);
 
   useEffect(() => {
-    console.log(user);
     if (!authIsLoading) {
       if (user) {
         updateUser(user);
