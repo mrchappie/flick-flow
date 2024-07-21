@@ -9,8 +9,9 @@ import useFetch from 'utils/hooks/useFetch';
 import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
 
 function App() {
-  const { user, authIsLoading, userAuthToken } = useAuthCheck();
+  const { user, userData, authIsLoading, userAuthToken } = useAuthCheck();
   const { updateUser } = useStateStore();
+  const { updateUserData } = useStateStore();
   const { updateUserAuthToken } = useStateStore();
   const { isLoggedIn } = useStateStore();
   const { updateIsLoggedIn } = useStateStore();
@@ -24,7 +25,7 @@ function App() {
 
   // fetch item IDs from user lists
   useEffect(() => {
-    fetchData();
+    fetchData({});
   }, []);
 
   useEffect(() => {
@@ -34,9 +35,11 @@ function App() {
   }, [response, addItemInList]);
 
   useEffect(() => {
+    console.log(user);
     if (!authIsLoading) {
       if (user) {
         updateUser(user);
+        updateUserData(userData);
         updateUserAuthToken(userAuthToken);
         updateIsLoggedIn(true);
       } else {
@@ -51,6 +54,8 @@ function App() {
     updateIsLoggedIn,
     updateUserAuthToken,
     userAuthToken,
+    updateUserData,
+    userData,
   ]);
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 
 export default function WatchList() {
-  const user = useStateStore((state) => state.user);
+  const { userData } = useStateStore();
 
   const [componentData, setComponentData] = useState({
     title: 'What movie are you watching next?',
@@ -15,7 +15,10 @@ export default function WatchList() {
     async function fetchData() {
       const DB = new ConnectDB();
       try {
-        const fetchedData = await DB.getFirestoreDocs([user.uid, 'watchlist']);
+        const fetchedData = await DB.getFirestoreDocs([
+          userData.uid,
+          'watchlist',
+        ]);
         setComponentData({
           ...componentData,
           data: fetchedData,
@@ -27,10 +30,10 @@ export default function WatchList() {
     }
 
     // because user auth check is async, I check the user to not be null
-    if (user) {
+    if (userData) {
       fetchData();
     }
-  }, [user]);
+  }, [userData]);
 
   return <CardsInfoContainer {...componentData} />;
 }

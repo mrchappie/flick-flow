@@ -7,11 +7,11 @@ import { useStateStore } from 'utils/services/state/State';
 const DB = new ConnectDB();
 
 export function ListCardBlock({ list, removeList }) {
-  const user = useStateStore((state) => state.user);
+  const { userData } = useStateStore();
 
   async function handleListDeletion(list) {
     try {
-      await DB.deleteList({ uid: user.uid, list });
+      await DB.deleteList({ uid: userData.uid, list });
 
       removeList(list);
     } catch (error) {
@@ -47,7 +47,10 @@ export function ListCardInline({ list, onAddToCustomList, isInList, details }) {
   const { removeItemFromList } = useStateStore();
 
   function removeFromFavorites() {
-    fetchData(process.env.REACT_APP_FIREBASE_RMV_ITEM_TO_LIST, 'DELETE');
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_RMV_ITEM_TO_LIST,
+      customMethod: 'DELETE',
+    });
     removeItemFromList(details, list.listName);
   }
 

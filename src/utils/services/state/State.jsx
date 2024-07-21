@@ -4,6 +4,7 @@ export const useStateStore = create((set) => ({
   isLoggedIn: false,
   showPageSpinner: true,
   user: null,
+  userData: null,
   userAuthToken: null,
   genres: [],
   showModal: false,
@@ -18,6 +19,7 @@ export const useStateStore = create((set) => ({
     set(() => ({ showPageSpinner: showPageSpinner })),
 
   updateUser: (user) => set(() => ({ user: user })),
+  updateUserData: (userData) => set(() => ({ userData: userData })),
   updateUserAuthToken: (userAuthToken) =>
     set(() => ({ userAuthToken: userAuthToken })),
 

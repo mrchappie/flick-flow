@@ -7,7 +7,7 @@ import { useStateStore } from 'utils/services/state/State';
 const DB = new ConnectDB();
 
 export default function List() {
-  const user = useStateStore((state) => state.user);
+  const { userData } = useStateStore();
 
   const [searchParams] = useSearchParams();
   const [listID, setListID] = useState(searchParams.get('list_id'));
@@ -36,10 +36,10 @@ export default function List() {
     }
 
     // because user auth check is async, I check the user to not be null
-    if (user) {
+    if (userData) {
       fetchData();
     }
-  }, [listID, user]);
+  }, [listID, userData]);
 
   return <CardsInfoContainer {...componentData} />;
 }

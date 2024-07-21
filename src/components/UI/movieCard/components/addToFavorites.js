@@ -13,13 +13,19 @@ export default function AddToFavorites({ details }) {
   });
 
   function addToFavorites() {
-    fetchData(process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST, 'POST');
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST,
+      customMethod: 'POST',
+    });
     setIsFavorite(true);
     addItemInList([{ movieID: details.id, listName: 'favorites' }]);
   }
 
   function removeFromFavorites() {
-    fetchData(process.env.REACT_APP_FIREBASE_RMV_ITEM_TO_LIST, 'DELETE');
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_RMV_ITEM_TO_LIST,
+      customMethod: 'DELETE',
+    });
     setIsFavorite(false);
     removeItemFromList(details, 'favorites');
   }

@@ -10,29 +10,31 @@ const DB = new ConnectDB();
 
 export default function useAuthCheck() {
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [userAuthToken, setUserAuthToken] = useState(null);
   const [authIsLoading, setAuthIsLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // console.log(user.accessToken);
-        // if user is logged in, fetch user data
-        async function getUserData() {
+        try {
+          console.log(user);
+          // if user is logged in, fetch user data
           const userData = await DB.getFirestoreDoc(['users', user.uid]);
-          setUser(userData);
+          setUser(user);
+          setUserData(userData);
           setUserAuthToken(user.accessToken);
-          setAuthIsLoading(false);
+        } catch (error) {
+          console.log('Failed to fetch the user data:', error);
         }
-        getUserData();
       } else {
         setUser(null);
-        setAuthIsLoading(false);
       }
+      setAuthIsLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
-  return { user, authIsLoading, userAuthToken };
+  return { user, userData, authIsLoading, userAuthToken };
 }

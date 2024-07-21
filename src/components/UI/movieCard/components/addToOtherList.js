@@ -11,7 +11,7 @@ export default function AddToOtherList({ details, showModal }) {
   // open more lists modal
   function openListsModal(itemDetails) {
     updateShowModal(true);
-    showModal(itemDetails, filteredList, details);
+    showModal(itemDetails, filteredList);
   }
 
   // handle which icon to show for more lists
@@ -30,7 +30,7 @@ export default function AddToOtherList({ details, showModal }) {
   return (
     <span
       onClick={() => {
-        openListsModal(details, () => {});
+        openListsModal(details);
       }}
       className="hover:scale-125"
     >

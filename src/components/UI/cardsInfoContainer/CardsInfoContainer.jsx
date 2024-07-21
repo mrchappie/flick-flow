@@ -10,22 +10,22 @@ import { handleFilterLists, handleWhatListToShow } from './helper';
 const DB = new ConnectDB();
 
 export default function CardsInfoContainer({ title, data = [], style }) {
-  const { user } = useStateStore();
+  const { userData } = useStateStore();
   const { showModal } = useStateStore();
   const { updateShowModal } = useStateStore();
   const { addItemInList } = useStateStore();
-  const [itemToAddToList, setItemToAddToList] = useState(null);
   const [listsItemIsIn, setListsItemIsIn] = useState(null);
   const [itemDetails, setItemDetails] = useState({});
 
-  function handleShowModal(itemDetails, itemLists, details) {
-    setItemToAddToList(itemDetails);
+  function handleShowModal(itemDetails, itemLists) {
     setListsItemIsIn(itemLists);
-    setItemDetails(details);
+    setItemDetails(itemDetails);
   }
 
   async function handleAddToList(itemDetails, listName = 'favorites') {
-    const favListID = user.lists.filter((list) => list.listName === listName);
+    const favListID = userData.lists.filter(
+      (list) => list.listName === listName
+    );
     const response = await DB.updateFirestoreDocInArray(
       ['lists', favListID[0].listID],
       itemDetails
@@ -60,7 +60,7 @@ export default function CardsInfoContainer({ title, data = [], style }) {
       {showModal && (
         <Modal>
           <ul className="gap-4 p-4 center-col">
-            {handleFilterLists(user.lists).map((list) => {
+            {handleFilterLists(userData.lists).map((list) => {
               return (
                 <ListCardInline
                   list={list}
@@ -68,7 +68,7 @@ export default function CardsInfoContainer({ title, data = [], style }) {
                   details={itemDetails}
                   isInList={handleWhatListToShow(listsItemIsIn, list.listName)}
                   onAddToCustomList={() => {
-                    handleAddToList(itemToAddToList, list.listName);
+                    handleAddToList(itemDetails, list.listName);
                   }}
                 />
               );

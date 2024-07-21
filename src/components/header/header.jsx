@@ -9,7 +9,7 @@ import { HiMiniChevronDown } from 'react-icons/hi2';
 
 export default function Header() {
   const { isLoggedIn } = useStateStore();
-  const { user } = useStateStore();
+  const { userData } = useStateStore();
   const { updateIsLoggedIn } = useStateStore();
 
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -108,7 +108,7 @@ export default function Header() {
                 <Link
                   onClick={handleShowMenu}
                   to={`/user-profile/user-lists/favorites?list_id=${
-                    user.lists.find((list) => list.listName === 'favorites')
+                    userData.lists.find((list) => list.listName === 'favorites')
                       .listID
                   }`}
                   className="text-xl"
@@ -118,7 +118,7 @@ export default function Header() {
                 <Link
                   onClick={handleShowMenu}
                   to={`/user-profile/user-lists/watchlist?list_id=${
-                    user.lists.find((list) => list.listName === 'watchlist')
+                    userData.lists.find((list) => list.listName === 'watchlist')
                       .listID
                   }`}
                   className="text-xl"

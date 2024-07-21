@@ -9,7 +9,7 @@ import Modal from 'components/UI/modal/modal';
 const DB = new ConnectDB();
 
 export default function UserLists() {
-  const user = useStateStore((state) => state.user);
+  const { userData } = useStateStore();
   const [lists, setLists] = useState([]);
 
   const showModalState = useStateStore((state) => state.showModal);
@@ -18,8 +18,6 @@ export default function UserLists() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // get user object from db
-        const userData = await DB.getFirestoreDoc(['users', user.uid]);
         setLists(Object.values(userData.lists));
       } catch (error) {
         // Handle error if needed
@@ -28,10 +26,10 @@ export default function UserLists() {
     }
 
     // because user auth check is async, I check for the user to not be null
-    if (user) {
+    if (userData) {
       fetchData();
     }
-  });
+  }, [userData]);
 
   function handleShowModal() {
     updateShowModal(!showModalState);
@@ -40,7 +38,7 @@ export default function UserLists() {
   // add new list to DB
   async function handleSubmit(formValues) {
     const list = await DB.createNewList({
-      uid: user.uid,
+      uid: userData.uid,
       listName: formValues.listName,
     });
 

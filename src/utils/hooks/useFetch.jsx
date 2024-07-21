@@ -2,9 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';
 
 export default function useFetch({
+  url,
   method = 'GET',
   body = null,
-  url,
   shouldFetch = false,
 }) {
   const [response, setResponse] = useState(null);
@@ -27,14 +27,17 @@ export default function useFetch({
   }, [method, body, userAuthToken]);
 
   const fetchData = useCallback(
-    async (customURL = url, customMethod, customBody = body) => {
+    async ({
+      customURL = url,
+      customMethod = options.method,
+      customBody = options.body,
+      customHeaders = options.headers,
+    }) => {
       setLoading(true);
       try {
-        if (customMethod) {
-          options.method = customMethod;
-        }
-
-        options.body = customBody;
+        options.method = customMethod;
+        options.body = JSON.stringify(customBody);
+        options.headers = { ...options.headers, ...customHeaders };
 
         const data = await fetch(customURL, options);
 
@@ -48,13 +51,13 @@ export default function useFetch({
         setLoading(false);
       }
     },
-    [url, options, body]
+    [url, options]
   );
 
   useEffect(() => {
     console.log(shouldFetch);
     if (shouldFetch) {
-      fetchData();
+      fetchData({});
     }
   }, [fetchData, shouldFetch]);
 
