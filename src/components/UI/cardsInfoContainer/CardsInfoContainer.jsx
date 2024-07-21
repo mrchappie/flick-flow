@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { handleFilterLists, handleWhatListToShow } from './helper';
 import useFetch from 'utils/hooks/useFetch';
 import { checkMediaType } from '../movieCard/components/helper';
+// import CreateNewList from 'pages/user-profile/user-lists/createNewList';
 
 export default function CardsInfoContainer({ title, data = [], style }) {
   const { userData } = useStateStore();
@@ -15,6 +16,7 @@ export default function CardsInfoContainer({ title, data = [], style }) {
   const { addItemInList, removeItemFromList } = useStateStore();
   const [listsItemIsIn, setListsItemIsIn] = useState(null);
   const [itemDetails, setItemDetails] = useState({});
+  // const [showCreateNewListModal, setShowCreateNewListModal] = useState(false);
 
   const { response, fetchData } = useFetch({});
 
@@ -100,6 +102,16 @@ export default function CardsInfoContainer({ title, data = [], style }) {
                 />
               );
             })}
+            {/* <li>
+              <button
+                onClick={() => {
+                  setShowCreateNewListModal(!showCreateNewListModal);
+                }}
+              >
+                Create new list
+              </button>
+              {showCreateNewListModal && <CreateNewList onCloseModal={handleShowModal}/>}
+            </li> */}
           </ul>
         </Modal>
       )}

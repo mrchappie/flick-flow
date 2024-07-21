@@ -1,12 +1,8 @@
 import Heading from 'components/UI/heading/heading';
-import { Field, Formik, Form } from 'formik';
 import { useEffect, useState } from 'react';
-import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 import { ListCardBlock } from './listCard';
-import Modal from 'components/UI/modal/modal';
-
-const DB = new ConnectDB();
+import CreateNewList from './createNewList';
 
 export default function UserLists() {
   const { userData } = useStateStore();
@@ -33,21 +29,6 @@ export default function UserLists() {
 
   function handleShowModal() {
     updateShowModal(!showModalState);
-  }
-
-  // add new list to DB
-  async function handleSubmit(formValues) {
-    const list = await DB.createNewList({
-      uid: userData.userID,
-      listName: formValues.listName,
-    });
-
-    setLists([
-      ...lists,
-      { listName: formValues.listName, listID: list.listID },
-    ]);
-
-    handleShowModal();
   }
 
   return (
@@ -78,26 +59,16 @@ export default function UserLists() {
       </ul>
 
       {showModalState && (
-        <Modal>
-          <Formik
-            initialValues={{ listName: '' }}
-            onSubmit={(formValues) => {
-              handleSubmit(formValues);
-            }}
-          >
-            <Form className="center-col">
-              <Field
-                name="listName"
-                type="text"
-                placeholder="List name"
-                className="px-4 py-2 text-black border-2 shadow-lg"
-              />
-              <button type="submit" className="text-black">
-                Add your list
-              </button>
-            </Form>
-          </Formik>
-        </Modal>
+        <CreateNewList
+          lists={lists}
+          onAddNewListToState={(newList) => {
+            setLists([
+              ...lists,
+              { listName: newList.listName, listID: newList.listID },
+            ]);
+          }}
+          onCloseModal={handleShowModal}
+        />
       )}
     </section>
   );
