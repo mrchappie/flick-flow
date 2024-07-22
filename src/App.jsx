@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
-import RoutesContext from './routes/RoutesContext';
+import {
+  AdminRoutes,
+  DefaultRoutes,
+  UserProfileRoutes,
+} from './routes/RoutesContext';
 import Banner from 'components/UI/banner/banner';
 import useAuthCheck from 'utils/hooks/useAuthCheck';
 import { useStateStore } from 'utils/services/state/State';
-import Header from 'components/header/header';
-import Footer from 'components/footer/footer';
+
 import useFetch from 'utils/hooks/useFetch';
 import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
+import { Route, Routes } from 'react-router-dom';
+import DefaultLayout from 'pages/layouts/defaultLayout';
+import AdminLayout from 'pages/admin/adminLayout';
+import UserProfileLayout from 'pages/layouts/userProfileLayout';
 
 function App() {
   const { user, userData, authIsLoading, userAuthToken } = useAuthCheck();
@@ -61,7 +68,7 @@ function App() {
     document.body.style.overflow = showModalState ? 'hidden' : null;
   }, [showModalState]);
 
-  if (authIsLoading) {
+  if (authIsLoading && !userData) {
     // Render a loading indicator or skeleton while authentication state is loading
     return <LoadingSpinner />;
   }
@@ -69,9 +76,17 @@ function App() {
   return (
     <React.StrictMode>
       <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
-        <Header />
-        <RoutesContext></RoutesContext>
-        <Footer />
+        <Routes>
+          <Route element={<DefaultLayout />}>
+            <Route path="/*" element={<DefaultRoutes />} />
+          </Route>
+          <Route element={<UserProfileLayout />}>
+            <Route path="/user-profile/*" element={<UserProfileRoutes />} />
+          </Route>
+          <Route element={<AdminLayout />}>
+            <Route path="/admin/*" element={<AdminRoutes />} />
+          </Route>
+        </Routes>
       </main>
       <Banner />
     </React.StrictMode>

@@ -3,6 +3,7 @@ import { HiXMark } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
+import { formatListName } from 'utils/utils';
 const DB = new ConnectDB();
 
 export function ListCardBlock({ list, removeList }) {
@@ -65,9 +66,4 @@ export function ListCardInline({
       )}
     </li>
   );
-}
-
-function formatListName(listName) {
-  const trimedName = listName.replaceAll('_', ' ');
-  return trimedName.slice(0, 1).toUpperCase() + trimedName.slice(1);
 }

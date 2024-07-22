@@ -20,8 +20,11 @@ import UserLists from 'pages/user-profile/user-lists/userLists';
 import List from 'pages/user-profile/user-lists/[list]';
 import AnonymousRoute from 'utils/hoc/AnonymousRoute';
 import Search from 'pages/search/Search';
+import ManageUsers from 'pages/admin/manage-users/manageUsers';
+import ManageLists from 'pages/admin/manage-lists/manageLists';
+import Dashboard from 'pages/admin/dashboard/dashboard';
 
-const routes = [
+const defaultRoutes = [
   {
     element: (
       <AnonymousRoute redirectTo="/">
@@ -103,7 +106,18 @@ const routes = [
     ),
   },
   {
-    path: '/user-profile',
+    path: '*',
+    element: (
+      <>
+        <NotFound />
+      </>
+    ),
+  },
+];
+
+const userProfileRoutes = [
+  {
+    path: '',
     element: (
       <PrivateRoute>
         <UserProfile />
@@ -111,7 +125,7 @@ const routes = [
     ),
   },
   {
-    path: '/user-profile/settings',
+    path: '/settings',
     element: (
       <PrivateRoute>
         <Settings />
@@ -119,7 +133,7 @@ const routes = [
     ),
   },
   {
-    path: '/user-profile/watchlist',
+    path: '/watchlist',
     element: (
       <PrivateRoute>
         <WatchList />
@@ -127,7 +141,7 @@ const routes = [
     ),
   },
   {
-    path: '/user-profile/favorites',
+    path: '/favorites',
     element: (
       <PrivateRoute>
         <Favorites />
@@ -135,7 +149,7 @@ const routes = [
     ),
   },
   {
-    path: '/user-profile/watch-history',
+    path: '/watch-history',
     element: (
       <PrivateRoute>
         <WatchHistory />
@@ -143,7 +157,7 @@ const routes = [
     ),
   },
   {
-    path: '/user-profile/user-lists',
+    path: '/user-lists',
     element: (
       <PrivateRoute>
         <UserLists />
@@ -151,7 +165,7 @@ const routes = [
     ),
   },
   {
-    path: '/user-profile/user-lists/:listName',
+    path: '/user-lists/:listName',
     element: (
       <PrivateRoute>
         <List />
@@ -168,10 +182,45 @@ const routes = [
   },
 ];
 
-function RoutesContext() {
+const adminRoutes = [
+  {
+    path: '/dashboard',
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/manage-users',
+    element: (
+      <PrivateRoute>
+        <ManageUsers />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/manage-lists',
+    element: (
+      <PrivateRoute>
+        <ManageLists />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '*',
+    element: (
+      <>
+        <NotFound />
+      </>
+    ),
+  },
+];
+
+function DefaultRoutes() {
   return (
     <Routes>
-      {routes.map((route) => {
+      {defaultRoutes.map((route) => {
         return (
           <Route
             exact
@@ -185,4 +234,37 @@ function RoutesContext() {
   );
 }
 
-export default RoutesContext;
+function UserProfileRoutes() {
+  return (
+    <Routes>
+      {userProfileRoutes.map((route) => {
+        return (
+          <Route
+            exact
+            path={route.path}
+            element={route.element}
+            key={route.path}
+          />
+        );
+      })}
+    </Routes>
+  );
+}
+function AdminRoutes() {
+  return (
+    <Routes>
+      {adminRoutes.map((route) => {
+        return (
+          <Route
+            exact
+            path={route.path}
+            element={route.element}
+            key={route.path}
+          />
+        );
+      })}
+    </Routes>
+  );
+}
+
+export { DefaultRoutes, UserProfileRoutes, AdminRoutes };
