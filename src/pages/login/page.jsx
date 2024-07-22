@@ -1,18 +1,14 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Field, Form, Formik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { loginUser } from 'utils/services/auth/Auth';
 
 export default function Login() {
-  const navigate = useNavigate();
-
   async function handleLogin(formData) {
     try {
       // attempt to login the user
-      await loginUser(formData);
-
-      // redirect to homepage
-      navigate('/home');
+      const response = await loginUser(formData);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -20,7 +16,7 @@ export default function Login() {
 
   return (
     <section className="col-span-full center">
-      <div className="rounded-md center p-[40px]">
+      <div className="rounded-md center-col p-[40px]">
         <Formik
           initialValues={{ email: 'alex@mail.com', password: 'Alex2024!' }}
           onSubmit={handleLogin}
@@ -41,6 +37,7 @@ export default function Login() {
             <ButtonTextBg type="submit">Log In</ButtonTextBg>
           </Form>
         </Formik>
+        <Link to={'/register'}>Don't have an accout? Create one!</Link>
       </div>
     </section>
   );

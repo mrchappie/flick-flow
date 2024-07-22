@@ -3,39 +3,65 @@ import Heading from '../heading/heading';
 import Modal from '../modal/modal';
 import MovieCard from '../movieCard/movieCard';
 import { ListCardInline } from 'pages/user-profile/user-lists/listCard';
-import ConnectDB from 'utils/services/crud/crud';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { handleFilterLists, handleWhatListToShow } from './helper';
-
-const DB = new ConnectDB();
+import useFetch from 'utils/hooks/useFetch';
+import { checkMediaType } from '../movieCard/components/helper';
+// import CreateNewList from 'pages/user-profile/user-lists/createNewList';
 
 export default function CardsInfoContainer({ title, data = [], style }) {
-  const { user } = useStateStore();
+  const { userData } = useStateStore();
   const { showModal } = useStateStore();
   const { updateShowModal } = useStateStore();
-  const { addItemInList } = useStateStore();
-  const [itemToAddToList, setItemToAddToList] = useState(null);
+  const { addItemInList, removeItemFromList } = useStateStore();
   const [listsItemIsIn, setListsItemIsIn] = useState(null);
   const [itemDetails, setItemDetails] = useState({});
+  // const [showCreateNewListModal, setShowCreateNewListModal] = useState(false);
 
-  function handleShowModal(itemDetails, itemLists, details) {
-    setItemToAddToList(itemDetails);
+  const { response, fetchData } = useFetch({});
+
+  function addToList(listName) {
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST,
+      customMethod: 'POST',
+      customBody: {
+        listName: listName,
+        data: itemDetails,
+        itemType: checkMediaType(itemDetails),
+      },
+    });
+    // if (response.status === 200) {
+    addItemInList([{ movieID: itemDetails.id, listName: listName }]);
+    updateShowModal(false);
+    // }
+  }
+
+  function removeFromList(listName) {
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_RMV_ITEM_FROM_LIST,
+      customMethod: 'DELETE',
+      customBody: {
+        listName: listName,
+        data: itemDetails,
+        itemType: checkMediaType(itemDetails),
+      },
+    });
+    // if (response.status === 200) {
+    removeItemFromList(itemDetails, listName);
+    updateShowModal(false);
+    // }
+  }
+
+  function handleShowModal(itemDetails, itemLists) {
     setListsItemIsIn(itemLists);
-    setItemDetails(details);
+    setItemDetails(itemDetails);
   }
 
-  async function handleAddToList(itemDetails, listName = 'favorites') {
-    const favListID = user.lists.filter((list) => list.listName === listName);
-    const response = await DB.updateFirestoreDocInArray(
-      ['lists', favListID[0].listID],
-      itemDetails
-    );
-
-    if (response.status === 200) {
-      addItemInList([{ movieID: itemDetails.id, listName: listName }]);
-      updateShowModal(false);
+  useEffect(() => {
+    if (response) {
+      console.log(response);
     }
-  }
+  }, [response]);
 
   return (
     <section className="w-full col-span-full center-col">
@@ -60,19 +86,32 @@ export default function CardsInfoContainer({ title, data = [], style }) {
       {showModal && (
         <Modal>
           <ul className="gap-4 p-4 center-col">
-            {handleFilterLists(user.lists).map((list) => {
+            {handleFilterLists(userData.lists).map((list) => {
               return (
                 <ListCardInline
                   list={list}
                   key={list.listID}
-                  details={itemDetails}
                   isInList={handleWhatListToShow(listsItemIsIn, list.listName)}
                   onAddToCustomList={() => {
-                    handleAddToList(itemToAddToList, list.listName);
+                    addToList(list.listName);
+                  }}
+                  onRmvFromCustomList={(event) => {
+                    event.stopPropagation();
+                    removeFromList(list.listName);
                   }}
                 />
               );
             })}
+            {/* <li>
+              <button
+                onClick={() => {
+                  setShowCreateNewListModal(!showCreateNewListModal);
+                }}
+              >
+                Create new list
+              </button>
+              {showCreateNewListModal && <CreateNewList onCloseModal={handleShowModal}/>}
+            </li> */}
           </ul>
         </Modal>
       )}

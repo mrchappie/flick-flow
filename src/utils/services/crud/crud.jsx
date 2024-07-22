@@ -92,7 +92,6 @@ class ConnectDB {
   async deleteFirestoreDocFromArray(docPath, data) {
     try {
       const docRef = doc(firestore, ...docPath);
-      console.log(data);
       await updateDoc(docRef, {
         lists: arrayRemove(data),
       });
@@ -119,9 +118,8 @@ class ConnectDB {
       userID: uid,
       createdAt: new Date().getTime(),
       updatedAt: null,
-      content: [],
       listID,
-      listName,
+      name: listName,
     };
 
     try {
@@ -140,8 +138,11 @@ class ConnectDB {
 
       // create new list collection in list DB
       await this.setFirestoreDoc(['lists', listID], listTemplateForListsDB);
+
       return listTemplateForUsersDB;
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async deleteList(listData) {
@@ -153,7 +154,9 @@ class ConnectDB {
 
       // delete list from lists DB
       await this.deleteFirestoreDoc(['lists', list.listID]);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async getList(docPath) {

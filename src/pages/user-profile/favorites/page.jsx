@@ -4,7 +4,7 @@ import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 
 export default function Favorites() {
-  const user = useStateStore((state) => state.user);
+  const { userData } = useStateStore();
 
   const [componentData, setComponentData] = useState({
     title: 'Your Favorite Movies',
@@ -17,7 +17,7 @@ export default function Favorites() {
       try {
         const fetchedData = await DB.getFirestoreDocs([
           'lists',
-          user.uid,
+          userData.userID,
           '554a2068-020f-40dd-b598-5133998c00d7',
         ]);
         setComponentData({
@@ -31,10 +31,10 @@ export default function Favorites() {
     }
 
     // because user auth check is async, I check the user to not be null
-    if (user) {
+    if (userData) {
       fetchData();
     }
-  }, [user]);
+  }, [userData]);
 
   return <CardsInfoContainer {...componentData} />;
 }

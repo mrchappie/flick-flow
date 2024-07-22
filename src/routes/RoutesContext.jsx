@@ -41,9 +41,9 @@ const routes = [
   {
     path: '/register',
     element: (
-      <AnonymousRoute redirectTo="/register">
-        <Register />
-      </AnonymousRoute>
+      // <AnonymousRoute redirectTo="/register">
+      <Register />
+      // </AnonymousRoute>
     ),
   },
   {

@@ -11,7 +11,7 @@ export default function AddToOtherList({ details, showModal }) {
   // open more lists modal
   function openListsModal(itemDetails) {
     updateShowModal(true);
-    showModal(itemDetails, filteredList, details);
+    showModal(itemDetails, filteredList);
   }
 
   // handle which icon to show for more lists
@@ -30,14 +30,13 @@ export default function AddToOtherList({ details, showModal }) {
   return (
     <span
       onClick={() => {
-        openListsModal(details, () => {});
+        openListsModal(details);
       }}
+      className="hover:scale-125"
     >
-      {isInList && (
-        <HiBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
-      )}
+      {isInList && <HiBookmark className="text-[30px] text-yellow-500" />}
       {!isInList && (
-        <HiOutlineBookmark className="text-[30px] hover:scale-125 text-yellow-500" />
+        <HiOutlineBookmark className="text-[30px] text-yellow-500" />
       )}
     </span>
   );

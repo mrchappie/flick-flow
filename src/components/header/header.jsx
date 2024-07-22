@@ -8,9 +8,9 @@ import { AnimatePresence, motion as m } from 'framer-motion';
 import { HiMiniChevronDown } from 'react-icons/hi2';
 
 export default function Header() {
-  const isLoggedIn = useStateStore((state) => state.isLoggedIn);
-  const user = useStateStore((state) => state.user);
-  const updateIsLoggedIn = useStateStore((state) => state.updateIsLoggedIn);
+  const { isLoggedIn } = useStateStore();
+  const { userData } = useStateStore();
+  const { updateIsLoggedIn } = useStateStore();
 
   const [toggleMenu, setToggleMenu] = useState(false);
   function handleShowMenu() {
@@ -108,7 +108,7 @@ export default function Header() {
                 <Link
                   onClick={handleShowMenu}
                   to={`/user-profile/user-lists/favorites?list_id=${
-                    user.lists.find((list) => list.listName === 'favorites')
+                    userData.lists.find((list) => list.listName === 'favorites')
                       .listID
                   }`}
                   className="text-xl"
@@ -118,7 +118,7 @@ export default function Header() {
                 <Link
                   onClick={handleShowMenu}
                   to={`/user-profile/user-lists/watchlist?list_id=${
-                    user.lists.find((list) => list.listName === 'watchlist')
+                    userData.lists.find((list) => list.listName === 'watchlist')
                       .listID
                   }`}
                   className="text-xl"

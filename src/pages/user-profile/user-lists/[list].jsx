@@ -1,3 +1,4 @@
+import { ButtonTextNoBgWithBorder } from 'components/UI/buttons/buttons';
 import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -7,7 +8,8 @@ import { useStateStore } from 'utils/services/state/State';
 const DB = new ConnectDB();
 
 export default function List() {
-  const user = useStateStore((state) => state.user);
+  const { userData } = useStateStore();
+  const [chooseItemsToSee, setChooseItemsToSee] = useState('movie');
 
   const [searchParams] = useSearchParams();
   const [listID, setListID] = useState(searchParams.get('list_id'));
@@ -27,19 +29,43 @@ export default function List() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const fetchedData = await DB.getFirestoreDoc(['lists', listID]);
-        setListFetchedData(fetchedData.content);
+        const fetchedData = await DB.getFirestoreDocs([
+          'lists',
+          listID,
+          chooseItemsToSee,
+        ]);
+
+        setListFetchedData(fetchedData);
       } catch (error) {
         console.error('Error fetching data:', error);
-        // Handle error if needed
       }
     }
 
     // because user auth check is async, I check the user to not be null
-    if (user) {
+    if (userData) {
       fetchData();
     }
-  }, [listID, user]);
+  }, [listID, userData, chooseItemsToSee]);
 
-  return <CardsInfoContainer {...componentData} />;
+  return (
+    <>
+      <div className="w-full center col-span-full">
+        <ButtonTextNoBgWithBorder
+          handleClick={() => {
+            setChooseItemsToSee('movie');
+          }}
+        >
+          Movies
+        </ButtonTextNoBgWithBorder>
+        <ButtonTextNoBgWithBorder
+          handleClick={() => {
+            setChooseItemsToSee('tv');
+          }}
+        >
+          TV-shows
+        </ButtonTextNoBgWithBorder>
+      </div>
+      <CardsInfoContainer {...componentData} />
+    </>
+  );
 }

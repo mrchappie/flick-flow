@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi2';
 import useFetch from 'utils/hooks/useFetch';
 import { useStateStore } from 'utils/services/state/State';
+import { checkMediaType } from './helper';
 
 export default function AddToFavorites({ details }) {
   const { itemsInList } = useStateStore();
@@ -9,17 +10,27 @@ export default function AddToFavorites({ details }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const { response, fetchData } = useFetch({
-    body: { listName: 'favorites', data: details },
+    body: {
+      listName: 'favorites',
+      data: details,
+      itemType: checkMediaType(details),
+    },
   });
 
   function addToFavorites() {
-    fetchData(process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST, 'POST');
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST,
+      customMethod: 'POST',
+    });
     setIsFavorite(true);
     addItemInList([{ movieID: details.id, listName: 'favorites' }]);
   }
 
   function removeFromFavorites() {
-    fetchData(process.env.REACT_APP_FIREBASE_RMV_ITEM_TO_LIST, 'DELETE');
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_RMV_ITEM_FROM_LIST,
+      customMethod: 'DELETE',
+    });
     setIsFavorite(false);
     removeItemFromList(details, 'favorites');
   }
@@ -42,16 +53,16 @@ export default function AddToFavorites({ details }) {
   }, [details.id, itemsInList]);
 
   return (
-    <span>
+    <span className="hover:scale-125">
       {isFavorite && (
         <div onClick={removeFromFavorites}>
-          <HiHeart className="text-[30px] hover:scale-125 text-red-500" />
+          <HiHeart className="text-[30px] text-red-500" />
         </div>
       )}
 
       {!isFavorite && (
         <div onClick={addToFavorites}>
-          <HiOutlineHeart className="text-[30px] hover:scale-125 text-red-500" />
+          <HiOutlineHeart className="text-[30px] text-red-500" />
         </div>
       )}
     </span>

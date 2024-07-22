@@ -11,6 +11,5 @@ export function handleFilterLists(listArray) {
 }
 
 export function handleWhatListToShow(itemLists, currentListName) {
-  console.log(itemLists);
   return itemLists.some((list) => list.listName === currentListName);
 }
