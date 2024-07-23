@@ -2,10 +2,9 @@ import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { logoutUser } from 'utils/services/auth/Auth';
 import { useStateStore } from 'utils/services/state/State';
-import { formatListName } from 'utils/utils';
+import { capitalizeWord } from 'utils/utils';
 
-export default function UserProfileNavigation() {
-  const { userData } = useStateStore();
+export default function UserProfileNavigation({ userData }) {
   const navigate = useNavigate();
   const { updateIsLoggedIn } = useStateStore();
 
@@ -18,7 +17,7 @@ export default function UserProfileNavigation() {
   };
 
   return (
-    <div className="items-start justify-start w-full h-full p-8 bg-black center-col">
+    <div className="items-start justify-start w-full h-full p-8 bg-black/50 center-col">
       <div className="items-start justify-start center-col h-[90%] gap-6">
         <div className="justify-start center-col">
           <div className="rounded-[50%] overflow-hidden relative">
@@ -30,7 +29,7 @@ export default function UserProfileNavigation() {
             />
           </div>
           <h2 className="text-xl">
-            Hi, <span>Alexandru</span>
+            Hi, <span>{userData && userData.name}</span>
           </h2>
         </div>
         <Link to={'/home'} className="text-xl">
@@ -50,7 +49,7 @@ export default function UserProfileNavigation() {
                 className="pl-4 text-xl"
                 key={list.listID}
               >
-                - {formatListName(list.listName)}
+                - {capitalizeWord(list.listName)}
               </NavLink>
             );
           })}

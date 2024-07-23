@@ -4,7 +4,6 @@ import {
   DefaultRoutes,
   UserProfileRoutes,
 } from './routes/RoutesContext';
-import Banner from 'components/UI/banner/banner';
 import useAuthCheck from 'utils/hooks/useAuthCheck';
 import { useStateStore } from 'utils/services/state/State';
 
@@ -88,7 +87,6 @@ function App() {
           </Route>
         </Routes>
       </main>
-      <Banner />
     </React.StrictMode>
   );
 }

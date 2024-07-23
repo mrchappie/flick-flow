@@ -1,9 +1,11 @@
 import { ButtonTextNoBgWithBorder } from 'components/UI/buttons/buttons';
 import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
+import Filters from 'components/UI/filters/filters';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
+import { capitalizeWord } from 'utils/utils';
 
 const DB = new ConnectDB();
 
@@ -15,8 +17,13 @@ export default function List() {
   const [listID, setListID] = useState(searchParams.get('list_id'));
   const [listFetchedData, setListFetchedData] = useState([]);
 
+  const location = useLocation();
+  const { pathname } = location;
+
+  const [showFilters, setShowFilters] = useState(false);
+
   const componentData = {
-    title: 'Your Favorite Movies',
+    title: `${capitalizeWord(pathname.split('/').reverse()[0])} Collection`,
     data: listFetchedData,
   };
 
@@ -47,24 +54,42 @@ export default function List() {
     }
   }, [listID, userData, chooseItemsToSee]);
 
+  function handleClick() {
+    setShowFilters(!showFilters);
+  }
+
   return (
     <>
-      <div className="w-full center col-span-full">
-        <ButtonTextNoBgWithBorder
-          handleClick={() => {
-            setChooseItemsToSee('movie');
-          }}
-        >
-          Movies
-        </ButtonTextNoBgWithBorder>
-        <ButtonTextNoBgWithBorder
-          handleClick={() => {
-            setChooseItemsToSee('tv');
-          }}
-        >
-          TV-shows
-        </ButtonTextNoBgWithBorder>
+      <div className="justify-between center">
+        <div className="flex gap-4 col-span-full">
+          <ButtonTextNoBgWithBorder
+            handleClick={() => {
+              setChooseItemsToSee('movie');
+            }}
+            customStyle={`min-w-[100px] ${
+              chooseItemsToSee !== 'movie' && 'grayscale'
+            }`}
+          >
+            Movies
+          </ButtonTextNoBgWithBorder>
+          <ButtonTextNoBgWithBorder
+            handleClick={() => {
+              setChooseItemsToSee('tv');
+            }}
+            customStyle={`min-w-[100px] ${
+              chooseItemsToSee !== 'tv' && 'grayscale'
+            }`}
+          >
+            TV-shows
+          </ButtonTextNoBgWithBorder>
+        </div>
+        <ButtonTextNoBgWithBorder title="Filters" handleClick={handleClick} />
       </div>
+      {showFilters && (
+        <div className="py-10">
+          <Filters />
+        </div>
+      )}
       <CardsInfoContainer {...componentData} />
     </>
   );

@@ -1,13 +1,13 @@
 import { HiChevronLeft } from 'react-icons/hi2';
 import { HiChevronRight } from 'react-icons/hi2';
 
-export function ButtonTextBg(props) {
+export function ButtonTextBg({ handleClick, children, title, customStyle }) {
   return (
     <button
-      onClick={props.handleClick}
-      className="p-3 text-white rounded-sm bg-brand1"
+      onClick={handleClick}
+      className={`p-3 text-white rounded-sm bg-brand1 ${customStyle}`}
     >
-      {props.children ? props.children : props.title}
+      {children ? children : title}
     </button>
   );
 }
@@ -27,7 +27,7 @@ export function ButtonTextNoBgWithBorder(props) {
   return (
     <button
       onClick={props.handleClick}
-      className="p-3 bg-transparent border-2 rounded-sm text-brand1 border-brand1"
+      className={`p-3 bg-transparent border-2 rounded-sm text-brand1 border-brand1  ${props.customStyle}`}
     >
       {props.children ? props.children : props.title}
     </button>
