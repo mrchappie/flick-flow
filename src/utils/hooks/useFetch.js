@@ -25,6 +25,7 @@ export default function useFetch({
     }
     return opts;
   }, [method, body, userAuthToken]);
+
   const fetchData = useCallback(
     async ({
       customURL = url,
@@ -32,6 +33,11 @@ export default function useFetch({
       customBody,
       customHeaders = options.headers,
     }) => {
+      if (!userAuthToken) {
+        setError('User token is not available');
+        return;
+      }
+
       setLoading(true);
       try {
         options.method = customMethod;
@@ -40,7 +46,9 @@ export default function useFetch({
           options.body = JSON.stringify(customBody);
         }
 
-        options.headers = { ...options.headers, ...customHeaders };
+        if (customHeaders) {
+          options.headers = customHeaders;
+        }
 
         const data = await fetch(customURL, options);
 
@@ -54,7 +62,7 @@ export default function useFetch({
         setLoading(false);
       }
     },
-    [url, options]
+    [url, options, userAuthToken]
   );
 
   useEffect(() => {

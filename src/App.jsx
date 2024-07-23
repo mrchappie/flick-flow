@@ -16,14 +16,15 @@ import UserProfileLayout from 'pages/layouts/userProfileLayout';
 
 function App() {
   const { user, userData, authIsLoading, userAuthToken } = useAuthCheck();
-  const { updateUser } = useStateStore();
-  const { updateUserData } = useStateStore();
-  const { updateUserAuthToken } = useStateStore();
-  const { isLoggedIn } = useStateStore();
-  const { updateIsLoggedIn } = useStateStore();
-  const { showModalState } = useStateStore();
-
-  const { addItemInList } = useStateStore();
+  const {
+    updateUser,
+    updateUserData,
+    updateUserAuthToken,
+    updateIsLoggedIn,
+    isLoggedIn,
+    showModalState,
+    addItemInList,
+  } = useStateStore();
   const { response, fetchData } = useFetch({
     url: process.env.REACT_APP_FIREBASE_GET_ITEM_IDS,
     shouldFetch: isLoggedIn,
@@ -32,7 +33,7 @@ function App() {
   // fetch item IDs from user lists
   useEffect(() => {
     fetchData({});
-  }, []);
+  }, [fetchData]);
 
   useEffect(() => {
     if (response && response.response) {
