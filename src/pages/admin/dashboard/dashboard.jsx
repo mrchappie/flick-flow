@@ -15,7 +15,7 @@ export default function Dashboard() {
   return (
     <div>
       <Heading title={'dashboard'} />
-      <ButtonTextBg
+      {/* <ButtonTextBg
         handleClick={() => {
           fetchData({
             customMethod: 'PATCH',
@@ -28,7 +28,7 @@ export default function Dashboard() {
         }}
       >
         Click
-      </ButtonTextBg>
+      </ButtonTextBg> */}
     </div>
   );
 }

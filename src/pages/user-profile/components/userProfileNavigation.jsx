@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { logoutUser } from 'utils/services/auth/Auth';
+import { getUserRole, logoutUser } from 'utils/services/auth/Auth';
 import { useStateStore } from 'utils/services/state/State';
 import { capitalizeWord } from 'utils/utils';
 
@@ -15,6 +15,16 @@ export default function UserProfileNavigation({ userData }) {
     updateIsLoggedIn(false);
     navigate('/');
   };
+
+  const [role, setRole] = useState(null);
+  async function userRole() {
+    const role = await getUserRole();
+    setRole(role);
+  }
+
+  useEffect(() => {
+    userRole();
+  }, []);
 
   return (
     <div className="items-start justify-start w-full h-full p-8 bg-black/50 center-col">
@@ -35,6 +45,11 @@ export default function UserProfileNavigation({ userData }) {
         <Link to={'/home'} className="text-xl">
           Home
         </Link>
+        {role === 'admin' && (
+          <Link to={'/admin/dashboard'} className="text-xl">
+            Dashboard
+          </Link>
+        )}
         <Link to={'/user-profile'} className="text-xl">
           Profile
         </Link>

@@ -33,6 +33,9 @@ export default function AdminNavigation({ userData }) {
         <Link to={'/home'} className="text-xl">
           Back Home
         </Link>
+        <Link to={'/user-profile'} className="text-xl">
+          Profile
+        </Link>
         <Link to={'admin/dashboard'} className="text-xl">
           Dashboard
         </Link>
