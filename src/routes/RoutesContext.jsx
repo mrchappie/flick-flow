@@ -23,6 +23,7 @@ import Search from 'pages/search/Search';
 import ManageUsers from 'pages/admin/manage-users/manageUsers';
 import ManageLists from 'pages/admin/manage-lists/manageLists';
 import Dashboard from 'pages/admin/dashboard/dashboard';
+import AdminRoute from 'utils/hoc/AdminRoute';
 
 const defaultRoutes = [
   {
@@ -44,9 +45,9 @@ const defaultRoutes = [
   {
     path: '/register',
     element: (
-      // <AnonymousRoute redirectTo="/register">
-      <Register />
-      // </AnonymousRoute>
+      <AnonymousRoute redirectTo="/register">
+        <Register />
+      </AnonymousRoute>
     ),
   },
   {
@@ -186,25 +187,25 @@ const adminRoutes = [
   {
     path: '/dashboard',
     element: (
-      <PrivateRoute>
+      <AdminRoute>
         <Dashboard />
-      </PrivateRoute>
+      </AdminRoute>
     ),
   },
   {
     path: '/manage-users',
     element: (
-      <PrivateRoute>
+      <AdminRoute>
         <ManageUsers />
-      </PrivateRoute>
+      </AdminRoute>
     ),
   },
   {
     path: '/manage-lists',
     element: (
-      <PrivateRoute>
+      <AdminRoute>
         <ManageLists />
-      </PrivateRoute>
+      </AdminRoute>
     ),
   },
   {

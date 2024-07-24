@@ -1,7 +1,7 @@
 import Navigation from '../navigation/navigation';
 import Search from '../searchBar/searchBar';
-import { logoutUser } from 'utils/services/auth/Auth';
-import { useState } from 'react';
+import { getUserRole, logoutUser } from 'utils/services/auth/Auth';
+import { useEffect, useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';
 import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion as m } from 'framer-motion';
@@ -27,6 +27,16 @@ export default function Header() {
     updateIsLoggedIn(false);
     navigate('/');
   };
+
+  const [role, setRole] = useState(null);
+  async function userRole() {
+    const role = await getUserRole();
+    setRole(role);
+  }
+
+  useEffect(() => {
+    userRole();
+  }, []);
 
   return (
     <header className="p-4 col-span-full center justify-evenly bg-custom-bg-fade">
@@ -98,6 +108,15 @@ export default function Header() {
                     Hi, <span>Alexandru</span>
                   </h2>
                 </div>
+                {role === 'admin' && (
+                  <Link
+                    onClick={handleShowMenu}
+                    to={'/admin/dashboard'}
+                    className="text-xl"
+                  >
+                    Dashboard
+                  </Link>
+                )}
                 <Link
                   onClick={handleShowMenu}
                   to={'/user-profile'}
@@ -108,6 +127,7 @@ export default function Header() {
                 <Link
                   onClick={handleShowMenu}
                   to={`/user-profile/user-lists/favorites?list_id=${
+                    userData &&
                     userData.lists.find((list) => list.listName === 'favorites')
                       .listID
                   }`}
@@ -118,6 +138,7 @@ export default function Header() {
                 <Link
                   onClick={handleShowMenu}
                   to={`/user-profile/user-lists/watchlist?list_id=${
+                    userData &&
                     userData.lists.find((list) => list.listName === 'watchlist')
                       .listID
                   }`}

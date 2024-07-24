@@ -1,14 +1,12 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
 import { Field, Form, Formik } from 'formik';
-import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useFetch from 'utils/hooks/useFetch';
 import { createUser } from 'utils/services/auth/Auth';
 
 export default function Register() {
-  const { response, loading, fetchData } = useFetch({});
-  const navigate = useNavigate();
+  const { loading, fetchData } = useFetch({});
 
   async function handleRegister(formData) {
     try {
@@ -34,13 +32,6 @@ export default function Register() {
       console.log(error);
     }
   }
-
-  useEffect(() => {
-    // navigate the user to the homepage
-    if (!loading) {
-      navigate('/home');
-    }
-  }, [loading, navigate]);
 
   return (
     <section className="col-span-full center">

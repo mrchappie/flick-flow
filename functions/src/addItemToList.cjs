@@ -20,7 +20,7 @@ const addItemToList = onRequest({ cors: true }, async (req, res) => {
       if (isObjectEmpty(bodyData)) {
         return res
           .status(401)
-          .json({ message: 'Please provide data to delete', status: 401 });
+          .json({ message: 'No data was provided', status: 401 });
       }
 
       const snapshot = await DB.collection('lists')

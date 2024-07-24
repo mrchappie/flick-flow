@@ -43,3 +43,12 @@ export async function logoutUser() {
     console.log(error);
   }
 }
+
+export async function getUserRole() {
+  try {
+    const idTokenResult = await auth.currentUser.getIdTokenResult();
+    return idTokenResult.claims.role;
+  } catch (error) {
+    console.log(error);
+  }
+}
