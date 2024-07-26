@@ -20,7 +20,7 @@ export default function Register() {
         fetchData({
           customURL: process.env.REACT_APP_FIREBASE_INIT_USER,
           customMethod: 'POST',
-          customBody: { data: { email: user.email, username: null } },
+          customBody: { data: { email: user.email } },
           customHeaders: {
             Authorization: `Bearer ${accessToken}`,
           },

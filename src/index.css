@@ -64,6 +64,20 @@ button[disabled] {
   }
 }
 
+/* If the user prefers dark mode */
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+} */
+
+/* If the user prefers light mode */
+/* @media (prefers-color-scheme: light) {
+  html {
+    color-scheme: dark;
+  }
+} */
+
 .custom-main-grid-row {
   grid-template-rows: 100px 1fr;
 }

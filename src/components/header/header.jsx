@@ -6,6 +6,7 @@ import { useStateStore } from 'utils/services/state/State';
 import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion as m } from 'framer-motion';
 import { HiMiniChevronDown } from 'react-icons/hi2';
+import { capitalizeWord } from 'utils/utils';
 
 export default function Header() {
   const { isLoggedIn } = useStateStore();
@@ -31,6 +32,7 @@ export default function Header() {
   const [role, setRole] = useState(null);
   async function userRole() {
     const role = await getUserRole();
+    console.log(role);
     setRole(role);
   }
 
@@ -105,7 +107,7 @@ export default function Header() {
                     />
                   </div>
                   <h2 className="text-xl">
-                    Hi, <span>Alexandru</span>
+                    Hi, <span>{capitalizeWord(userData && userData.name)}</span>
                   </h2>
                 </div>
                 {role === 'admin' && (

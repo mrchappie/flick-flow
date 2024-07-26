@@ -40,6 +40,9 @@ const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
         .doc(userID)
         .set({
           ...userData,
+          name: userData.email.split('@')[0],
+          userName: null,
+          role: 'user',
           genres: [],
           uid: userID,
           lists: lists.map(({ listID, listName }) => ({ listID, listName })),
