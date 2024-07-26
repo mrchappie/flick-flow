@@ -7,7 +7,7 @@ import useAPI from 'utils/hooks/useAPI';
 export default function Movies() {
   const [movieDetails, setMovieDetails] = useState([]);
 
-  const { response, loading, error } = useAPI({
+  const { response } = useAPI({
     paths: { category: 'movie', subCategory: ['now_playing'] },
   });
 

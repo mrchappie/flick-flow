@@ -31,6 +31,10 @@ svg {
   pointer-events: none;
 }
 
+button {
+  outline: none;
+}
+
 button[disabled] {
   filter: grayscale();
   cursor: not-allowed;

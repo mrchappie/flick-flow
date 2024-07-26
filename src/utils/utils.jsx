@@ -8,3 +8,7 @@ export function capitalizeWord(listName) {
   const trimedName = listName.replaceAll('_', ' ');
   return trimedName.slice(0, 1).toUpperCase() + trimedName.slice(1);
 }
+
+export function trimText(text, size) {
+  return text.slice(0, size);
+}

@@ -5,7 +5,7 @@ export function ButtonTextBg({ handleClick, children, title, customStyle }) {
   return (
     <button
       onClick={handleClick}
-      className={`p-3 text-white rounded-sm bg-brand1 ${customStyle}`}
+      className={`p-3 text-white rounded-sm bg-brand1 ${customStyle} border-2 border-brand1 min-w-[100px] w-max`}
     >
       {children ? children : title}
     </button>
@@ -16,7 +16,7 @@ export function ButtonTextNoBg(props) {
   return (
     <button
       onClick={props.handleClick}
-      className="p-3 bg-transparent rounded-sm text-brand1"
+      className="p-3 bg-transparent rounded-sm text-brand1 min-w-[100px] w-max"
     >
       {props.children ? props.children : props.title}
     </button>
@@ -27,7 +27,7 @@ export function ButtonTextNoBgWithBorder(props) {
   return (
     <button
       onClick={props.handleClick}
-      className={`p-3 bg-transparent border-2 rounded-sm text-brand1 border-brand1  ${props.customStyle}`}
+      className={`p-3 bg-transparent border-2 rounded-sm text-brand1 border-brand1 ${props.customStyle} min-w-[100px] w-max`}
     >
       {props.children ? props.children : props.title}
     </button>
@@ -38,7 +38,7 @@ export function ButtonWithTextAndIcon(props) {
   return (
     <button
       onClick={props.handleClick}
-      className="p-3 bg-transparent rounded-sm center-col hover:text-brand4"
+      className="p-3 bg-transparent rounded-sm center-col hover:text-brand4 min-w-[100px] w-max"
     >
       {props.children ? props.children : props.title}
     </button>
