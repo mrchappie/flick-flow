@@ -43,7 +43,7 @@ export default function AdminNavigation({ userData }) {
           Manage Users
         </Link>
         <Link to={'admin/manage-lists'} className="text-xl">
-          Manage lists
+          Manage Lists
         </Link>
       </div>
       <div className="h-[10%] center items-end">

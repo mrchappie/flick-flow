@@ -24,7 +24,7 @@ export default function ManageUsers() {
           <ButtonTextNoBgWithBorder
             handleClick={() => {
               fetchData({
-                customURL: process.env.REACT_APP_FIREBASE_EXPORT_USER_DATA,
+                customURL: process.env.REACT_APP_FIREBASE_EXPORT_USERS_DATA,
               });
             }}
             title="Load Users"
