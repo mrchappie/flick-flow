@@ -12,7 +12,7 @@ import useAPI from 'utils/hooks/useAPI';
 import { formatRunningTime } from './helpers';
 import Recomandations from 'components/recomandations/Recomandations';
 import { extractReleaseYear } from 'components/UI/movieCard/helpers';
-import { tmdbImagesOrigin } from 'utils/utils';
+import VideoPlayer from './videoPlayer/videoPlayer';
 
 export default function Details() {
   // fetch the desired movie data
@@ -45,13 +45,7 @@ export default function Details() {
   return (
     <section className="grid grid-cols-12 gap-8 px-10 col-span-full">
       <section className="w-full h-full col-span-9 center-col">
-        <div className="w-full h-[70%] relative overflow-hidden">
-          <img
-            src={tmdbImagesOrigin + '/w1280' + movieDetails.backdrop_path}
-            alt={movieDetails.title}
-            className="object-cover w-full"
-          />
-        </div>
+        <VideoPlayer movieDetails={movieDetails} />
         <header className="h-[30%] center-col justify-start gap-10 w-full">
           <div className="justify-between w-full center">
             <div className="items-start center-col">

@@ -49,13 +49,11 @@ export default function useFetch({
         if (customHeaders) {
           options.headers = customHeaders;
         }
-        console.log(options, customURL);
+
         const data = await fetch(customURL, options);
-        console.log(data);
         if (!data.ok) throw new Error(data.statusText);
 
         const response = await data.json();
-        console.log(response);
         setResponse(response);
       } catch (error) {
         setError(error.message);

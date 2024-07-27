@@ -23,7 +23,6 @@ export default function ManageLists() {
         <div className="gap-4 center grow">
           <ButtonTextNoBgWithBorder
             handleClick={() => {
-              console.log('test');
               fetchData({
                 customURL:
                   process.env.REACT_APP_FIREBASE_EXPORT_LISTS_DATA + `?page=1`,
