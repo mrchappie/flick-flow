@@ -8,6 +8,9 @@ import { useCallback, useEffect, useState } from 'react';
 import Slide from './slide';
 import styles from './styles.module.css';
 import useAPI from 'utils/hooks/useAPI';
+import GenreDurationDate from './genreDurationDate';
+import { trimText } from 'utils/utils';
+import { Link } from 'react-router-dom';
 
 export default function Carousel() {
   const [slideDetails, setSlideDetails] = useState([]);
@@ -63,16 +66,23 @@ export default function Carousel() {
                 left: `${slideOffset}px`,
               }}
             >
-              <div className="absolute bottom-0 left-0 z-20 items-start p-4 center-col">
-                <h1 className="text-[4  0px] font-bold">{slide.title}</h1>
+              <div className="absolute bottom-0 left-0 z-20 items-start px-8 py-[80px] center-col">
+                <h1 className="text-[40px] font-semibold">{slide.title}</h1>
                 <div>
-                  <span>{slide.genre}</span> | <span>{slide.duration}</span> |{' '}
-                  <span>{slide.release_date}</span>
+                  <GenreDurationDate itemDetails={slide} />
                 </div>
                 <div>
-                  <p>{slide.overview}</p>
+                  <p className="max-w-[30rem] text-[1rem] text-black4">
+                    {trimText(slide.overview, 200)}...&nbsp;
+                    <Link
+                      to={`/details?movie_id=${slide.id}`}
+                      className="underline hover:text-brand4"
+                    >
+                      Read more
+                    </Link>
+                  </p>
                 </div>
-                <div className="gap-4 center">
+                <div className="gap-4 my-8 center">
                   <ButtonTextBg title="Play Now" />
                   <ButtonTextNoBg title="Add to WatchList" />
                 </div>

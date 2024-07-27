@@ -27,7 +27,10 @@ const exportListsData = onRequest({ cors: true }, async (req, res) => {
 
       const listsData = [];
 
-      const snapshot = await DB.collection('lists').limit(limit).get();
+      const snapshot = await DB.collection('lists')
+        .orderBy('userID')
+        .limit(limit)
+        .get();
 
       snapshot.forEach((doc) => {
         listsData.push(doc.data());
