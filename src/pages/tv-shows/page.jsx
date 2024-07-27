@@ -41,7 +41,7 @@ export default function TvShows() {
     <div className="w-full col-span-full">
       <ButtonTextNoBgWithBorder title="Filters" handleClick={handleClick} />
       {showFilters && <Filters />}
-      <Pagination />
+      <Pagination paginationData={response} />
       <CardsInfoContainer {...componentData} />
     </div>
   );

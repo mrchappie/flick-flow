@@ -1,14 +1,21 @@
 import { ButtonTextNoBgWithBorder } from 'components/UI/buttons/buttons';
 import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
 import Filters from 'components/UI/filters/filters';
+import Pagination from 'components/UI/pagination/pagination';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import useAPI from 'utils/hooks/useAPI';
 
 export default function Movies() {
   const [movieDetails, setMovieDetails] = useState([]);
+  const [page] = useSearchParams();
 
   const { response } = useAPI({
-    paths: { category: 'movie', subCategory: ['now_playing'] },
+    paths: {
+      category: 'movie',
+      subCategory: ['now_playing'],
+      params: { page: page.get('page') ?? 1 },
+    },
   });
 
   useEffect(() => {
@@ -33,6 +40,7 @@ export default function Movies() {
     <div className="w-full col-span-full">
       <ButtonTextNoBgWithBorder title="Filters" handleClick={handleClick} />
       {showFilters && <Filters />}
+      <Pagination paginationData={response} />
       <CardsInfoContainer {...componentData} />
     </div>
   );

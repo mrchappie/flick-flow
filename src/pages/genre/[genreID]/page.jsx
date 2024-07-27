@@ -1,4 +1,5 @@
 import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
+import Pagination from 'components/UI/pagination/pagination';
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import useAPI from 'utils/hooks/useAPI';
@@ -9,15 +10,17 @@ export default function GenreCategory() {
   const [searchParams] = useSearchParams();
   const genreID = searchParams.get('genre_id');
   const movieOrTV = searchParams.get('movie_or_tv');
+  const [page] = useSearchParams();
 
   const [movieDetails, setMovieDetails] = useState([]);
 
-  const { response, loading, error } = useAPI({
+  const { response } = useAPI({
     paths: {
       category: 'discover',
       subCategory: [movieOrTV],
       params: {
         with_genres: genreID,
+        page: page.get('page') ?? 1,
       },
     },
   });
@@ -36,5 +39,10 @@ export default function GenreCategory() {
     style: 'max-w-[1200px]',
   };
 
-  return <CardsInfoContainer {...componentData} />;
+  return (
+    <div className="w-full col-span-full">
+      <Pagination paginationData={response} />
+      <CardsInfoContainer {...componentData} />
+    </div>
+  );
 }
