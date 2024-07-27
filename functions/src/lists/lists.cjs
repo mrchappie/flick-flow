@@ -22,8 +22,7 @@ const exportListsData = onRequest({ cors: true }, async (req, res) => {
         });
       }
 
-      const bodyData = JSON.parse(req.body);
-      const { limit } = bodyData;
+      const limit = parseInt(req.query.page * 10, 10) || 10;
 
       const listsData = [];
 

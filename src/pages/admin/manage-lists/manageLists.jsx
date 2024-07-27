@@ -25,8 +25,8 @@ export default function ManageLists() {
             handleClick={() => {
               console.log('test');
               fetchData({
-                customURL: process.env.REACT_APP_FIREBASE_EXPORT_LISTS_DATA,
-                customBody: { limit: 10 },
+                customURL:
+                  process.env.REACT_APP_FIREBASE_EXPORT_LISTS_DATA + `?page=1`,
               });
             }}
             title="Load Lists"

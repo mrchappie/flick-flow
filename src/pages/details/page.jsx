@@ -26,7 +26,7 @@ export default function Details() {
     setMovieID(searchParams.get('movie_id'));
   }, [searchParams]);
 
-  const { response, loading, error } = useAPI({
+  const { response } = useAPI({
     paths: {
       category: 'movie',
       subCategory: [movieID],
