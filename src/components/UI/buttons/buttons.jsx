@@ -12,13 +12,15 @@ export function ButtonTextBg({ handleClick, children, title, customStyle }) {
   );
 }
 
-export function ButtonTextNoBg(props) {
+export function ButtonTextNoBg({ handleClick, children, title, customStyle }) {
   return (
     <button
-      onClick={props.handleClick}
-      className="p-3 bg-transparent rounded-sm text-brand1 min-w-[100px] w-max"
+      onClick={handleClick}
+      className={`p-3 bg-transparent rounded-sm text-brand1 min-w-[100px] w-max ${
+        customStyle ?? ''
+      }`}
     >
-      {props.children ? props.children : props.title}
+      {children ? children : title}
     </button>
   );
 }

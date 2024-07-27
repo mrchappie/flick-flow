@@ -10,6 +10,7 @@ export const useStateStore = create((set) => ({
   showModal: false,
   itemToAddInDB: {},
   itemsInList: [],
+  disableScroll: false,
 
   initState: () => set({ isLoggedIn: false }),
 
@@ -26,6 +27,9 @@ export const useStateStore = create((set) => ({
   updateGenresMap: (genres) => set(() => ({ genres: genres })),
 
   updateShowModal: (showModal) => set(() => ({ showModal: showModal })),
+
+  updateDisableScroll: (disableScroll) =>
+    set(() => ({ disableScroll: disableScroll })),
 
   updateItemToAddInDB: (itemToAddInDB) =>
     set(() => ({ itemToAddInDB: itemToAddInDB })),

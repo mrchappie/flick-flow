@@ -22,7 +22,7 @@ function App() {
     updateUserAuthToken,
     updateIsLoggedIn,
     isLoggedIn,
-    showModalState,
+    disableScroll,
     addItemInList,
   } = useStateStore();
   const { response, fetchData } = useFetch({
@@ -65,8 +65,8 @@ function App() {
   ]);
 
   useEffect(() => {
-    document.body.style.overflow = showModalState ? 'hidden' : null;
-  }, [showModalState]);
+    document.body.style.overflow = disableScroll ? 'hidden' : null;
+  }, [disableScroll]);
 
   if (authIsLoading && !userData) {
     // Render a loading indicator or skeleton while authentication state is loading

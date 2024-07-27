@@ -3,14 +3,14 @@ import { HiBookmark, HiOutlineBookmark } from 'react-icons/hi2';
 import { useStateStore } from 'utils/services/state/State';
 
 export default function AddToOtherList({ details, showModal }) {
-  const { itemsInList } = useStateStore();
-  const { updateShowModal } = useStateStore();
+  const { updateShowModal, itemsInList, updateDisableScroll } = useStateStore();
   const [isInList, setIsInList] = useState(false);
   const [filteredList, setFilteredList] = useState([]);
 
   // open more lists modal
   function openListsModal(itemDetails) {
     updateShowModal(true);
+    updateDisableScroll(true);
     showModal(itemDetails, filteredList);
   }
 

@@ -83,7 +83,6 @@ export default function Details() {
         </header>
       </section>
       <section className="justify-start h-full col-span-3 center-col">
-        <Heading title={'Similar Movies'} />
         <Recomandations movieID={movieID} />
       </section>
       <ForYou />

@@ -1,11 +1,14 @@
+import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { useEffect, useState } from 'react';
 import { HiMiniPlay } from 'react-icons/hi2';
 import useAPI from 'utils/hooks/useAPI';
+import { useStateStore } from 'utils/services/state/State';
 import { tmdbImagesOrigin } from 'utils/utils';
 
 export default function VideoPlayer({ movieDetails }) {
   const [togglePlayButton, setTogglePlayButton] = useState(false);
   const [toggleShowTrailer, setToggleShowTrailer] = useState(false);
+  const { updateDisableScroll, disableScroll } = useStateStore();
 
   const { response } = useAPI({
     paths: {
@@ -30,6 +33,7 @@ export default function VideoPlayer({ movieDetails }) {
   function showTrailers() {
     setTogglePlayButton(!togglePlayButton);
     setToggleShowTrailer(!toggleShowTrailer);
+    updateDisableScroll(!disableScroll);
   }
 
   return (
@@ -59,10 +63,12 @@ export default function VideoPlayer({ movieDetails }) {
         )}
       </div>
       {toggleShowTrailer && (
-        <div className="absolute top-0 left-0 z-50 grid w-full h-full grid-cols-2 grid-rows-2 gap-8 p-8 bg-black/90">
-          <button onClick={showTrailers} className="absolute top-0 right-0">
-            Close
-          </button>
+        <div className="absolute top-0 left-0 z-50 grid w-full h-full grid-cols-2 gap-8 p-8 bg-black/90">
+          <div className="absolute w-full center">
+            <ButtonTextBg handleClick={showTrailers}>
+              Click to close this popup or press Esc key
+            </ButtonTextBg>
+          </div>
           {response.results &&
             response.results
               .filter((item) => item.name.includes('Trailer'))

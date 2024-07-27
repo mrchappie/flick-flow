@@ -6,7 +6,7 @@ import AddToFavorites from './components/addToFavorites';
 import AddToOtherList from './components/addToOtherList';
 
 export default function MovieCard({ details, customStyle, onHandleShowModal }) {
-  const isLoggedIn = useStateStore((state) => state.isLoggedIn);
+  const { isLoggedIn } = useStateStore();
 
   return (
     <div className="relative">

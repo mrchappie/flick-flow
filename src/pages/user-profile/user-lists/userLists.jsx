@@ -8,8 +8,7 @@ export default function UserLists() {
   const { userData } = useStateStore();
   const [lists, setLists] = useState([]);
 
-  const showModalState = useStateStore((state) => state.showModal);
-  const updateShowModal = useStateStore((state) => state.updateShowModal);
+  const { showModal, updateShowModal } = useStateStore();
 
   useEffect(() => {
     async function fetchData() {
@@ -28,7 +27,7 @@ export default function UserLists() {
   }, [userData]);
 
   function handleShowModal() {
-    updateShowModal(!showModalState);
+    updateShowModal(!showModal);
   }
 
   return (
@@ -58,7 +57,7 @@ export default function UserLists() {
         })}
       </ul>
 
-      {showModalState && (
+      {showModal && (
         <CreateNewList
           lists={lists}
           onAddNewListToState={(newList) => {

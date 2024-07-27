@@ -9,7 +9,12 @@ import useFetch from 'utils/hooks/useFetch';
 import { checkMediaType } from '../movieCard/components/helper';
 // import CreateNewList from 'pages/user-profile/user-lists/createNewList';
 
-export default function CardsInfoContainer({ title, data = [], style }) {
+export default function CardsInfoContainer({
+  title,
+  data = [],
+  style,
+  customStyle,
+}) {
   const { userData } = useStateStore();
   const { showModal } = useStateStore();
   const { updateShowModal } = useStateStore();
@@ -71,7 +76,12 @@ export default function CardsInfoContainer({ title, data = [], style }) {
         </div>
       )}
 
-      <div className={`flex-wrap w-full h-full center my-[50px] ${style}`}>
+      <div
+        className={
+          customStyle ??
+          `flex-wrap w-full h-full center my-[50px] ${style ?? ''}`
+        }
+      >
         {data.map((movie) => {
           return (
             <MovieCard

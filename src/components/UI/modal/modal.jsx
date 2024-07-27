@@ -2,12 +2,12 @@ import { HiXMark } from 'react-icons/hi2';
 import { useStateStore } from 'utils/services/state/State';
 
 export default function Modal({ children }) {
-  const { showModal } = useStateStore();
-  const { updateShowModal } = useStateStore();
+  const { updateShowModal, updateDisableScroll, showModal } = useStateStore();
 
   function handleCloseModal(e) {
     if (e.target === e.currentTarget) {
-      updateShowModal(!showModal);
+      updateShowModal(false);
+      updateDisableScroll(false);
     }
   }
 

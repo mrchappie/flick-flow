@@ -1,4 +1,4 @@
-import MovieCard from 'components/UI/movieCard/movieCard';
+import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
@@ -16,11 +16,11 @@ export default function Recomandations({ movieID }) {
     }
   }, [response]);
 
-  return (
-    <div className="grid grid-cols-2 gap-4">
-      {moviesRecDetails.map((movie) => {
-        return <MovieCard key={movie.id} details={movie} />;
-      })}
-    </div>
-  );
+  const componentData = {
+    title: 'Similar Movies',
+    data: moviesRecDetails,
+    customStyle: 'grid grid-cols-2 gap-4',
+  };
+
+  return <CardsInfoContainer {...componentData} />;
 }
