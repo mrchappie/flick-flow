@@ -13,6 +13,7 @@ import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from 'pages/layouts/defaultLayout';
 import AdminLayout from 'pages/admin/adminLayout';
 import UserProfileLayout from 'pages/layouts/userProfileLayout';
+import { Toaster } from 'sonner';
 
 function App() {
   const { user, userData, authIsLoading, userAuthToken } = useAuthCheck();
@@ -75,6 +76,7 @@ function App() {
 
   return (
     <React.StrictMode>
+      <Toaster richColors />
       <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
         <Routes>
           <Route element={<DefaultLayout />}>
