@@ -13,11 +13,8 @@ import { Route, Routes } from 'react-router-dom';
 import DefaultLayout from 'pages/layouts/defaultLayout';
 import AdminLayout from 'pages/admin/adminLayout';
 import UserProfileLayout from 'pages/layouts/userProfileLayout';
-<<<<<<< Updated upstream
-=======
 import { Flip, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
->>>>>>> Stashed changes
 
 function App() {
   const { user, userData, authIsLoading, userAuthToken } = useAuthCheck();
@@ -80,10 +77,7 @@ function App() {
 
   return (
     <React.StrictMode>
-<<<<<<< Updated upstream
-=======
       <ToastContainer theme="dark" position="bottom-right" transition={Flip} />
->>>>>>> Stashed changes
       <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
         <Routes>
           <Route element={<DefaultLayout />}>
