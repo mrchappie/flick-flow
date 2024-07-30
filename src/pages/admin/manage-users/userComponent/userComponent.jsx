@@ -1,10 +1,12 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HiEllipsisHorizontal, HiOutlineSquare2Stack } from 'react-icons/hi2';
 import { useStateStore } from 'utils/services/state/State';
 import { trimText } from 'utils/utils';
 import DisableUser from './disableUser';
 import { useModal } from 'utils/modals/ModalContext';
+import useFetch from 'utils/hooks/useFetch';
+import { toast } from 'react-toastify';
 
 export default function UserComponent({ user }) {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
@@ -14,6 +16,15 @@ export default function UserComponent({ user }) {
   function handleToggleMoreOptions() {
     setShowMoreOptions(!showMoreOptions);
   }
+
+  const { response, fetchData } = useFetch({});
+
+  useEffect(() => {
+    if (response) {
+      console.log(response);
+      toast.success(response.message);
+    }
+  }, [response]);
 
   return (
     <div
@@ -54,7 +65,17 @@ export default function UserComponent({ user }) {
                   openModal('EditUser', { user: user });
                 }}
               />
-              <DisableUser userData={user} />
+              <DisableUser userToDisable={user} />
+              <ButtonTextBg
+                title={'Delete'}
+                handleClick={() => {
+                  fetchData({
+                    customURL: process.env.REACT_APP_FIREBASE_DELETE_USER,
+                    customMethod: 'DELETE',
+                    customBody: { data: { uid: user.uid } },
+                  });
+                }}
+              />
             </div>
           )}
         </div>

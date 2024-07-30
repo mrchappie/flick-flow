@@ -5,6 +5,7 @@ const { getAuth } = require('firebase-admin/auth');
 const {
   initializeUserObject,
   initializeUserListsObject,
+  deleteUserDataFromFirestore,
 } = require('../utils/helpers');
 
 const setUserRole = onRequest({ cors: true }, async (req, res) => {
@@ -218,6 +219,10 @@ const deleteUser = onRequest({ cors: true }, async (req, res) => {
       const bodyData = JSON.parse(req.body);
       const { data: userData } = bodyData;
 
+      // delete user data from firestore
+      await deleteUserDataFromFirestore(userData.uid);
+
+      // delete user from auth
       await getAuth().deleteUser(userData.uid);
 
       return res.status(200).json({

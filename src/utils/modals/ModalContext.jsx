@@ -9,7 +9,11 @@ export function ModalProvider({ children }) {
     setModal({ name, props });
   };
 
-  const closeModal = () => setModal(null);
+  const closeModal = (e) => {
+    if (e.target === e.currentTarget) {
+      setModal(null);
+    }
+  };
 
   return (
     <div>

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useFetch from 'utils/hooks/useFetch';
 
-export default function EditUser({ user }) {
+export default function EditUser({ user, closeModal }) {
   const { handleSubmit, register } = useForm({
     defaultValues: {
       email: user.email ?? '',
@@ -21,14 +21,20 @@ export default function EditUser({ user }) {
 
   async function handleUpdateProfile(formData) {
     try {
+      // write this logic in the cloud
+      const validFormData = Object.fromEntries(
+        Object.entries(formData).filter((item) => item[1] !== '')
+      );
+
       fetchData({
         customURL: process.env.REACT_APP_FIREBASE_UPDATE_USER_DATA,
         customMethod: 'PUT',
-        customBody: { data: formData },
+        customBody: { data: { ...validFormData, uid: user.uid } },
       });
-      console.log(formData);
     } catch (error) {
       console.log(error);
+    } finally {
+      // closeModal();
     }
   }
 

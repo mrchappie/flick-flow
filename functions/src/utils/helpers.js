@@ -44,4 +44,29 @@ async function initializeUserListsObject(userID) {
   }
 }
 
-module.exports = { initializeUserObject, initializeUserListsObject };
+async function deleteUserDataFromFirestore(userID) {
+  try {
+    // retrive user doc to get user lists IDs
+    const userDocSnapshot = await DB.collection('users').doc(userID).get();
+    const userLists = userDocSnapshot.data();
+
+    // delete all lists one by one from firestore
+    const promises = userLists.lists.map((list) => {
+      return DB.collection('lists').doc(list.listID).delete();
+    });
+
+    await Promise.all(promises);
+
+    // delete user object from firestore
+    await DB.collection('users').doc(userID).delete();
+  } catch (error) {
+    console.error('Error initializing user lists:', error);
+    throw error;
+  }
+}
+
+module.exports = {
+  initializeUserObject,
+  initializeUserListsObject,
+  deleteUserDataFromFirestore,
+};

@@ -19,13 +19,13 @@ function App() {
     <React.StrictMode>
       <ModalProvider>
         <ModalManager />
-        <AppRunner />
         <ToastContainer
           theme="dark"
           position="bottom-right"
           transition={Flip}
         />
         <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
+          <AppRunner />
           <Routes>
             <Route element={<DefaultLayout />}>
               <Route path="/*" element={<DefaultRoutes />} />
