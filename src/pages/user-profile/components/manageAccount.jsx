@@ -1,5 +1,5 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
-import Heading from 'components/UI/heading/heading';
+import { Heading } from 'components/UI/heading/heading';
 import { TagWithBorder } from 'components/UI/tags/tags';
 
 export default function ManageAccount({ userData }) {
@@ -18,11 +18,15 @@ export default function ManageAccount({ userData }) {
         </div>
         <div className="justify-between w-full center">
           <span className="flex-grow text-xl">Change email</span>
-          <ButtonTextBg customStyle={'min-w-[100px]'}>Change</ButtonTextBg>
+          <ButtonTextBg customStyle={'min-w-[100px] bg-brand4 border-brand4'}>
+            Change
+          </ButtonTextBg>
         </div>
         <div className="justify-between w-full center">
           <span className="flex-grow text-xl">Change password</span>
-          <ButtonTextBg customStyle={'min-w-[100px]'}>Change</ButtonTextBg>
+          <ButtonTextBg customStyle={'min-w-[100px] bg-brand4 border-brand4'}>
+            Change
+          </ButtonTextBg>
         </div>
       </div>
     </div>

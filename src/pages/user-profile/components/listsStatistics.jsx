@@ -1,4 +1,4 @@
-import Heading from 'components/UI/heading/heading';
+import { Heading } from 'components/UI/heading/heading';
 import { TagWithBg, TagWithBorder } from 'components/UI/tags/tags';
 import { useEffect, useState } from 'react';
 import useFetch from 'utils/hooks/useFetch';

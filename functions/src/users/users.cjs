@@ -2,6 +2,10 @@ const { onRequest } = require('firebase-functions/v2/https');
 const { isObjectEmpty, DB } = require('../utils/initialize.cjs');
 const authUser = require('../utils/authUser.cjs');
 const { getAuth } = require('firebase-admin/auth');
+const {
+  initializeUserObject,
+  initializeUserListsObject,
+} = require('../utils/helpers');
 
 const setUserRole = onRequest({ cors: true }, async (req, res) => {
   if (req.method !== 'PATCH') {
@@ -168,12 +172,13 @@ const createUser = onRequest({ cors: true }, async (req, res) => {
 
       const userRecord = await getAuth().createUser({
         ...userData,
-        emailVerified: false,
-        phoneNumber: '',
-        displayName: '',
-        photoURL: '',
-        disabled: false,
       });
+
+      await initializeUserObject(userRecord.uid, {
+        email: userRecord.email,
+        name: userRecord.displayName,
+      });
+      await initializeUserListsObject(userRecord.uid);
 
       return res.status(200).json({
         message: 'User created successfully',

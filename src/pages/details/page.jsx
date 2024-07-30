@@ -1,6 +1,6 @@
 import ForYou from 'components/forYou/forYou';
 import { ButtonWithTextAndIcon } from 'components/UI/buttons/buttons';
-import Heading from 'components/UI/heading/heading';
+import { Heading } from 'components/UI/heading/heading';
 import { useSearchParams } from 'react-router-dom';
 import {
   MdFormatListBulletedAdd,

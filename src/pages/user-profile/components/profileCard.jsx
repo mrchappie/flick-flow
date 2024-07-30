@@ -41,8 +41,8 @@ export default function ProfileCard({ userData }) {
       </div>
       <div className="mt-[100px]">
         <form
-          className="items-stretch h-full center-col"
           onSubmit={handleSubmit(handleUpdateProfile)}
+          className="items-stretch h-full center-col"
         >
           <input
             {...register('name', { required: true })}

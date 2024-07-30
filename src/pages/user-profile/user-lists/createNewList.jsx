@@ -20,6 +20,9 @@ export default function CreateNewList({ onAddNewListToState, onCloseModal }) {
   }
   return (
     <Modal>
+      <h1 className="text-3xl font-bold text-center text-black max-w-[400px]">
+        Please input a name for your list:
+      </h1>
       <Formik
         initialValues={{ listName: '' }}
         onSubmit={(formValues) => {

@@ -1,5 +1,5 @@
 import { useStateStore } from 'utils/services/state/State';
-import Heading from '../heading/heading';
+import { Heading, Heading2 } from '../heading/heading';
 import Modal from '../modal/modal';
 import MovieCard from '../movieCard/movieCard';
 import { ListCardInline } from 'pages/user-profile/user-lists/listCard';
@@ -95,7 +95,8 @@ export default function CardsInfoContainer({
 
       {showModal && (
         <Modal>
-          <ul className="gap-4 p-4 center-col">
+          <Heading2 title={'Click the list you want to add this movie:'} />
+          <ul className="gap-4 p-4 center-col max-w-[400px]">
             {handleFilterLists(userData.lists).map((list) => {
               return (
                 <ListCardInline

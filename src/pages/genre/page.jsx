@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
-import Heading from 'components/UI/heading/heading';
+import { Heading } from 'components/UI/heading/heading';
 
 export default function Genre() {
   const [moviesGenresList, setMoviesGenresList] = useState([]);

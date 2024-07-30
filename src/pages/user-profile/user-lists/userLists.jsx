@@ -1,4 +1,4 @@
-import Heading from 'components/UI/heading/heading';
+import { Heading } from 'components/UI/heading/heading';
 import { useEffect, useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';
 import { ListCardBlock } from './listCard';

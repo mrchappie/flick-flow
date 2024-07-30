@@ -5,10 +5,14 @@ import {
 import { useEffect } from 'react';
 import useFetch from 'utils/hooks/useFetch';
 import UserComponent from './userComponent/userComponent';
-import Heading from 'components/UI/heading/heading';
+import { Heading } from 'components/UI/heading/heading';
+import { toast } from 'react-toastify';
+import { useStateStore } from 'utils/services/state/State';
+import CreateUser from './userComponent/createUser';
 
 export default function ManageUsers() {
   const { response, fetchData } = useFetch({});
+  const { updateShowModal } = useStateStore();
 
   useEffect(() => {
     if (response) {
@@ -29,7 +33,12 @@ export default function ManageUsers() {
             }}
             title="Load Users"
           />
-          <ButtonTextBg title="Add User" />
+          <ButtonTextBg
+            title="Add User"
+            handleClick={() => {
+              updateShowModal(true);
+            }}
+          />
         </div>
       </div>
       <hr className="my-4" />
@@ -45,6 +54,7 @@ export default function ManageUsers() {
             return <UserComponent user={user} key={user.uid} />;
           })}
       </div>
+      <CreateUser />
     </>
   );
 }

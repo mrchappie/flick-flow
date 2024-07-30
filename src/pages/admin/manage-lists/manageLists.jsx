@@ -2,7 +2,7 @@ import {
   ButtonTextBg,
   ButtonTextNoBgWithBorder,
 } from 'components/UI/buttons/buttons';
-import Heading from 'components/UI/heading/heading';
+import { Heading } from 'components/UI/heading/heading';
 import { useEffect } from 'react';
 import useFetch from 'utils/hooks/useFetch';
 import ListComponent from './listComponent/listomponent';

@@ -1,7 +1,10 @@
 const { onRequest } = require('firebase-functions/v2/https');
-const { DB, isObjectEmpty } = require('./utils/initialize.cjs');
+const { isObjectEmpty } = require('./utils/initialize.cjs');
 const authUser = require('./utils/authUser.cjs');
-const { v4: uuid } = require('uuid');
+const {
+  initializeUserObject,
+  initializeUserListsObject,
+} = require('./utils/helpers');
 
 const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
   if (req.method !== 'POST') {
@@ -25,40 +28,10 @@ const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
           .json({ message: 'Please provide data to delete', status: 401 });
       }
 
-      const listData = {
-        userID: userID,
-        createdAt: new Date().getTime(),
-        updatedAt: null,
-      };
-
-      const lists = ['favorites', 'watchlist', 'history'].map((listName) => ({
-        listID: uuid(),
-        listName,
-      }));
-
-      const createUserObject = DB.collection('users')
-        .doc(userID)
-        .set({
-          ...userData,
-          name: userData.email.split('@')[0],
-          userName: null,
-          role: 'user',
-          genres: [],
-          uid: userID,
-          lists: lists.map(({ listID, listName }) => ({ listID, listName })),
-        });
-
-      const createLists = lists.map(({ listID, listName }) =>
-        DB.collection('lists')
-          .doc(listID)
-          .set({
-            ...listData,
-            name: listName,
-            listID,
-          })
-      );
-
-      await Promise.all([createUserObject, ...createLists]);
+      await initializeUserObject(userID, {
+        email: userData.email,
+      });
+      await initializeUserListsObject(userID);
 
       return res
         .status(200)
