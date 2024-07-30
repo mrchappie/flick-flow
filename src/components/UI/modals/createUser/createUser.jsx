@@ -1,7 +1,6 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Heading2 } from 'components/UI/heading/heading';
-import Modal from 'components/UI/modal/modal';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useFetch from 'utils/hooks/useFetch';
@@ -10,7 +9,7 @@ export default function CreateUser() {
   const { handleSubmit, register } = useForm();
   const { response, fetchData } = useFetch({});
 
-  async function handleUpdateProfile(formData) {
+  async function handleCreateProfile(formData) {
     try {
       fetchData({
         customURL: process.env.REACT_APP_FIREBASE_CREATE_USER,
@@ -31,26 +30,24 @@ export default function CreateUser() {
 
   return (
     <>
-      <Modal>
-        <Heading2 title={'New User Data'} />
-        <form
-          onSubmit={handleSubmit(handleUpdateProfile)}
-          className="items-stretch h-full center-col"
-        >
-          {formData.map((input) => {
-            return (
-              <input
-                {...register(input.name, { required: input.required })}
-                type={input.type}
-                placeholder={input.placeholder}
-                key={input.name}
-                className="text-black w-[400px] h-10"
-              />
-            );
-          })}
-          <ButtonTextBg type="submit">Save</ButtonTextBg>
-        </form>
-      </Modal>
+      <Heading2 title={'New User Data'} />
+      <form
+        onSubmit={handleSubmit(handleCreateProfile)}
+        className="items-stretch h-full center-col"
+      >
+        {formData.map((input) => {
+          return (
+            <input
+              {...register(input.name, { required: input.required })}
+              type={input.type}
+              placeholder={input.placeholder}
+              key={input.name}
+              className="text-black w-[400px] h-10"
+            />
+          );
+        })}
+        <ButtonTextBg type="submit">Save</ButtonTextBg>
+      </form>
     </>
   );
 }

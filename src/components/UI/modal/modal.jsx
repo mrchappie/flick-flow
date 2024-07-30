@@ -16,12 +16,12 @@ export default function Modal({ children }) {
       {showModal && (
         <div
           onClick={handleCloseModal}
-          className="fixed top-0 left-0 z-50 w-screen h-screen cursor-pointer bg-black/50 center"
+          className="fixed top-0 left-0 z-50 w-screen h-screen bg-black/50 center"
         >
           <div className="relative p-4 rounded-md bg-white/75 w-max">
             <span
               onClick={handleCloseModal}
-              className="absolute text-3xl top-[-10px] right-[-10px] p-2 bg-red-400 rounded-full"
+              className="absolute text-3xl top-[-10px] cursor-pointer right-[-10px] p-2 bg-red-400 rounded-full"
             >
               <HiXMark />
             </span>

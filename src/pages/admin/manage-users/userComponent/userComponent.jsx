@@ -4,10 +4,12 @@ import { HiEllipsisHorizontal, HiOutlineSquare2Stack } from 'react-icons/hi2';
 import { useStateStore } from 'utils/services/state/State';
 import { trimText } from 'utils/utils';
 import DisableUser from './disableUser';
+import { useModal } from 'utils/modals/ModalContext';
 
 export default function UserComponent({ user }) {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const { userData } = useStateStore();
+  const { openModal } = useModal();
 
   function handleToggleMoreOptions() {
     setShowMoreOptions(!showMoreOptions);
@@ -46,7 +48,12 @@ export default function UserComponent({ user }) {
               className="absolute flex gap-2 bg-gray-400 shadow-xl"
               onMouseLeave={handleToggleMoreOptions}
             >
-              <ButtonTextBg title="Edit" />
+              <ButtonTextBg
+                title="Edit"
+                handleClick={() => {
+                  openModal('EditUser', { user: user });
+                }}
+              />
               <DisableUser userData={user} />
             </div>
           )}
