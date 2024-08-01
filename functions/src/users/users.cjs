@@ -226,7 +226,7 @@ const deleteUser = onRequest({ cors: true }, async (req, res) => {
       await getAuth().deleteUser(userData.uid);
 
       return res.status(200).json({
-        message: 'Successfully deleted user',
+        message: 'Successfully deleted user data',
         data: userData,
       });
     } catch (error) {

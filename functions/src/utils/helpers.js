@@ -45,6 +45,7 @@ async function initializeUserListsObject(userID) {
 }
 
 async function deleteUserDataFromFirestore(userID) {
+  const MAX_BATCH_SIZE = 100;
   try {
     // retrive user doc to get user lists IDs
     const userDocSnapshot = await DB.collection('users').doc(userID).get();
@@ -52,6 +53,16 @@ async function deleteUserDataFromFirestore(userID) {
 
     // delete all lists one by one from firestore
     const promises = userLists.lists.map((list) => {
+      // delete sub collections from user lists
+      ['movie', 'tv'].map((subColl) => {
+        const subCollRef = DB.collection(`/lists/${list.listID}/${subColl}`);
+        const query = subCollRef.limit(MAX_BATCH_SIZE);
+
+        return new Promise((resolve, reject) => {
+          deleteQueryBatch(query, resolve).catch(reject);
+        });
+      });
+
       return DB.collection('lists').doc(list.listID).delete();
     });
 
@@ -63,6 +74,32 @@ async function deleteUserDataFromFirestore(userID) {
     console.error('Error initializing user lists:', error);
     throw error;
   }
+}
+
+async function deleteQueryBatch(query, resolve) {
+  const snapshot = await query.get();
+
+  const batchSize = snapshot.size;
+
+  // MAX_BATCH_SIZE will not exced 100 items
+  if (batchSize === 0) {
+    // if there are no docs, finish the execution
+    resolve();
+    return;
+  }
+
+  // delete docs in a batch
+  const batch = DB.batch();
+  snapshot.docs.forEach((doc) => {
+    batch.delete(doc.ref);
+  });
+
+  await batch.commit();
+
+  // go to the next process tick
+  process.nextTick(() => {
+    deleteQueryBatch(query, resolve);
+  });
 }
 
 module.exports = {
