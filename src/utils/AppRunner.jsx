@@ -4,7 +4,7 @@ import useFetch from './hooks/useFetch';
 import { useStateStore } from './services/state/State';
 import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
 
-export default function AppRunner() {
+export default function AppRunner({ children }) {
   const { user, userData, authIsLoading, userAuthToken } = useAuthCheck();
   const {
     updateUser,
@@ -62,4 +62,6 @@ export default function AppRunner() {
     // Render a loading indicator or skeleton while authentication state is loading
     return <LoadingSpinner />;
   }
+
+  return <>{children}</>;
 }

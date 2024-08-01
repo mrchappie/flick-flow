@@ -11,7 +11,7 @@ export default function CreateNewList({ onAddNewListToState, onCloseModal }) {
   // add new list to DB
   async function handleSubmit(formValues) {
     const list = await DB.createNewList({
-      uid: userData.userID,
+      uid: userData.uid,
       listName: formValues.listName,
     });
 

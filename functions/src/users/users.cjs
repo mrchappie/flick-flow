@@ -7,6 +7,7 @@ const {
   initializeUserListsObject,
   deleteUserDataFromFirestore,
 } = require('../utils/helpers');
+const { v4: uuid } = require('uuid');
 
 const setUserRole = onRequest({ cors: true }, async (req, res) => {
   if (req.method !== 'PATCH') {
@@ -175,11 +176,21 @@ const createUser = onRequest({ cors: true }, async (req, res) => {
         ...userData,
       });
 
-      await initializeUserObject(userRecord.uid, {
-        email: userRecord.email,
-        name: userRecord.displayName,
-      });
-      await initializeUserListsObject(userRecord.uid);
+      const defaultListsIDs = {
+        favorites: uuid(),
+        watchlist: uuid(),
+        history: uuid(),
+      };
+
+      await initializeUserObject(
+        userRecord.uid,
+        {
+          email: userRecord.email,
+          name: userRecord.displayName,
+        },
+        defaultListsIDs
+      );
+      await initializeUserListsObject(userRecord.uid, defaultListsIDs);
 
       return res.status(200).json({
         message: 'User created successfully',

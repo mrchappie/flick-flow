@@ -24,20 +24,21 @@ function App() {
           position="bottom-right"
           transition={Flip}
         />
-        <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
-          <AppRunner />
-          <Routes>
-            <Route element={<DefaultLayout />}>
-              <Route path="/*" element={<DefaultRoutes />} />
-            </Route>
-            <Route element={<UserProfileLayout />}>
-              <Route path="/user-profile/*" element={<UserProfileRoutes />} />
-            </Route>
-            <Route element={<AdminLayout />}>
-              <Route path="/admin/*" element={<AdminRoutes />} />
-            </Route>
-          </Routes>
-        </main>
+        <AppRunner>
+          <main className="grid min-h-screen grid-cols-12 custom-main-grid-row">
+            <Routes>
+              <Route element={<DefaultLayout />}>
+                <Route path="/*" element={<DefaultRoutes />} />
+              </Route>
+              <Route element={<UserProfileLayout />}>
+                <Route path="/user-profile/*" element={<UserProfileRoutes />} />
+              </Route>
+              <Route element={<AdminLayout />}>
+                <Route path="/admin/*" element={<AdminRoutes />} />
+              </Route>
+            </Routes>
+          </main>
+        </AppRunner>
       </ModalProvider>
     </React.StrictMode>
   );
