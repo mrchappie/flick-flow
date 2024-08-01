@@ -11,6 +11,7 @@ export const useStateStore = create((set) => ({
   itemToAddInDB: {},
   itemsInList: [],
   disableScroll: false,
+  users: [],
 
   initState: () => set({ isLoggedIn: false }),
 
@@ -46,4 +47,6 @@ export const useStateStore = create((set) => ({
         return false;
       }),
     })),
+
+  updateUsers: (users) => set(() => ({ users: users })),
 }));

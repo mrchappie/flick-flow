@@ -13,6 +13,7 @@ import {
   query,
   setDoc,
   updateDoc,
+  where,
 } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 
@@ -47,10 +48,22 @@ class ConnectDB {
     }
   }
 
-  async getFirestoreDocsByQuery(docPath = ['users']) {
+  async getFirestoreDocsByEqualQuery(docPath = ['users'], queryParams = []) {
     try {
-      const docRef = doc(firestore, 'test', ...docPath);
-      await getDocs();
+      const docRef = query(
+        collection(firestore, ...docPath),
+        where(queryParams[0], '==', queryParams[1])
+      );
+
+      const querySnapshot = await getDocs(docRef);
+
+      const response = [];
+
+      querySnapshot.forEach((doc) => {
+        response.push(doc.data());
+      });
+
+      return response;
     } catch (error) {
       console.log(error);
     }

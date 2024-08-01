@@ -7,14 +7,17 @@ import useFetch from 'utils/hooks/useFetch';
 import UserComponent from './userComponent/userComponent';
 import { Heading } from 'components/UI/heading/heading';
 import { useModal } from 'utils/modals/ModalContext';
+import AdminSearchBar from '../components/adminSearchBar/adminSearchBar';
+import { useStateStore } from 'utils/services/state/State';
 
 export default function ManageUsers() {
   const { response, fetchData } = useFetch({});
   const { openModal } = useModal();
+  const { users, updateUsers } = useStateStore();
 
   useEffect(() => {
     if (response) {
-      console.log(response);
+      updateUsers(response.data);
     }
   }, [response]);
 
@@ -22,7 +25,8 @@ export default function ManageUsers() {
     <>
       <div className="center">
         <Heading title="Manage Users" />
-        <div className="gap-4 center grow">
+        <div className="gap-4 center">
+          <AdminSearchBar />
           <ButtonTextNoBgWithBorder
             handleClick={() => {
               fetchData({
@@ -47,8 +51,8 @@ export default function ManageUsers() {
           <span>UID</span>
           <span>Email</span>
         </div>
-        {response &&
-          response.data.map((user) => {
+        {users &&
+          users.map((user) => {
             return <UserComponent user={user} key={user.uid} />;
           })}
       </div>
