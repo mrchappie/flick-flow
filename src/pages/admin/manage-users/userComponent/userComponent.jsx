@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 export default function UserComponent({ user }) {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const { userData } = useStateStore();
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
 
   function handleToggleMoreOptions() {
     setShowMoreOptions(!showMoreOptions);
@@ -25,6 +25,16 @@ export default function UserComponent({ user }) {
       toast.success(response.message);
     }
   }, [response]);
+
+  function handleDeleteUser() {
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_DELETE_USER,
+      customMethod: 'DELETE',
+      customBody: { data: { uid: user.uid } },
+    });
+
+    closeModal('outside');
+  }
 
   return (
     <div
@@ -69,10 +79,14 @@ export default function UserComponent({ user }) {
               <ButtonTextBg
                 title={'Delete'}
                 handleClick={() => {
-                  fetchData({
-                    customURL: process.env.REACT_APP_FIREBASE_DELETE_USER,
-                    customMethod: 'DELETE',
-                    customBody: { data: { uid: user.uid } },
+                  openModal('Confirmation', {
+                    title: `Are you sure you want to delete this user?`,
+                    subTitle: `${user.name} - ${user.role} - ${user.email}`,
+                    confirmText: 'Confirm',
+                    cancelText: 'Cancel',
+                    onConfirm: () => {
+                      handleDeleteUser();
+                    },
                   });
                 }}
               />

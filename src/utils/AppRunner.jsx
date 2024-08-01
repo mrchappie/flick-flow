@@ -63,5 +63,5 @@ export default function AppRunner({ children }) {
     return <LoadingSpinner />;
   }
 
-  return <>{children}</>;
+  return children;
 }

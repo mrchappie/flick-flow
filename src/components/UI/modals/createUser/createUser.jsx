@@ -1,11 +1,11 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Heading2 } from 'components/UI/heading/heading';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useFetch from 'utils/hooks/useFetch';
 
-export default function CreateUser() {
+export default function CreateUser({ closeModal }) {
   const { handleSubmit, register } = useForm();
   const { response, fetchData } = useFetch({});
 
@@ -16,6 +16,7 @@ export default function CreateUser() {
         customMethod: 'POST',
         customBody: { data: formData },
       });
+      closeModal('outside');
       console.log(formData);
     } catch (error) {
       console.log(error);

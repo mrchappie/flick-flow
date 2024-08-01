@@ -10,6 +10,9 @@ export function ModalProvider({ children }) {
   };
 
   const closeModal = (e) => {
+    if (e === 'outside') {
+      setModal(null);
+    }
     if (e.target === e.currentTarget) {
       setModal(null);
     }
