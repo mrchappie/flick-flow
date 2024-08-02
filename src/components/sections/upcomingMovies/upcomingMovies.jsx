@@ -2,11 +2,11 @@ import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContai
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
-export default function MostPopular() {
+export default function UpcomingMovies() {
   const [movieDetails, setMovieDetails] = useState([]);
 
-  const { response, loading, error } = useAPI({
-    paths: { category: 'movie', subCategory: ['popular'] },
+  const { response } = useAPI({
+    paths: { category: 'movie', subCategory: ['upcoming'] },
   });
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function MostPopular() {
   }, [response]);
 
   const componentData = {
-    title: 'Most Popular',
+    title: 'Upcoming Movies',
     data: movieDetails,
   };
   return <CardsInfoContainer {...componentData} />;

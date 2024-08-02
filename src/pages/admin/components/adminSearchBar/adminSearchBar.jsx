@@ -24,7 +24,7 @@ export default function AdminSearchBar() {
           type="text"
           {...register('userNameQuery', { required: true })}
           className="px-2 py-1 text-black outline-none"
-          placeholder="Search for user"
+          placeholder="Search for user name"
         />
         <button
           type="submit"

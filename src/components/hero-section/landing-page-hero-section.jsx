@@ -15,13 +15,13 @@ export default function LandingPageHeroSection() {
             to <b>FlickFlow</b> now.
           </p>
           <label htmlFor="landingPageSubButton" className="w-full">
-            <input
+            {/* <input
               type="text"
               id="landingPageSubButton"
               placeholder="Email"
               className="p-3 text-black outline-none"
-            />
-            <ButtonTextBg>
+            /> */}
+            <ButtonTextBg customStyle={'w-[200px]'}>
               <Link to={'/register'}>Sign Up</Link>
             </ButtonTextBg>
           </label>

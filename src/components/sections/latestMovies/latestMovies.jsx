@@ -5,7 +5,7 @@ import useAPI from 'utils/hooks/useAPI';
 export default function LatestMovies() {
   const [movieDetails, setMovieDetails] = useState([]);
 
-  const { response, loading, error } = useAPI({
+  const { response } = useAPI({
     paths: { category: 'movie', subCategory: ['now_playing'] },
   });
 
@@ -16,7 +16,7 @@ export default function LatestMovies() {
   }, [response]);
 
   const componentData = {
-    title: 'Cele Mai Căutate',
+    title: 'Now Playing Movies',
     data: movieDetails,
   };
   return <CardsInfoContainer {...componentData} />;

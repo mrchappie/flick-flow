@@ -63,7 +63,7 @@ export default function VideoPlayer({ movieDetails }) {
         )}
       </div>
       {toggleShowTrailer && (
-        <div className="absolute top-0 left-0 z-50 grid w-full h-full grid-cols-2 gap-8 p-8 bg-black/90">
+        <div className="fixed top-0 left-0 z-50 grid w-full h-full grid-cols-2 gap-8 p-8 bg-black/90">
           <div className="absolute w-full center">
             <ButtonTextBg handleClick={showTrailers}>
               Click to close this popup or press Esc key

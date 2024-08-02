@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion as m } from 'framer-motion';
 import { HiMiniChevronDown } from 'react-icons/hi2';
 import { capitalizeWord } from 'utils/utils';
+import { ButtonTextNoBgWithBorder } from 'components/UI/buttons/buttons';
 
 export default function Header() {
   const { isLoggedIn } = useStateStore();
@@ -54,9 +55,11 @@ export default function Header() {
       <Search />
       {!isLoggedIn && (
         <div>
-          <Link to={'/login'} className="font-bold">
-            Sign In
-          </Link>
+          <ButtonTextNoBgWithBorder>
+            <Link to={'/login'} className="font-bold">
+              Sign In
+            </Link>
+          </ButtonTextNoBgWithBorder>
         </div>
       )}
       {isLoggedIn && (

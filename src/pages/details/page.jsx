@@ -1,4 +1,4 @@
-import ForYou from 'components/forYou/forYou';
+import ForYou from 'components/sections/forYou/forYou';
 import { ButtonWithTextAndIcon } from 'components/UI/buttons/buttons';
 import { Heading } from 'components/UI/heading/heading';
 import { useSearchParams } from 'react-router-dom';
@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 import { formatRunningTime } from './helpers';
-import Recomandations from 'components/recomandations/Recomandations';
+import Recomandations from 'components/sections/recomandations/Recomandations';
 import { extractReleaseYear } from 'components/UI/movieCard/helpers';
 import VideoPlayer from './videoPlayer/videoPlayer';
 
