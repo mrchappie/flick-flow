@@ -79,6 +79,7 @@ class ConnectDB {
   }
 
   async updateFirestoreDoc(docPath, data) {
+    console.log(docPath, data);
     try {
       const docRef = doc(firestore, ...docPath);
 

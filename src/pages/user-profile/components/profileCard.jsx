@@ -6,24 +6,24 @@ import { useStateStore } from 'utils/services/state/State';
 
 const DB = new ConnectDB();
 
-export default function ProfileCard({ userData }) {
+export default function ProfileCard({ loggedUserData }) {
   const { handleSubmit, register, setValue } = useForm();
   const { updateUserData } = useStateStore();
 
-  if (userData) {
-    setValue('name', userData.name);
-    setValue('username', userData.username);
+  if (loggedUserData) {
+    setValue('name', loggedUserData.name);
+    setValue('username', loggedUserData.username);
   }
 
   async function handleUpdateProfile(formData) {
     try {
       // attempt to login the user
       const response = await DB.updateFirestoreDoc(
-        ['users', userData.userID],
+        ['users', loggedUserData.uid],
         formData
       );
       updateUserData({
-        ...userData,
+        ...loggedUserData,
         name: formData.name,
         username: formData.username,
       });
@@ -35,9 +35,11 @@ export default function ProfileCard({ userData }) {
 
   return (
     <div className="col-start-1 col-end-4 p-4 bg-black/50 rounded-2xl row-span-full center-col ">
-      <ProfilePicture userData={userData} />
+      <ProfilePicture loggedUserData={loggedUserData} />
       <div>
-        <h1 className="text-2xl font-semibold">{userData && userData.name}</h1>
+        <h1 className="text-2xl font-semibold">
+          {loggedUserData && loggedUserData.name}
+        </h1>
       </div>
       <div className="mt-[100px]">
         <form

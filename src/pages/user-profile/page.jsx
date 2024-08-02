@@ -16,9 +16,9 @@ export default function UserProfile() {
 
   return (
     <div className="grid h-full grid-cols-6 grid-rows-6 gap-8">
-      <ProfileCard userData={userDataS} />
-      <ManageAccount userData={userDataS} />
-      <ListsStatistics userData={userDataS} />
+      <ProfileCard loggedUserData={userDataS} />
+      <ManageAccount loggedUserData={userDataS} />
+      <ListsStatistics loggedUserData={userDataS} />
     </div>
   );
 }
