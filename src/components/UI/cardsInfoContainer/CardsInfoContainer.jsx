@@ -7,11 +7,13 @@ import { useEffect, useState } from 'react';
 import { handleFilterLists, handleWhatListToShow } from './helper';
 import useFetch from 'utils/hooks/useFetch';
 import { checkMediaType } from '../movieCard/components/helper';
+import { Link } from 'react-router-dom';
 // import CreateNewList from 'pages/user-profile/user-lists/createNewList';
 
 export default function CardsInfoContainer({
   title,
   data = [],
+  path,
   style,
   customStyle,
 }) {
@@ -70,11 +72,18 @@ export default function CardsInfoContainer({
 
   return (
     <section className="w-full col-span-full center-col">
-      {title && (
-        <div className="justify-between w-full center mt-[50px]">
-          <Heading title={title} />
+      <div className="justify-between w-full center mt-[50px] px-4">
+        {title && (
+          <div>
+            <Heading title={title} />
+          </div>
+        )}
+        <div>
+          <Link to={`/movies${path}`} className="underline hover:text-brand4">
+            See More
+          </Link>
         </div>
-      )}
+      </div>
 
       <div
         className={

@@ -1,12 +1,12 @@
 import Carousel from 'components/carousel/carousel';
-import LatestMovies from 'components/sections/latestMovies/latestMovies';
+import NowPlayingMovies from 'components/sections/nowPlaying/nowPlayingMovies';
 import MostPopular from 'components/sections/mostPopular/mostPopular';
 import UpcomingMovies from 'components/sections/upcomingMovies/upcomingMovies';
 export default function Home() {
   return (
     <>
       <Carousel />
-      <LatestMovies />
+      <NowPlayingMovies />
       <UpcomingMovies />
       <MostPopular />
     </>

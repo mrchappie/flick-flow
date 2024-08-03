@@ -2,22 +2,22 @@ import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContai
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
-export default function LatestMovies() {
-  const [movieDetails, setMovieDetails] = useState([]);
+export default function OnTheAirShows() {
+  const [tvShowsDetails, setTvShowsDetails] = useState([]);
 
-  const { response } = useAPI({
-    paths: { category: 'movie', subCategory: ['now_playing'] },
+  const { response, loading, error } = useAPI({
+    paths: { category: 'tv', subCategory: ['on_the_air'] },
   });
 
   useEffect(() => {
     if (response && response.results) {
-      setMovieDetails(response.results.slice(0, 8));
+      setTvShowsDetails(response.results.slice(0, 8));
     }
   }, [response]);
 
   const componentData = {
-    title: 'Now Playing Movies',
-    data: movieDetails,
+    title: 'Cele Mai Căutate',
+    data: tvShowsDetails,
   };
   return <CardsInfoContainer {...componentData} />;
 }
