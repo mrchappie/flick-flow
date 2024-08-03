@@ -10,14 +10,25 @@ export default function ManageAccount({ loggedUserData }) {
   function handleDeleteAccount() {
     toast.success('Account deleted!');
     closeModal('outside');
+    openModal('ChangeCredentials');
   }
   function handleChangeEmail() {
     toast.success('Email changed!');
     closeModal('outside');
+    openModal('ChangeCredentials', {
+      title: 'Are you sure you want to change your email?',
+      subTitle: `Please enter current credentials and your new email`,
+      credType: 'email',
+    });
   }
   function handleChangePassword() {
     toast.success('Password changed!');
     closeModal('outside');
+    openModal('ChangeCredentials', {
+      title: 'Are you sure you want to change your password?',
+      subTitle: `Please enter current credentials and your new password`,
+      credType: 'password',
+    });
   }
 
   return (

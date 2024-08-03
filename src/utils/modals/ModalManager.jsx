@@ -4,12 +4,14 @@ import CreateUser from 'components/UI/modals/createUser/createUser';
 import { HiXMark } from 'react-icons/hi2';
 import EditUser from 'components/UI/modals/editUser/editUser';
 import Confirmation from 'components/UI/modals/confirmation/confirmation';
+import ChangeCredentials from 'components/UI/modals/changeCredentials/changeCredentials';
 
 const ModalLookup = {
   TestModal: TestModal,
   CreateUser: CreateUser,
   EditUser: EditUser,
   Confirmation: Confirmation,
+  ChangeCredentials: ChangeCredentials,
 };
 
 export default function ModalManager() {
@@ -31,7 +33,9 @@ export default function ModalManager() {
         >
           <HiXMark />
         </span>
-        <Modal closeModal={closeModal} {...modal.props} />
+        <div className="p-4">
+          <Modal closeModal={closeModal} {...modal.props} />
+        </div>
       </div>
     </div>
   );

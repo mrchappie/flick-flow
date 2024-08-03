@@ -14,7 +14,7 @@ export function Heading({ title, toggleGen, customStyle }) {
 export function Heading2({ title, customStyle }) {
   return (
     <div
-      className={`justify-between w-full mb-4 center ${
+      className={`justify-between w-full py-2 center ${
         customStyle ? customStyle : ''
       }`}
     >

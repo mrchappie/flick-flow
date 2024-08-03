@@ -10,6 +10,10 @@ export function ModalProvider({ children }) {
   };
 
   const closeModal = (e) => {
+    /* sometimes closeModal('outside') needs to be called after a http 
+     request is finished receive a param to know that it is called from
+     outside the modal component itself
+     */
     if (e === 'outside') {
       setModal(null);
     }
