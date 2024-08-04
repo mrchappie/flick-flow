@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
-import { capitalizeWord } from 'utils/utils';
+import { capitalizeWords } from 'utils/utils';
 
 const DB = new ConnectDB();
 
-export default function List() {
+export default function UserList() {
   const { userData } = useStateStore();
   const [chooseItemsToSee, setChooseItemsToSee] = useState('movie');
 
@@ -23,7 +23,7 @@ export default function List() {
   const [showFilters, setShowFilters] = useState(false);
 
   const componentData = {
-    title: `${capitalizeWord(pathname.split('/').reverse()[0])} Collection`,
+    title: `${capitalizeWords(pathname.split('/').reverse()[0])} Collection`,
     data: listFetchedData,
   };
 

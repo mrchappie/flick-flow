@@ -78,11 +78,13 @@ export default function CardsInfoContainer({
             <Heading title={title} />
           </div>
         )}
-        <div>
-          <Link to={`/movies${path}`} className="underline hover:text-brand4">
-            See More
-          </Link>
-        </div>
+        {path && (
+          <div>
+            <Link to={`/movies${path}`} className="underline hover:text-brand4">
+              See More
+            </Link>
+          </div>
+        )}
       </div>
 
       <div

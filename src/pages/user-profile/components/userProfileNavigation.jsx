@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { getUserRole, logoutUser } from 'utils/services/auth/Auth';
 import { useStateStore } from 'utils/services/state/State';
-import { capitalizeWord } from 'utils/utils';
+import { capitalizeWords } from 'utils/utils';
 
 export default function UserProfileNavigation({ userData }) {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ export default function UserProfileNavigation({ userData }) {
                 className="pl-4 text-xl"
                 key={list.listID}
               >
-                - {capitalizeWord(list.listName)}
+                - {capitalizeWords(list.listName)}
               </NavLink>
             );
           })}

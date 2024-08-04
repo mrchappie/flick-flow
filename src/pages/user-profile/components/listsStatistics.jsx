@@ -2,7 +2,7 @@ import { Heading } from 'components/UI/heading/heading';
 import { TagWithBg, TagWithBorder } from 'components/UI/tags/tags';
 import { useEffect, useState } from 'react';
 import useFetch from 'utils/hooks/useFetch';
-import { capitalizeWord } from 'utils/utils';
+import { capitalizeWords } from 'utils/utils';
 
 export default function ListsStatistics({ userData }) {
   const { response, fetchData } = useFetch({});
@@ -41,7 +41,7 @@ export default function ListsStatistics({ userData }) {
           listsStats.map((list) => {
             return (
               <div className="justify-between w-full center" key={list[0]}>
-                <TagWithBg>{capitalizeWord(list[0])}</TagWithBg>
+                <TagWithBg>{capitalizeWords(list[0])}</TagWithBg>
                 <div className="center">
                   <TagWithBorder>{list[1].movie} movies</TagWithBorder> &
                   <TagWithBorder>{list[1].tv} tv-shows</TagWithBorder>

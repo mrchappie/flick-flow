@@ -18,6 +18,7 @@ export default function ForYou() {
   const componentData = {
     title: 'For You',
     data: movieDetails,
+    path: '/now_playing',
   };
 
   return <CardsInfoContainer {...componentData} />;

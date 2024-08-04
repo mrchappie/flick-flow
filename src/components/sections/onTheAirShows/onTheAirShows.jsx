@@ -18,6 +18,7 @@ export default function OnTheAirShows() {
   const componentData = {
     title: 'Cele Mai Căutate',
     data: tvShowsDetails,
+    path: '/on_the_air',
   };
   return <CardsInfoContainer {...componentData} />;
 }

@@ -20,6 +20,7 @@ export default function Recomandations({ movieID }) {
     title: 'Similar Movies',
     data: moviesRecDetails,
     customStyle: 'grid grid-cols-2 gap-4',
+    path: '/recommendations',
   };
 
   return <CardsInfoContainer {...componentData} />;

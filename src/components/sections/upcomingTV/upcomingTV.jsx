@@ -18,6 +18,7 @@ export default function UpcomingTV() {
   const componentData = {
     title: 'Upcoming TV Shows',
     data: movieDetails,
+    path: '/on_the_air',
   };
   return <CardsInfoContainer {...componentData} />;
 }

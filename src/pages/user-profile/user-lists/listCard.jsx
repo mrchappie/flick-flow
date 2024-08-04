@@ -3,7 +3,7 @@ import { HiXMark } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
-import { capitalizeWord } from 'utils/utils';
+import { capitalizeWords } from 'utils/utils';
 const DB = new ConnectDB();
 
 export function ListCardBlock({ list, removeList }) {
@@ -34,7 +34,7 @@ export function ListCardBlock({ list, removeList }) {
         key={list.listID}
         className="w-[200px] h-[200px] center"
       >
-        {capitalizeWord(list.listName)}
+        {capitalizeWords(list.listName)}
       </Link>
     </li>
   );
@@ -55,7 +55,7 @@ export function ListCardInline({
       }`}
       style={{ borderColor: isInList ? 'green' : '' }}
     >
-      {capitalizeWord(list.listName)}
+      {capitalizeWords(list.listName)}
       {isInList && (
         <div
           onClick={onRmvFromCustomList}

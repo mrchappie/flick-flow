@@ -17,13 +17,14 @@ import GenreCategory from 'pages/genre/[genreID]/page';
 import PrivateRoute from 'utils/hoc/PrivateRoute';
 import Favorites from 'pages/user-profile/favorites/page';
 import UserLists from 'pages/user-profile/user-lists/userLists';
-import List from 'pages/user-profile/user-lists/[list]';
+import UserList from 'pages/user-profile/user-lists/[userList]';
 import AnonymousRoute from 'utils/hoc/AnonymousRoute';
 import Search from 'pages/search/Search';
 import ManageUsers from 'pages/admin/manage-users/manageUsers';
 import ManageLists from 'pages/admin/manage-lists/manageLists';
 import Dashboard from 'pages/admin/dashboard/dashboard';
 import AdminRoute from 'utils/hoc/AdminRoute';
+import List from 'pages/list/list';
 
 const defaultRoutes = [
   {
@@ -63,6 +64,14 @@ const defaultRoutes = [
     element: (
       <>
         <Movies />
+      </>
+    ),
+  },
+  {
+    path: '/movies/:list',
+    element: (
+      <>
+        <List />
       </>
     ),
   },
@@ -169,7 +178,7 @@ const userProfileRoutes = [
     path: '/user-lists/:listName',
     element: (
       <PrivateRoute>
-        <List />
+        <UserList />
       </PrivateRoute>
     ),
   },

@@ -1,10 +1,9 @@
-export function Numbers({
+export function PaginationButtons({
   activePage,
   displaySize,
   totalPages,
   handleClickedPage,
 }) {
-  console.log(totalPages);
   if (totalPages) {
     const pages = new Array(
       totalPages.total_pages > 500 ? 500 : totalPages.total_pages

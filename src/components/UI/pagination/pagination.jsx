@@ -4,7 +4,7 @@ import {
   HiChevronLeft,
   HiChevronRight,
 } from 'react-icons/hi2';
-import { Numbers } from './components/buttons';
+import { PaginationButtons } from './components/paginationButtons';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -78,7 +78,7 @@ export default function Pagination({ paginationData }) {
         </button>
       </div>
       <div className="center">
-        <Numbers
+        <PaginationButtons
           activePage={page}
           displaySize={5}
           totalPages={paginationData}

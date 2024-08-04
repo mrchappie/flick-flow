@@ -3,19 +3,27 @@ import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContai
 import Filters from 'components/UI/filters/filters';
 import Pagination from 'components/UI/pagination/pagination';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import useAPI from 'utils/hooks/useAPI';
+import { capitalize } from 'utils/utils';
 
-export default function Movies() {
+export default function List() {
   const [showFilters, setShowFilters] = useState(false);
   const [movieDetails, setMovieDetails] = useState([]);
-  const [page] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const { list } = useParams();
+
+  function handleClick() {
+    setShowFilters(!showFilters);
+  }
+
+  console.log(list);
 
   const { response } = useAPI({
     paths: {
       category: 'movie',
-      subCategory: ['now_playing'],
-      params: { page: page.get('page') ?? 1 },
+      subCategory: [list],
+      params: { page: searchParams.get('page') ?? 1 },
     },
   });
 
@@ -26,14 +34,10 @@ export default function Movies() {
   }, [response]);
 
   const componentData = {
-    title: '',
+    title: capitalize(list),
     data: movieDetails,
     style: 'max-w-[1200px]',
   };
-
-  function handleClick() {
-    setShowFilters(!showFilters);
-  }
 
   return (
     <div className="w-full col-span-full">

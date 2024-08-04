@@ -10,7 +10,7 @@ export default function ManageAccount({ loggedUserData }) {
   function handleDeleteAccount() {
     toast.success('Account deleted!');
     closeModal('outside');
-    openModal('ChangeCredentials');
+    openModal('TestModal');
   }
   function handleChangeEmail() {
     toast.success('Email changed!');
