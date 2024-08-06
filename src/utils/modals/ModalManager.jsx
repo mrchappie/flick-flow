@@ -33,7 +33,7 @@ export default function ModalManager() {
         >
           <HiXMark />
         </span>
-        <div className="p-4">
+        <div className="p-4 center-col gap-4">
           <Modal closeModal={closeModal} {...modal.props} />
         </div>
       </div>

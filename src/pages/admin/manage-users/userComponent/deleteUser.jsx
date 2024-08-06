@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import useFetch from 'utils/hooks/useFetch';
 import { useModal } from 'utils/modals/ModalContext';
 
-export default function DisableUser({ userToDisable }) {
+export default function DeleteUser({ userToDelete }) {
   const { response, fetchData } = useFetch({});
   const { closeModal } = useModal();
 
@@ -19,15 +19,13 @@ export default function DisableUser({ userToDisable }) {
   return (
     <ButtonTextBg
       handleClick={() => {
-        console.log(userToDisable);
         fetchData({
-          customURL: process.env.REACT_APP_FIREBASE_UPDATE_USER_DATA,
-          customMethod: 'PUT',
-          customBody: { data: { uid: userToDisable.uid, disabled: true } },
+          customURL: process.env.REACT_APP_FIREBASE_DELETE_USER,
+          customMethod: 'DELETE',
+          customBody: { data: { uid: userToDelete.uid } },
         });
-        userToDisable.disabled = !userToDisable.disabled;
       }}
-      title={`${!userToDisable.disabled ? 'Disable' : 'Enable'}`}
+      title={`Delete`}
     />
   );
 }

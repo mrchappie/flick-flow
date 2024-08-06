@@ -2,10 +2,17 @@ import { HiChevronLeft } from 'react-icons/hi2';
 import { HiChevronRight } from 'react-icons/hi2';
 import { twMerge } from 'tailwind-merge';
 
-export function ButtonTextBg({ handleClick, children, title, customStyle }) {
+export function ButtonTextBg({
+  handleClick,
+  children,
+  title,
+  customStyle,
+  disabled,
+}) {
   return (
     <button
       onClick={handleClick}
+      disabled={disabled}
       className={twMerge(
         `p-3 text-white rounded-sm bg-brand1 border-2 border-brand1 min-w-[100px] w-max ${
           customStyle ?? ''

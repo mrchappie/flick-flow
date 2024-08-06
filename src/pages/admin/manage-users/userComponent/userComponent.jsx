@@ -1,39 +1,17 @@
-import { ButtonTextBg } from 'components/UI/buttons/buttons';
-import { useEffect, useState } from 'react';
-import { HiEllipsisHorizontal, HiOutlineSquare2Stack } from 'react-icons/hi2';
+import { useState } from 'react';
+import { HiMiniPencilSquare, HiOutlineSquare2Stack } from 'react-icons/hi2';
 import { useStateStore } from 'utils/services/state/State';
 import { trimText } from 'utils/utils';
-import DisableUser from './disableUser';
 import { useModal } from 'utils/modals/ModalContext';
-import useFetch from 'utils/hooks/useFetch';
-import { toast } from 'react-toastify';
 
 export default function UserComponent({ user }) {
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const { userData } = useStateStore();
-  const { openModal, closeModal } = useModal();
+  const { openModal } = useModal();
 
   function handleToggleMoreOptions() {
     setShowMoreOptions(!showMoreOptions);
-  }
-
-  const { response, fetchData } = useFetch({});
-
-  useEffect(() => {
-    if (response) {
-      console.log(response);
-      toast.success(response.message);
-    }
-  }, [response]);
-
-  function handleDeleteUser() {
-    fetchData({
-      customURL: process.env.REACT_APP_FIREBASE_DELETE_USER,
-      customMethod: 'DELETE',
-      customBody: { data: { uid: user.uid } },
-    });
-
-    closeModal('outside');
+    openModal('EditUser', { user: user });
   }
 
   return (
@@ -60,38 +38,10 @@ export default function UserComponent({ user }) {
         <div className="relative center">
           <button
             onClick={handleToggleMoreOptions}
-            className="p-2 text-xl border border-black rounded-full hover:bg-black hover:text-white"
+            className="p-2 text-xl rounded-full hover:bg-black hover:text-white"
           >
-            <HiEllipsisHorizontal />
+            <HiMiniPencilSquare />
           </button>
-          {showMoreOptions && (
-            <div
-              className="absolute flex gap-2 bg-gray-400 shadow-xl"
-              onMouseLeave={handleToggleMoreOptions}
-            >
-              <ButtonTextBg
-                title="Edit"
-                handleClick={() => {
-                  openModal('EditUser', { user: user });
-                }}
-              />
-              <DisableUser userToDisable={user} />
-              <ButtonTextBg
-                title={'Delete'}
-                handleClick={() => {
-                  openModal('Confirmation', {
-                    title: `Are you sure you want to delete this user?`,
-                    subTitle: `${user.name} - ${user.role} - ${user.email}`,
-                    confirmText: 'Confirm',
-                    cancelText: 'Cancel',
-                    onConfirm: () => {
-                      handleDeleteUser();
-                    },
-                  });
-                }}
-              />
-            </div>
-          )}
         </div>
       </div>
     </div>

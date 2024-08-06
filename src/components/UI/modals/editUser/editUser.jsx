@@ -1,12 +1,20 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Heading2 } from 'components/UI/heading/heading';
+import P from 'components/UI/typography/p/P';
+import DeleteUser from 'pages/admin/manage-users/userComponent/deleteUser';
+import DisableUser from 'pages/admin/manage-users/userComponent/disableUser';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useFetch from 'utils/hooks/useFetch';
 
 export default function EditUser({ user, closeModal }) {
-  const { handleSubmit, register } = useForm({
+  const {
+    handleSubmit,
+    register,
+    formState: { isDirty, isValid },
+  } = useForm({
+    mode: 'onChange',
     defaultValues: {
       email: user.email ?? '',
       displayName: user.name ?? '',
@@ -46,28 +54,51 @@ export default function EditUser({ user, closeModal }) {
 
   return (
     <>
-      <Heading2 title={'Update user data'} />
-      <form
-        onSubmit={handleSubmit(handleUpdateProfile)}
-        className="items-stretch h-full center-col"
-      >
-        {formData.map((input) => {
-          return (
-            <label key={input.name} className="flex text-black w-[400px] h-10">
-              {input.type === 'checkbox' && (
-                <span className="w-fit">{input.placeholder}</span>
-              )}
-              <input
-                {...register(input.name, { required: input.required })}
-                type={input.type}
-                placeholder={input.placeholder}
-                className="w-full h-full text-black"
-              />
-            </label>
-          );
-        })}
-        <ButtonTextBg type="submit">Update</ButtonTextBg>
-      </form>
+      <div>
+        <Heading2 title={'Update user data'} />
+        <form
+          onSubmit={handleSubmit(handleUpdateProfile)}
+          className="items-stretch h-full center-col gap-4"
+        >
+          {formData.map((input) => {
+            return (
+              <label
+                key={input.name}
+                className="center text-black w-[400px] h-10"
+              >
+                <input
+                  {...register(input.name, { required: input.required })}
+                  type={input.type}
+                  placeholder={input.placeholder}
+                  className="w-full h-full text-black"
+                />
+              </label>
+            );
+          })}
+          <ButtonTextBg
+            type="submit"
+            disabled={!isDirty || !isValid}
+            customStyle={'w-full'}
+          >
+            Update
+          </ButtonTextBg>
+        </form>
+      </div>
+      <hr className="my-4 border-black w-full" />
+      <div className="center-col gap-4 w-full text-black">
+        <div className="center justify-between w-full">
+          <p>
+            Disable user <span className="font-bold italic">{user.name}</span>
+          </p>
+          <DisableUser userToDisable={user} />
+        </div>
+        <div className="center justify-between w-full">
+          <p>
+            Delete user <span className="font-bold italic">{user.name}</span>
+          </p>
+          <DeleteUser userToDelete={user} />
+        </div>
+      </div>
     </>
   );
 }
@@ -99,10 +130,10 @@ const formData = [
     required: false,
     placeholder: 'Photo URL',
   },
-  {
-    type: 'checkbox',
-    name: 'disabled',
-    required: false,
-    placeholder: 'Disable user',
-  },
+  // {
+  //   type: 'checkbox',
+  //   name: 'disabled',
+  //   required: false,
+  //   placeholder: 'Disable user',
+  // },
 ];
