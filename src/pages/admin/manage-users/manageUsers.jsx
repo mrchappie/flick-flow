@@ -2,24 +2,15 @@ import {
   ButtonTextBg,
   ButtonTextNoBgWithBorder,
 } from 'components/UI/buttons/buttons';
-import { useEffect } from 'react';
 import useFetch from 'utils/hooks/useFetch';
 import UserComponent from './userComponent/userComponent';
 import { Heading } from 'components/UI/heading/heading';
 import { useModal } from 'utils/modals/ModalContext';
 import AdminSearchBar from '../components/adminSearchBar/adminSearchBar';
-import { useStateStore } from 'utils/services/state/State';
 
 export default function ManageUsers() {
   const { response, fetchData } = useFetch({});
   const { openModal } = useModal();
-  const { users, updateUsers } = useStateStore();
-
-  useEffect(() => {
-    if (response) {
-      updateUsers(response.data);
-    }
-  }, [response]);
 
   return (
     <>
@@ -51,8 +42,8 @@ export default function ManageUsers() {
           <span>UID</span>
           <span>Email</span>
         </div>
-        {users &&
-          users.map((user) => {
+        {response &&
+          response.data.map((user) => {
             return <UserComponent user={user} key={user.uid} />;
           })}
       </div>

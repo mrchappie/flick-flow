@@ -11,17 +11,15 @@ export default function List() {
   const [showFilters, setShowFilters] = useState(false);
   const [movieDetails, setMovieDetails] = useState([]);
   const [searchParams] = useSearchParams();
-  const { list } = useParams();
+  const { itemType, list } = useParams();
 
   function handleClick() {
     setShowFilters(!showFilters);
   }
 
-  console.log(list);
-
   const { response } = useAPI({
     paths: {
-      category: 'movie',
+      category: itemType,
       subCategory: [list],
       params: { page: searchParams.get('page') ?? 1 },
     },

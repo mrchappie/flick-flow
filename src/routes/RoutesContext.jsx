@@ -68,18 +68,18 @@ const defaultRoutes = [
     ),
   },
   {
-    path: '/movies/:list',
-    element: (
-      <>
-        <List />
-      </>
-    ),
-  },
-  {
     path: '/tv-shows',
     element: (
       <>
         <TvShows />
+      </>
+    ),
+  },
+  {
+    path: '/:itemType/:list',
+    element: (
+      <>
+        <List />
       </>
     ),
   },

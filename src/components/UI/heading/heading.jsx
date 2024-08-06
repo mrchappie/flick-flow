@@ -1,4 +1,4 @@
-export function Heading({ title, toggleGen, customStyle }) {
+export function Heading({ title, toggleGen, customStyle, children }) {
   return (
     <div
       className={`justify-between w-full mb-4 center ${
@@ -6,7 +6,7 @@ export function Heading({ title, toggleGen, customStyle }) {
       }`}
       onClick={toggleGen}
     >
-      <h1 className="text-3xl font-bold">{title}</h1>
+      <h1 className="text-3xl font-bold">{title ? title : children}</h1>
     </div>
   );
 }

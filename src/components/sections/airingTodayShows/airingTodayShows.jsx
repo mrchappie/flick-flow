@@ -2,23 +2,23 @@ import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContai
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
-export default function UpcomingTV() {
-  const [movieDetails, setMovieDetails] = useState([]);
+export default function AiringToday() {
+  const [tvShowsDetails, setTvShowsDetails] = useState([]);
 
   const { response } = useAPI({
-    paths: { category: 'tv', subCategory: ['on_the_air'] },
+    paths: { category: 'tv', subCategory: ['airing_today'] },
   });
 
   useEffect(() => {
     if (response && response.results) {
-      setMovieDetails(response.results.slice(0, 8));
+      setTvShowsDetails(response.results.slice(0, 8));
     }
   }, [response]);
 
   const componentData = {
-    title: 'Upcoming TV Shows',
-    data: movieDetails,
-    path: '/tv/on_the_air',
+    title: 'Tv Shows Playing Now',
+    data: tvShowsDetails,
+    path: '/tv/airing_today',
   };
   return <CardsInfoContainer {...componentData} />;
 }

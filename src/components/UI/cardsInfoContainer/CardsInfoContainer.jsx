@@ -80,7 +80,7 @@ export default function CardsInfoContainer({
         )}
         {path && (
           <div>
-            <Link to={`/movies${path}`} className="underline hover:text-brand4">
+            <Link to={`${path}`} className="underline hover:text-brand4">
               See More
             </Link>
           </div>
