@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { getUserRole, logoutUser } from 'utils/services/auth/Auth';
 import { useStateStore } from 'utils/services/state/State';
 import { capitalizeWords } from 'utils/utils';
@@ -42,26 +42,41 @@ export default function UserProfileNavigation({ userData }) {
             Hi, <span>{userData && userData.name}</span>
           </h2>
         </div>
-        <Link to={'/home'} className="text-xl">
-          Home
-        </Link>
+
+        {routes.map(({ path, name }) => {
+          return (
+            <NavLink
+              to={path}
+              className="text-xl"
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? 'red' : 'white',
+                };
+              }}
+              end
+            >
+              {name}
+            </NavLink>
+          );
+        })}
+
         {role === 'admin' && (
-          <Link to={'/admin/dashboard'} className="text-xl">
+          <NavLink to={'/admin/dashboard'} className="text-xl">
             Dashboard
-          </Link>
+          </NavLink>
         )}
-        <Link to={'/user-profile'} className="text-xl">
-          Profile
-        </Link>
-        <Link to={'/user-profile/user-lists'} className="text-xl">
-          Manage lists
-        </Link>
+
         {userData &&
           userData.lists.map((list) => {
             return (
               <NavLink
                 to={`/user-profile/user-lists/${list.listName}?list_id=${list.listID}`}
                 className="pl-4 text-xl"
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? 'red' : 'white',
+                  };
+                }}
                 key={list.listID}
               >
                 - {capitalizeWords(list.listName)}
@@ -77,3 +92,11 @@ export default function UserProfileNavigation({ userData }) {
     </div>
   );
 }
+
+// navigation bar routes
+const routes = [
+  { path: '/home', name: 'Home', admin: false },
+  // { path: '/admin/dashboard', name: 'Dashboard', admin: true },
+  { path: '/user-profile', name: 'Profile', admin: false },
+  { path: '/user-profile/user-lists', name: 'Manage lists', admin: false },
+];

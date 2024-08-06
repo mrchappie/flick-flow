@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { logoutUser } from 'utils/services/auth/Auth';
 import { useStateStore } from 'utils/services/state/State';
 
@@ -30,21 +30,21 @@ export default function AdminNavigation({ userData }) {
             Hi, <span>{userData && userData.name}</span>
           </h2>
         </div>
-        <Link to={'/home'} className="text-xl">
-          Back Home
-        </Link>
-        <Link to={'/user-profile'} className="text-xl">
-          Profile
-        </Link>
-        <Link to={'admin/dashboard'} className="text-xl">
-          Dashboard
-        </Link>
-        <Link to={'admin/manage-users'} className="text-xl">
-          Manage Users
-        </Link>
-        <Link to={'admin/manage-lists'} className="text-xl">
-          Manage Lists
-        </Link>
+        {routes.map(({ path, name }) => {
+          return (
+            <NavLink
+              to={path}
+              className="text-xl"
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? 'red' : 'white',
+                };
+              }}
+            >
+              {name}
+            </NavLink>
+          );
+        })}
       </div>
       <div className="h-[10%] center items-end">
         <button onClick={handleLogOut} className="text-xl">
@@ -54,3 +54,12 @@ export default function AdminNavigation({ userData }) {
     </div>
   );
 }
+
+// navigation bar routes
+const routes = [
+  { path: '/home', name: 'Back Home' },
+  { path: '/user-profile', name: 'Profile' },
+  { path: 'admin/dashboard', name: 'Dashboard' },
+  { path: 'admin/manage-users', name: 'Manage Users' },
+  { path: 'admin/manage-lists', name: 'Manage Lists' },
+];
