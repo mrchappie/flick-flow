@@ -21,8 +21,10 @@ export default function LandingPageHeroSection() {
               placeholder="Email"
               className="p-3 text-black outline-none"
             /> */}
-            <ButtonTextBg customStyle={'w-[200px]'}>
-              <Link to={'/register'}>Sign Up</Link>
+            <ButtonTextBg customStyle={'w-[200px] p-0'}>
+              <Link to={'/register'} className="block p-3 font-bold">
+                Sign Up
+              </Link>
             </ButtonTextBg>
           </label>
         </div>

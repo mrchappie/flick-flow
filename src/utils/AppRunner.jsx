@@ -3,6 +3,7 @@ import useAuthCheck from './hooks/useAuthCheck';
 import useFetch from './hooks/useFetch';
 import { useStateStore } from './services/state/State';
 import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
+import { getUserRole } from './services/auth/Auth';
 
 export default function AppRunner({ children }) {
   const { user, userData, authIsLoading, userAuthToken } = useAuthCheck();
@@ -14,6 +15,7 @@ export default function AppRunner({ children }) {
     isLoggedIn,
     disableScroll,
     addItemInList,
+    updateRole,
   } = useStateStore();
   const { response, fetchData } = useFetch({
     url: process.env.REACT_APP_FIREBASE_GET_ITEM_IDS,
@@ -32,9 +34,17 @@ export default function AppRunner({ children }) {
   }, [response, addItemInList]);
 
   useEffect(() => {
+    async function userRole() {
+      const role = await getUserRole();
+      if (role) {
+        updateRole(role);
+      }
+    }
+
     if (!authIsLoading) {
       if (user) {
         updateUser(user);
+        userRole();
         updateUserData(userData);
         updateUserAuthToken(userAuthToken);
         updateIsLoggedIn(true);

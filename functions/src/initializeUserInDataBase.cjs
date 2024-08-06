@@ -5,6 +5,7 @@ const {
   initializeUserObject,
   initializeUserListsObject,
 } = require('./utils/helpers');
+const { v4: uuid } = require('uuid');
 
 const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
   if (req.method !== 'POST') {
@@ -28,10 +29,21 @@ const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
           .json({ message: 'Please provide data to delete', status: 401 });
       }
 
-      await initializeUserObject(userID, {
-        email: userData.email,
-      });
-      await initializeUserListsObject(userID);
+      const defaultListsIDs = {
+        favorites: uuid(),
+        watchlist: uuid(),
+        history: uuid(),
+      };
+
+      await initializeUserObject(
+        userData.uid,
+        {
+          email: userData.email,
+          name: userData.displayName,
+        },
+        defaultListsIDs
+      );
+      await initializeUserListsObject(userData.uid, defaultListsIDs);
 
       return res
         .status(200)

@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 initializeApp(firebaseConfig);
 const auth = getAuth();
@@ -17,8 +18,10 @@ export async function loginUser(formData) {
       formData.email,
       formData.password
     );
+    toast.success('Welcome back!');
     return response;
   } catch (error) {
+    toast.success('Something went wrong, please try again!');
     console.log(error);
   }
 }
@@ -30,8 +33,10 @@ export async function createUser(formData) {
       formData.email,
       formData.password
     );
+    toast.success('Good to see you, enjoy our app!');
     return userCredentials;
   } catch (error) {
+    toast.success('Something went wrong, please try again!');
     console.log(error);
   }
 }
@@ -40,6 +45,7 @@ export async function logoutUser() {
   try {
     await signOut(auth);
   } catch (error) {
+    toast.success('Something went wrong, please try again!');
     console.log(error);
   }
 }
@@ -47,7 +53,8 @@ export async function logoutUser() {
 export async function getUserRole() {
   try {
     const idTokenResult = await auth.currentUser.getIdTokenResult();
-    return idTokenResult.claims.role;
+    const role = idTokenResult.claims.role;
+    return role;
   } catch (error) {
     console.log(error);
   }

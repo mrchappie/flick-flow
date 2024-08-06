@@ -1,7 +1,7 @@
 import Navigation from '../navigation/navigation';
 import Search from '../searchBar/searchBar';
-import { getUserRole, logoutUser } from 'utils/services/auth/Auth';
-import { useEffect, useState } from 'react';
+import { logoutUser } from 'utils/services/auth/Auth';
+import { useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';
 import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion as m } from 'framer-motion';
@@ -12,12 +12,14 @@ import { ButtonTextNoBgWithBorder } from 'components/UI/buttons/buttons';
 export default function Header() {
   const { isLoggedIn } = useStateStore();
   const { userData } = useStateStore();
-  const { updateIsLoggedIn } = useStateStore();
+  const { updateIsLoggedIn, role } = useStateStore();
 
   const [toggleMenu, setToggleMenu] = useState(false);
   function handleShowMenu() {
     setToggleMenu(!toggleMenu);
   }
+
+  console.log(role);
 
   const navigate = useNavigate();
 
@@ -29,17 +31,6 @@ export default function Header() {
     updateIsLoggedIn(false);
     navigate('/');
   };
-
-  const [role, setRole] = useState(null);
-  async function userRole() {
-    const role = await getUserRole();
-    console.log(role);
-    setRole(role);
-  }
-
-  useEffect(() => {
-    userRole();
-  }, []);
 
   return (
     <header className="p-4 col-span-full center justify-evenly bg-custom-bg-fade">
@@ -55,8 +46,8 @@ export default function Header() {
       <Search />
       {!isLoggedIn && (
         <div>
-          <ButtonTextNoBgWithBorder>
-            <Link to={'/login'} className="font-bold">
+          <ButtonTextNoBgWithBorder customStyle={'p-0'}>
+            <Link to={'/login'} className="block p-3 font-bold">
               Sign In
             </Link>
           </ButtonTextNoBgWithBorder>
@@ -110,8 +101,10 @@ export default function Header() {
                     />
                   </div>
                   <h2 className="text-xl">
-                    Hi,{' '}
-                    <span>{capitalizeWords(userData && userData.name)}</span>
+                    Hi,
+                    <span>
+                      {userData && capitalizeWords(userData && userData.name)}
+                    </span>
                   </h2>
                 </div>
                 {role === 'admin' && (
