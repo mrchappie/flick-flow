@@ -18,6 +18,7 @@ export async function loginUser(formData) {
       formData.email,
       formData.password
     );
+
     toast.success('Welcome back!');
     return response;
   } catch (error) {

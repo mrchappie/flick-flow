@@ -3,6 +3,9 @@ import { Heading2 } from 'components/UI/heading/heading';
 import P from 'components/UI/typography/p/P';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import ConnectDB from 'utils/services/crud/crud';
+
+const DB = new ConnectDB();
 
 export default function ChangeCredentials({
   closeModal,
@@ -19,9 +22,18 @@ export default function ChangeCredentials({
 
   async function handleCreateProfile(formData) {
     if (credType === 'email') {
-      console.log(formData);
+      DB.changeUserEmail(formData['new_email'], {
+        email: formData.email,
+        password: formData.password,
+      });
+      closeModal('outside');
+      toast.warning('Please open your imbox to verify your new email!');
     } else {
-      console.log(formData);
+      DB.changeUserPassword(formData['new_password'], {
+        email: formData.email,
+        password: formData.password,
+      });
+      closeModal('outside');
     }
   }
 

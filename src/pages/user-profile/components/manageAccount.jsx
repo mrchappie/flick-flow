@@ -8,12 +8,12 @@ export default function ManageAccount({ loggedUserData }) {
   const { openModal, closeModal } = useModal();
 
   function handleDeleteAccount() {
-    toast.success('Account deleted!');
+    // toast.success('Account deleted!');
     closeModal('outside');
     openModal('TestModal');
   }
   function handleChangeEmail() {
-    toast.success('Email changed!');
+    // toast.success('Email changed!');
     closeModal('outside');
     openModal('ChangeCredentials', {
       title: 'Are you sure you want to change your email?',
@@ -22,7 +22,7 @@ export default function ManageAccount({ loggedUserData }) {
     });
   }
   function handleChangePassword() {
-    toast.success('Password changed!');
+    // toast.success('Password changed!');
     closeModal('outside');
     openModal('ChangeCredentials', {
       title: 'Are you sure you want to change your password?',

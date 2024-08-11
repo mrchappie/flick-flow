@@ -36,14 +36,14 @@ const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
       };
 
       await initializeUserObject(
-        userData.uid,
+        userID,
         {
           email: userData.email,
-          name: userData.displayName,
+          name: userData.name ? userData.name : userData.displayName,
         },
         defaultListsIDs
       );
-      await initializeUserListsObject(userData.uid, defaultListsIDs);
+      await initializeUserListsObject(userID, defaultListsIDs);
 
       return res
         .status(200)

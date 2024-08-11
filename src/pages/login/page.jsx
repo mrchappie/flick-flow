@@ -1,14 +1,32 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Field, Form, Formik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from 'utils/services/auth/Auth';
+import ConnectDB from 'utils/services/crud/crud';
+import { useStateStore } from 'utils/services/state/State';
+
+const DB = new ConnectDB();
 
 export default function Login() {
+  const { isLoggedIn } = useStateStore();
+  const navigate = useNavigate();
+
+  if (isLoggedIn) {
+    navigate('/home');
+    return;
+  }
+
   async function handleLogin(formData) {
     try {
       // attempt to login the user
       const response = await loginUser(formData);
       console.log(response);
+      if (response) {
+        await DB.updateFirestoreDoc(['users', response.user.uid], {
+          email: response.user.email,
+        });
+        navigate('/home');
+      }
     } catch (error) {
       console.log(error);
     }

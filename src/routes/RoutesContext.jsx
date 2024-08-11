@@ -38,17 +38,17 @@ const defaultRoutes = [
   {
     path: '/login',
     element: (
-      <AnonymousRoute redirectTo="/login">
-        <Login />
-      </AnonymousRoute>
+      // <AnonymousRoute redirectTo="/login">
+      <Login />
+      // </AnonymousRoute>
     ),
   },
   {
     path: '/register',
     element: (
-      <AnonymousRoute redirectTo="/register">
-        <Register />
-      </AnonymousRoute>
+      // <AnonymousRoute redirectTo="/register">
+      <Register />
+      // </AnonymousRoute>
     ),
   },
   {

@@ -1,11 +1,12 @@
 import { firebaseConfig } from 'utils/keys/firebase.config';
 import { initializeApp } from 'firebase/app';
 import {
+  EmailAuthProvider,
   getAuth,
   reauthenticateWithCredential,
   sendEmailVerification,
-  updateEmail,
   updatePassword,
+  verifyBeforeUpdateEmail,
 } from 'firebase/auth';
 import {
   arrayRemove,
@@ -22,6 +23,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
+import { logoutUser } from '../auth/Auth';
 
 initializeApp(firebaseConfig);
 const auth = getAuth();
@@ -30,9 +32,14 @@ const firestore = getFirestore();
 class ConnectDB {
   async changeUserEmail(newEmail, credentialsFromUser) {
     const user = auth.currentUser;
+    const credential = EmailAuthProvider.credential(
+      credentialsFromUser.email,
+      credentialsFromUser.password
+    );
+
     try {
-      await reauthenticateWithCredential(user, credentialsFromUser);
-      await updateEmail(user, newEmail);
+      await reauthenticateWithCredential(user, credential);
+      await verifyBeforeUpdateEmail(user, newEmail);
     } catch (error) {
       console.log(error);
     }
@@ -48,9 +55,14 @@ class ConnectDB {
 
   async changeUserPassword(newPass, credentialsFromUser) {
     const user = auth.currentUser;
+    const credential = EmailAuthProvider.credential(
+      credentialsFromUser.email,
+      credentialsFromUser.password
+    );
     try {
-      await reauthenticateWithCredential(user, credentialsFromUser);
+      await reauthenticateWithCredential(user, credential);
       await updatePassword(user, newPass);
+      logoutUser();
     } catch (error) {
       console.log(error);
     }

@@ -1,12 +1,13 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
 import { Field, Form, Formik } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useFetch from 'utils/hooks/useFetch';
 import { createUser } from 'utils/services/auth/Auth';
 
 export default function Register() {
-  const { loading, fetchData } = useFetch({});
+  const { loading, response, fetchData } = useFetch({});
+  const navigate = useNavigate();
 
   async function handleRegister(formData) {
     try {
@@ -20,7 +21,9 @@ export default function Register() {
         fetchData({
           customURL: process.env.REACT_APP_FIREBASE_INIT_USER,
           customMethod: 'POST',
-          customBody: { data: { email: user.email } },
+          customBody: {
+            data: { email: user.email, name: user.email.split('@')[0] },
+          },
           customHeaders: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -31,6 +34,10 @@ export default function Register() {
     } catch (error) {
       console.log(error);
     }
+  }
+  console.log(response);
+  if (response && response.status === 200) {
+    return navigate('/home');
   }
 
   return (

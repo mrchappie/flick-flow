@@ -43,9 +43,16 @@ export default function UserProfileNavigation({ userData }) {
           </h2>
         </div>
 
+        {role === 'admin' && (
+          <NavLink to={'/admin/dashboard'} className="text-xl">
+            Dashboard
+          </NavLink>
+        )}
+
         {routes.map(({ path, name }) => {
           return (
             <NavLink
+              key={name}
               to={path}
               className="text-xl"
               style={({ isActive }) => {
@@ -59,12 +66,6 @@ export default function UserProfileNavigation({ userData }) {
             </NavLink>
           );
         })}
-
-        {role === 'admin' && (
-          <NavLink to={'/admin/dashboard'} className="text-xl">
-            Dashboard
-          </NavLink>
-        )}
 
         {userData &&
           userData.lists.map((list) => {
