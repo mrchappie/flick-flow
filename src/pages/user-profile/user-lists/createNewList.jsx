@@ -35,6 +35,8 @@ export default function CreateNewList({ onAddNewListToState, onCloseModal }) {
             type="text"
             placeholder="List name"
             className="px-4 py-2 text-black border-2 shadow-lg"
+            maxlength={30}
+            size={30}
           />
           <button type="submit" className="text-black">
             Add your list

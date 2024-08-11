@@ -32,7 +32,7 @@ export function ListCardBlock({ list, removeList }) {
       <Link
         to={`${list.listName}?list_id=${list.listID}`}
         key={list.listID}
-        className="w-[200px] h-[200px] center"
+        className="w-[200px] h-[200px] text-center center p-4"
       >
         {capitalizeWords(list.listName)}
       </Link>

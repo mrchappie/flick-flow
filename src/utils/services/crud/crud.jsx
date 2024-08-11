@@ -171,7 +171,11 @@ class ConnectDB {
 
   // HANDLE LISTS
   async createNewList(listData) {
-    const { uid, listName } = listData;
+    const { uid } = listData;
+    const listName = listData.listName
+      .toString()
+      .toLowerCase()
+      .replace(/[\s_]+/g, '_');
     const listID = uuid();
 
     const listTemplateForListsDB = {
@@ -182,24 +186,22 @@ class ConnectDB {
       name: listName,
     };
 
+    const listTemplateForUserDB = {
+      listName: listName,
+      listID: listID,
+    };
+
     try {
-      const listTemplateForUsersDB = {
-        listName: listName
-          .toString()
-          .toLowerCase()
-          .replace(/[\s_]+/g, '_'),
-        listID: listID,
-      };
       // update user object in DB with the new list
       const docRef = doc(firestore, ...['users', uid]);
       await updateDoc(docRef, {
-        lists: arrayUnion(listTemplateForUsersDB),
+        lists: arrayUnion(listTemplateForUserDB),
       });
 
       // create new list collection in list DB
       await this.setFirestoreDoc(['lists', listID], listTemplateForListsDB);
 
-      return listTemplateForUsersDB;
+      return listTemplateForUserDB;
     } catch (error) {
       console.log(error);
     }
