@@ -1,5 +1,6 @@
 import Modal from 'components/UI/modal/modal';
 import { Field, Form, Formik } from 'formik';
+import { toast } from 'react-toastify';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
 
@@ -13,7 +14,7 @@ export default function CreateNewList({ onAddNewListToState, onCloseModal }) {
     const list = await DB.createNewList({
       uid: userData.uid,
       listName: formValues.listName,
-    });
+    }).then(toast.info('List created successfully!'));
 
     onAddNewListToState(list);
     onCloseModal();
@@ -35,7 +36,7 @@ export default function CreateNewList({ onAddNewListToState, onCloseModal }) {
             type="text"
             placeholder="List name"
             className="px-4 py-2 text-black border-2 shadow-lg"
-            maxlength={30}
+            maxLength={30}
             size={30}
           />
           <button type="submit" className="text-black">
