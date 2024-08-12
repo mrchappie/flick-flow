@@ -1,6 +1,7 @@
 const { onRequest } = require('firebase-functions/v2/https');
 const authUser = require('../utils/authUser.cjs');
 const { DB } = require('../utils/initialize.cjs');
+const { deleteUserListFromFirestore } = require('../utils/helpers');
 
 const exportListsData = onRequest({ cors: true }, async (req, res) => {
   if (req.method !== 'GET') {
@@ -50,4 +51,44 @@ const exportListsData = onRequest({ cors: true }, async (req, res) => {
   });
 });
 
-module.exports = { exportListsData };
+const deleteList = onRequest({ cors: true }, async (req, res) => {
+  if (req.method !== 'DELETE') {
+    res.status(405).json({ message: 'Method not allowed', status: 405 });
+    return;
+  }
+
+  authUser(req, res, async () => {
+    try {
+      const requesterID = req.user;
+      if (!requesterID) {
+        return res.status(401).json({ message: 'Unauthorized', status: 401 });
+      }
+
+      const bodyData = JSON.parse(req.body);
+      const { data: listToDelete } = bodyData;
+
+      if (requesterID.uid !== listToDelete.uid) {
+        return res.status(401).json({
+          message: 'Unauthorized',
+          status: 401,
+        });
+      }
+
+      await deleteUserListFromFirestore(requesterID.uid, listToDelete);
+
+      return res.status(200).json({
+        message: 'List deleted successfully!',
+        data: listToDelete,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
+        error: 'Something went wrong',
+        details: error,
+        status: 500,
+      });
+    }
+  });
+});
+
+module.exports = { exportListsData, deleteList };

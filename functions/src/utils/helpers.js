@@ -1,3 +1,4 @@
+const { Firestore } = require('firebase-admin/firestore');
 const { DB } = require('../utils/initialize.cjs');
 
 async function initializeUserObject(userID, userData, listsIDs) {
@@ -80,6 +81,48 @@ async function deleteUserDataFromFirestore(userID) {
   }
 }
 
+async function deleteUserListFromFirestore(userID, listToDelete) {
+  const MAX_BATCH_SIZE = 100;
+  try {
+    // delete all lists one by one from firestore
+    const promises = [];
+
+    // delete sub collections from user lists
+    for (const subColl of ['movie', 'tv']) {
+      const subCollRef = DB.collection(
+        `lists/${listToDelete.listID}/${subColl}`
+      );
+      const query = subCollRef.limit(MAX_BATCH_SIZE);
+
+      promises.push(
+        new Promise((resolve, reject) => {
+          deleteQueryBatch(query, resolve).catch(reject);
+        })
+      );
+    }
+
+    // await for all promises to finish
+    await Promise.all(promises);
+
+    // delete list document
+    await DB.collection('lists').doc(listToDelete.listID).delete();
+
+    // update user data and remove the desired list
+    await DB.collection('users')
+      .doc(userID)
+      .update(
+        'lists',
+        Firestore.FieldValue.arrayRemove({
+          listID: listToDelete.listID,
+          listName: listToDelete.listName,
+        })
+      );
+  } catch (error) {
+    console.error('Error initializing user lists:', error);
+    throw error;
+  }
+}
+
 async function deleteQueryBatch(query, resolve) {
   const snapshot = await query.get();
 
@@ -110,4 +153,5 @@ module.exports = {
   initializeUserObject,
   initializeUserListsObject,
   deleteUserDataFromFirestore,
+  deleteUserListFromFirestore,
 };

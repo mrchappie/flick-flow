@@ -1,19 +1,24 @@
 import { HiOutlineTrash } from 'react-icons/hi';
 import { HiXMark } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
-import ConnectDB from 'utils/services/crud/crud';
+import { toast } from 'react-toastify';
+import useFetch from 'utils/hooks/useFetch';
 import { useStateStore } from 'utils/services/state/State';
 import { capitalizeWords } from 'utils/utils';
-const DB = new ConnectDB();
 
 export function ListCardBlock({ list, removeList }) {
   const { userData } = useStateStore();
+  const { fetchData } = useFetch({});
 
   async function handleListDeletion(list) {
     try {
-      await DB.deleteList({ uid: userData.userID, list });
-
-      removeList(list);
+      fetchData({
+        customURL: process.env.REACT_APP_FIREBASE_DELETE_LIST,
+        customMethod: 'DELETE',
+        customBody: { data: { uid: userData.uid, ...list } },
+      })
+        .then(removeList(list))
+        .finally(toast.success('List deleted successfully!'));
     } catch (error) {
       console.log(error);
     }

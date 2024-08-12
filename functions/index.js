@@ -10,7 +10,7 @@ const {
   createUser,
   deleteUser,
 } = require('./src/users/users.cjs');
-const { exportListsData } = require('./src/lists/lists.cjs');
+const { exportListsData, deleteList } = require('./src/lists/lists.cjs');
 
 exports.getItemsFromContentIDs = getItemsFromContentIDs;
 exports.removeItemFromList = removeItemFromList;
@@ -20,6 +20,7 @@ exports.countItemsInList = countItemsInList;
 
 // LISTS
 exports.exportListsData = exportListsData;
+exports.deleteList = deleteList;
 
 // USERS
 exports.exportUsersData = exportUsersData;
