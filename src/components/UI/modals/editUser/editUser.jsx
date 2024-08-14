@@ -23,6 +23,13 @@ export default function EditUser({ user, closeModal }) {
       disabled: user.disabled ?? '',
     },
   });
+  const {
+    handleSubmit: handleSubmitUserRole,
+    register: registerUserRole,
+    formState: { isDirty: isDirtyUserRole, isValid: isValidUserRole },
+  } = useForm({
+    mode: 'onChange',
+  });
   const { response, fetchData } = useFetch({});
 
   console.log(user);
@@ -45,6 +52,21 @@ export default function EditUser({ user, closeModal }) {
       // closeModal();
     }
   }
+  async function handleSetUserRole(formData) {
+    try {
+      fetchData({
+        customURL: process.env.REACT_APP_FIREBASE_SET_USER_ROLE,
+        customMethod: 'PATCH',
+        customBody: {
+          data: { userRole: formData.userRole, userIDToGiveRole: user.uid },
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // closeModal();
+    }
+  }
 
   useEffect(() => {
     if (response) {
@@ -58,7 +80,7 @@ export default function EditUser({ user, closeModal }) {
         <Heading2 title={'Update user data'} />
         <form
           onSubmit={handleSubmit(handleUpdateProfile)}
-          className="items-stretch h-full center-col gap-4"
+          className="items-stretch h-full gap-4 center-col"
         >
           {formData.map((input) => {
             return (
@@ -84,20 +106,48 @@ export default function EditUser({ user, closeModal }) {
           </ButtonTextBg>
         </form>
       </div>
-      <hr className="my-4 border-black w-full" />
-      <div className="center-col gap-4 w-full text-black">
-        <div className="center justify-between w-full">
+      <hr className="w-full my-4 border-black" />
+      <div className="w-full gap-4 text-black center-col">
+        <div className="justify-between w-full center">
           <p>
-            Disable user <span className="font-bold italic">{user.name}</span>
+            Disable user <span className="italic font-bold">{user.name}</span>
           </p>
           <DisableUser userToDisable={user} />
         </div>
-        <div className="center justify-between w-full">
+        <div className="justify-between w-full center">
           <p>
-            Delete user <span className="font-bold italic">{user.name}</span>
+            Delete user <span className="italic font-bold">{user.name}</span>
           </p>
           <DeleteUser userToDelete={user} />
         </div>
+        <hr className="w-full my-4 border-black" />
+        <form
+          onSubmit={handleSubmitUserRole(handleSetUserRole)}
+          className="w-full"
+        >
+          <label className="justify-between w-full h-10 text-black center">
+            <span className="w-[100px]">Set user Role</span>
+            <select
+              {...registerUserRole('userRole', { required: true })}
+              type="text"
+              className="h-full text-black"
+              defaultValue={user.role}
+            >
+              <option value="" disabled hidden>
+                Select Role
+              </option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <ButtonTextBg
+              type="submit"
+              disabled={!isDirtyUserRole || !isValidUserRole}
+              customStyle={'bg-brand4 border-brand4'}
+            >
+              Update
+            </ButtonTextBg>
+          </label>
+        </form>
       </div>
     </>
   );

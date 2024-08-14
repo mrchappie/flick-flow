@@ -149,9 +149,24 @@ async function deleteQueryBatch(query, resolve) {
   });
 }
 
+async function updateFirestoreField({ mainColl, doc, field }) {
+  try {
+    // update firestore field
+    const docRef = DB.collection(mainColl).doc(doc);
+
+    const res = await docRef.update({ ...field });
+
+    return res;
+  } catch (error) {
+    console.error('Error initializing user lists:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   initializeUserObject,
   initializeUserListsObject,
   deleteUserDataFromFirestore,
   deleteUserListFromFirestore,
+  updateFirestoreField,
 };

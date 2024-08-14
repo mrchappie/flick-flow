@@ -6,6 +6,7 @@ const {
   initializeUserObject,
   initializeUserListsObject,
   deleteUserDataFromFirestore,
+  updateFirestoreField,
 } = require('../utils/helpers');
 const { v4: uuid } = require('uuid');
 
@@ -30,7 +31,7 @@ const setUserRole = onRequest({ cors: true }, async (req, res) => {
       }
 
       const bodyData = JSON.parse(req.body);
-      const { userIDToGiveRole, userRole } = bodyData;
+      const { data: userData } = bodyData;
 
       if (isObjectEmpty(bodyData)) {
         return res
@@ -38,12 +39,20 @@ const setUserRole = onRequest({ cors: true }, async (req, res) => {
           .json({ message: 'No data was provided', status: 401 });
       }
 
-      await getAuth().setCustomUserClaims(userIDToGiveRole, {
-        role: userRole,
+      // set user role in auth token custom claims
+      await getAuth().setCustomUserClaims(userData.userIDToGiveRole, {
+        role: userData.userRole,
+      });
+
+      // update user role in firestore
+      await updateFirestoreField({
+        mainColl: 'users',
+        doc: userData.userIDToGiveRole,
+        field: { role: userData.userRole },
       });
 
       return res.status(200).json({
-        message: `User with ${userIDToGiveRole} has this role: ${userRole}`,
+        message: `User with ${userData.userIDToGiveRole} has this role: ${userData.userRole}`,
       });
     } catch (error) {
       console.log(error);
