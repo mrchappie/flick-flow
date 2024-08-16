@@ -1,33 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import useAPI from 'utils/hooks/useAPI';
+import { useState } from 'react';
 import { Heading } from 'components/UI/heading/heading';
+import { movieGenres, tvGenres } from 'utils/keys/tmdbGenres';
 
 export default function Genre() {
-  const [moviesGenresList, setMoviesGenresList] = useState([]);
-  const [tvGenresList, setTVGenresList] = useState([]);
   const [toggleGenres, setToggleGenres] = useState(true);
-
-  const { response, loading, error } = useAPI({
-    paths: { category: 'genre', subCategory: ['movie', 'list'] },
-  });
-
-  const {
-    response: responseTV,
-    loading: loadingTV,
-    loading: errorTV,
-  } = useAPI({
-    paths: { category: 'genre', subCategory: ['tv', 'list'] },
-  });
-
-  useEffect(() => {
-    if (response) {
-      setMoviesGenresList(response.genres);
-    }
-    if (responseTV) {
-      setTVGenresList(responseTV.genres);
-    }
-  }, [response, responseTV]);
 
   function toggleGenresFn() {
     setToggleGenres(!toggleGenres);
@@ -49,7 +26,7 @@ export default function Genre() {
       </div>
       {toggleGenres && (
         <ul className="flex-wrap w-full gap-5 center">
-          {moviesGenresList.map((genre) => {
+          {movieGenres.map((genre) => {
             return (
               <Link
                 to={`/genre/${genre.name.toLowerCase()}?${new URLSearchParams({
@@ -68,7 +45,7 @@ export default function Genre() {
       )}
       {!toggleGenres && (
         <ul className="flex-wrap w-full gap-5 center">
-          {tvGenresList.map((genre) => {
+          {tvGenres.map((genre) => {
             return (
               <Link
                 to={`/genre/${genre.name.toLowerCase()}?${new URLSearchParams({
