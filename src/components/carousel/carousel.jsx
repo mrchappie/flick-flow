@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 export default function Carousel() {
   const [slideDetails, setSlideDetails] = useState([]);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [width, setWidth] = useState(window.innerWidth);
 
   const { response, loading, error } = useAPI({
     paths: { category: 'movie', subCategory: ['now_playing'] },
@@ -25,6 +26,12 @@ export default function Carousel() {
       setSlideDetails(response.results.slice(0, 5));
     }
   }, [response]);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleNextSlide = useCallback(() => {
     setActiveSlide((prevActiveSlide) =>
@@ -57,7 +64,7 @@ export default function Carousel() {
       {error && <div>Loading...</div>}
       <div className="relative z-0 w-full h-full center">
         {slideDetails.map((slide, index) => {
-          const slideOffset = 2000 * (index - activeSlide);
+          const slideOffset = width * (index - activeSlide);
           return (
             <div
               key={slide.id}
