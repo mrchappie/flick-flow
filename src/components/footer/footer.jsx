@@ -3,7 +3,7 @@ import { FaFacebook, FaSquareTwitter, FaTiktok } from 'react-icons/fa6';
 
 export default function Footer() {
   return (
-    <footer className="col-span-full center justify-evenly w-full min-h-[300px] border-t-white/10 border-t-2">
+    <footer className="col-span-full center justify-evenly w-full min-h-[300px] border-t-white/10 border-t-2 flex-wrap">
       <div className="divide-x">
         <Link to={'/feedback'} className="px-2 underline">
           Feedback
@@ -15,7 +15,7 @@ export default function Footer() {
           FAQ
         </Link>
       </div>
-      <div className="gap-4 center-col">
+      <div className="gap-4 center-col max-lg:w-full">
         <div>LOGO</div>
         <div>
           <div className="text-center">

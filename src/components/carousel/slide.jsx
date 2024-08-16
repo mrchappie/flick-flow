@@ -5,7 +5,7 @@ export default function Slide(props) {
       <img
         src={tmdbImagesOrigin + '/original' + props.backdrop_path}
         alt="author"
-        className="object-cover w-full"
+        className="object-cover object-top w-full h-full"
       />
     </div>
   );

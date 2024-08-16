@@ -90,7 +90,9 @@ export default function CardsInfoContainer({
       <div
         className={
           customStyle ??
-          `flex-wrap w-full h-full center my-[50px] ${style ?? ''}`
+          `w-full h-full center max-lg:justify-start max-lg:ml-12 max-lg:overflow-scroll my-[50px]  ${
+            style ?? ''
+          }`
         }
       >
         {data.map((movie) => {

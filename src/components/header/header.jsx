@@ -34,7 +34,7 @@ export default function Header() {
 
   return (
     <header className="p-4 col-span-full center justify-evenly bg-custom-bg-fade">
-      <div>
+      <div className="max-lg:hidden">
         <Link to={'/'}>
           <div className="center">
             <img src="/icons/logo.svg" alt="Flick Flow logo" />

@@ -66,7 +66,7 @@ export default function Carousel() {
                 left: `${slideOffset}px`,
               }}
             >
-              <div className="absolute bottom-0 left-0 z-20 items-start px-8 py-[80px] center-col">
+              <div className="absolute bottom-0 left-0 z-20 items-start max-lg:px-4 max-lg:py-[10px] px-8 py-[80px] center-col">
                 <h1 className="text-[40px] font-semibold">{slide.title}</h1>
                 <div>
                   <GenreDurationDate itemDetails={slide} />
