@@ -11,11 +11,15 @@ import useAPI from 'utils/hooks/useAPI';
 import GenreDurationDate from './genreDurationDate';
 import { trimText } from 'utils/utils';
 import { Link } from 'react-router-dom';
+import useFetch from 'utils/hooks/useFetch';
+import { checkMediaType } from 'components/UI/movieCard/components/helper';
+import { useStateStore } from 'utils/services/state/State';
 
 export default function Carousel() {
   const [slideDetails, setSlideDetails] = useState([]);
   const [activeSlide, setActiveSlide] = useState(0);
   const [width, setWidth] = useState(window.innerWidth);
+  const { addItemInList } = useStateStore();
 
   const { response, loading, error } = useAPI({
     paths: { category: 'movie', subCategory: ['now_playing'] },
@@ -44,6 +48,22 @@ export default function Carousel() {
       prevActiveSlide > 0 ? prevActiveSlide - 1 : slideDetails.length - 1
     );
   }, [slideDetails.length]);
+
+  const { fetchData } = useFetch({});
+
+  function addToWatchList(details) {
+    fetchData({
+      customURL: process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST,
+      customMethod: 'POST',
+      customBody: {
+        listName: 'watchlist',
+        data: details,
+        itemType: checkMediaType(details),
+      },
+    });
+
+    addItemInList([{ movieID: details.id, listName: 'watchlist' }]);
+  }
 
   // useEffect(() => {
   //   const changeSlide = setTimeout(() => {
@@ -90,8 +110,15 @@ export default function Carousel() {
                   </p>
                 </div>
                 <div className="gap-4 my-8 center">
-                  <ButtonTextBg title="Play Now" />
-                  <ButtonTextNoBg title="Add to WatchList" />
+                  <Link to={`/details?movie_id=${slide.id}`}>
+                    <ButtonTextBg title="Play Now" />
+                  </Link>
+                  <ButtonTextNoBg
+                    title="Add to WatchList"
+                    handleClick={() => {
+                      addToWatchList(slide);
+                    }}
+                  />
                 </div>
               </div>
               <div className="absolute top-0 left-0 z-10 w-full h-full rotate-180 bg-custom-bg-fade"></div>
