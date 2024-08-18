@@ -14,6 +14,7 @@ import AppRunner from 'utils/AppRunner';
 import { ModalProvider } from 'utils/modals/ModalContext';
 import ModalManager from 'utils/modals/ModalManager';
 import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
+import ScrollToTop from 'react-scroll-to-top';
 
 function App() {
   return (
@@ -44,6 +45,15 @@ function App() {
                 </Route>
               </Routes>
             </Suspense>
+            <ScrollToTop
+              smooth
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 50,
+              }}
+            />
           </main>
         </AppRunner>
       </ModalProvider>
