@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Heading } from 'components/UI/heading/heading';
 import { movieGenres, tvGenres } from 'utils/keys/tmdbGenres';
+import { motion as m } from 'framer-motion';
 
 export default function Genre() {
   const [toggleGenres, setToggleGenres] = useState(true);
@@ -11,7 +12,7 @@ export default function Genre() {
   }
 
   return (
-    <section className="w-full col-span-6 col-start-4 p-10">
+    <section className="w-full col-span-12 p-10">
       <div className="center">
         <Heading
           title={'Movies Genres'}
@@ -35,9 +36,13 @@ export default function Genre() {
                 }).toString()}`}
                 key={genre.id}
               >
-                <li className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70">
+                <m.li
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70"
+                >
                   <span className="text-center">{genre.name}</span>
-                </li>
+                </m.li>
               </Link>
             );
           })}
@@ -54,9 +59,13 @@ export default function Genre() {
                 }).toString()}`}
                 key={genre.id}
               >
-                <li className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70">
+                <m.li
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70"
+                >
                   <span className="text-center">{genre.name}</span>
-                </li>
+                </m.li>
               </Link>
             );
           })}

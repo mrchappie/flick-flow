@@ -36,7 +36,7 @@ export default function GenreCategory() {
       movieOrTV === 'movie' ? 'movies' : 'tv-shows'
     }`,
     data: movieDetails,
-    style: 'max-w-[1200px]',
+    style: 'max-w-[1200px] flex-wrap',
   };
 
   return (

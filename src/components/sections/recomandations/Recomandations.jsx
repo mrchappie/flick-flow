@@ -19,7 +19,7 @@ export default function Recomandations({ movieID }) {
   const componentData = {
     title: 'Similar Movies',
     data: moviesRecDetails,
-    customStyle: 'grid grid-cols-2 gap-4',
+    customStyle: 'grid grid-cols-2 gap-4 max-lg:grid-cols-3',
     path: '/recommendations',
   };
 

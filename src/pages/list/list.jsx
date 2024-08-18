@@ -34,7 +34,7 @@ export default function List() {
   const componentData = {
     title: capitalize(list),
     data: movieDetails,
-    style: 'max-w-[1200px]',
+    style: 'max-w-[1200px] flex-wrap',
   };
 
   return (

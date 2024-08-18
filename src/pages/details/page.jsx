@@ -44,7 +44,7 @@ export default function Details() {
 
   return (
     <section className="grid grid-cols-12 gap-8 px-10 col-span-full">
-      <section className="w-full h-full col-span-9 center-col">
+      <section className="w-full h-full col-span-9 max-lg:col-span-12 center-col">
         <VideoPlayer movieDetails={movieDetails} />
         <header className="h-[30%] center-col justify-start gap-10 w-full">
           <div className="justify-between w-full center">
@@ -82,7 +82,7 @@ export default function Details() {
           </div>
         </header>
       </section>
-      <section className="justify-start h-full col-span-3 center-col">
+      <section className="justify-start h-full col-span-3 max-lg:col-span-12 center-col">
         <Recomandations movieID={movieID} />
       </section>
       <ForYou />

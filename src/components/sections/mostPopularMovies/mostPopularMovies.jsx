@@ -18,7 +18,7 @@ export default function MostPopularMovies({ style }) {
   const componentData = {
     title: 'Most Popular Movies',
     data: movieDetails,
-    path: '/movies/popular',
+    path: '/movie/popular',
     style: style,
   };
   return <CardsInfoContainer {...componentData} />;

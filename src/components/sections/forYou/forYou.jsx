@@ -18,7 +18,8 @@ export default function ForYou() {
   const componentData = {
     title: 'For You',
     data: movieDetails,
-    path: '/now_playing',
+    path: '/movie/now_playing',
+    style: 'max-lg:justify-start max-lg:mx-12 max-lg:overflow-x-scroll',
   };
 
   return <CardsInfoContainer {...componentData} />;

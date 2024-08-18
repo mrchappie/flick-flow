@@ -18,7 +18,7 @@ export default function NowPlayingMovies({ style }) {
   const componentData = {
     title: 'Now Playing Movies',
     data: movieDetails,
-    path: '/movies/now_playing',
+    path: '/movie/now_playing',
     style: style,
   };
   return <CardsInfoContainer {...componentData} />;

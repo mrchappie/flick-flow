@@ -28,7 +28,7 @@ export default function TvShows() {
   const componentData = {
     title: '',
     data: tvShowsDetails,
-    style: 'max-w-[1200px]',
+    style: 'max-w-[1200px] flex-wrap',
   };
 
   const [showFilters, setShowFilters] = useState(false);

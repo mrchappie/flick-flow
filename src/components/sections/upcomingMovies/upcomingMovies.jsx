@@ -18,7 +18,7 @@ export default function UpcomingMovies({ style }) {
   const componentData = {
     title: 'Upcoming Movies',
     data: movieDetails,
-    path: '/movies/upcoming',
+    path: '/movie/upcoming',
     style: style,
   };
   return <CardsInfoContainer {...componentData} />;

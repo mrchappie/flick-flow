@@ -1,4 +1,5 @@
 import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
+import Pagination from 'components/UI/pagination/pagination';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useAPI from 'utils/hooks/useAPI';
@@ -18,7 +19,12 @@ export default function Search() {
     paths: {
       category: 'search',
       subCategory: ['multi'],
-      params: { query: searchQuery, language: 'en-US', include_adult: false },
+      params: {
+        query: searchQuery,
+        language: 'en-US',
+        include_adult: false,
+        page: searchParams.get('page') ?? 1,
+      },
     },
     shouldFetch,
   });
@@ -32,11 +38,12 @@ export default function Search() {
   const componentData = {
     title: `Search results for "${searchQuery}"`,
     data: searchedData,
-    style: 'max-w-[1200px]',
+    style: 'max-w-[1200px] flex-wrap',
   };
 
   return (
-    <>
+    <div className="w-full col-span-full">
+      {searchQuery && <Pagination paginationData={response} />}
       {searchQuery && <CardsInfoContainer {...componentData} />}
       {!searchQuery && (
         <section className="w-full col-span-full center-col">
@@ -45,6 +52,6 @@ export default function Search() {
           </h2>
         </section>
       )}
-    </>
+    </div>
   );
 }
