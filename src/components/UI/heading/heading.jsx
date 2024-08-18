@@ -13,12 +13,12 @@ export function Heading({ title, toggleGen, customStyle, children }) {
 
 export function Heading2({ title, customStyle, children }) {
   return (
-    <div
-      className={`justify-between w-full py-2 center ${
-        customStyle ? customStyle : ''
-      }`}
-    >
-      <h2 className="text-2xl font-bold text-center text-black">
+    <div className={`justify-between w-full py-2 center`}>
+      <h2
+        className={`text-2xl font-bold text-center text-black ${
+          customStyle ? customStyle : ''
+        }`}
+      >
         {title ? title : children}
       </h2>
     </div>
