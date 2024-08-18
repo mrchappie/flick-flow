@@ -2,7 +2,7 @@ import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContai
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
-export default function AiringToday() {
+export default function AiringToday({ style }) {
   const [tvShowsDetails, setTvShowsDetails] = useState([]);
 
   const { response } = useAPI({
@@ -19,6 +19,7 @@ export default function AiringToday() {
     title: 'Tv Shows Playing Now',
     data: tvShowsDetails,
     path: '/tv/airing_today',
+    style: style,
   };
   return <CardsInfoContainer {...componentData} />;
 }

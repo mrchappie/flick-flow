@@ -39,7 +39,7 @@ export default function List() {
 
   return (
     <div className="w-full col-span-full">
-      <ButtonTextNoBgWithBorder title="Filters" handleClick={handleClick} />
+      {/* <ButtonTextNoBgWithBorder title="Filters" handleClick={handleClick} /> */}
       {showFilters && <Filters />}
       <Pagination paginationData={response} />
       <CardsInfoContainer {...componentData} />

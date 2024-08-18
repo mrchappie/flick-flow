@@ -28,7 +28,7 @@ export default function Movies() {
   const componentData = {
     title: '',
     data: movieDetails,
-    style: 'max-w-[1200px]',
+    style: 'max-w-[1200px] flex-wrap',
   };
 
   function handleClick() {
@@ -37,7 +37,7 @@ export default function Movies() {
 
   return (
     <div className="w-full col-span-full">
-      <ButtonTextNoBgWithBorder title="Filters" handleClick={handleClick} />
+      {/* <ButtonTextNoBgWithBorder title="Filters" handleClick={handleClick} /> */}
       {showFilters && <Filters />}
       <Pagination paginationData={response} />
       <CardsInfoContainer {...componentData} />

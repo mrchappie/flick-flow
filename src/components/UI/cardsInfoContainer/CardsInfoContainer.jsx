@@ -71,7 +71,7 @@ export default function CardsInfoContainer({
   }, [response]);
 
   return (
-    <section className="w-full col-span-full center-col">
+    <section className="mx-4 col-span-full center-col">
       <div className="justify-between w-full center mt-[50px] px-4">
         {title && (
           <div>
@@ -89,10 +89,7 @@ export default function CardsInfoContainer({
 
       <div
         className={
-          customStyle ??
-          `w-full h-full center max-lg:justify-start max-lg:ml-12 max-lg:overflow-scroll my-[50px]  ${
-            style ?? ''
-          }`
+          customStyle ?? `w-full h-full center my-[50px] ${style ?? ''} pb-4`
         }
       >
         {data.map((movie) => {

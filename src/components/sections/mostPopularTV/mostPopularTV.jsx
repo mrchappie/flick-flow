@@ -2,7 +2,7 @@ import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContai
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
-export default function MostPopularTV() {
+export default function MostPopularTV({ style }) {
   const [movieDetails, setMovieDetails] = useState([]);
 
   const { response } = useAPI({
@@ -19,6 +19,7 @@ export default function MostPopularTV() {
     title: 'Most Popular TV Shows',
     data: movieDetails,
     path: '/tv/popular',
+    style: style,
   };
   return <CardsInfoContainer {...componentData} />;
 }

@@ -8,6 +8,10 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+html {
+  cursor: pointer;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -25,6 +29,7 @@ body {
     rgb(var(--background-start-rgb));
   min-height: 100vh;
   overflow-x: hidden;
+  cursor: default;
 }
 
 svg {
@@ -80,4 +85,40 @@ button[disabled] {
 
 .custom-main-grid-row {
   grid-template-rows: 100px 1fr;
+}
+
+/* Scroll Bar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 8px;
+  cursor: pointer !important;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #f51a3b;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+/* ::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #f51a3b;
+} */
+::-webkit-scrollbar-track {
+  background: #66666680;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+/* ::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+} */
+::-webkit-scrollbar-corner {
+  background: transparent;
 }

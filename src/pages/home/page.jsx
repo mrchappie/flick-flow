@@ -10,6 +10,9 @@ import MostPopularTV from 'components/sections/mostPopularTV/mostPopularTV';
 export default function Home() {
   const [chooseItemsToSee, setChooseItemsToSee] = useState('movie');
 
+  const customStyle =
+    'max-lg:justify-start max-lg:mx-12 max-lg:overflow-x-scroll';
+
   return (
     <>
       <Carousel />
@@ -37,16 +40,16 @@ export default function Home() {
       </div>
       {chooseItemsToSee === 'movie' && (
         <>
-          <NowPlayingMovies />
-          <UpcomingMovies />
-          <MostPopularMovies />
+          <NowPlayingMovies style={customStyle} />
+          <UpcomingMovies style={customStyle} />
+          <MostPopularMovies style={customStyle} />
         </>
       )}
       {chooseItemsToSee === 'tv' && (
         <>
-          <OnTheAirShows />
-          <UpcomingTV />
-          <MostPopularTV />
+          <OnTheAirShows style={customStyle} />
+          <UpcomingTV style={customStyle} />
+          <MostPopularTV style={customStyle} />
         </>
       )}
     </>

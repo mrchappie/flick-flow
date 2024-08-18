@@ -83,7 +83,7 @@ export default function UserList() {
             TV-shows
           </ButtonTextNoBgWithBorder>
         </div>
-        <ButtonTextNoBgWithBorder title="Filters" handleClick={handleClick} />
+        {/* <ButtonTextNoBgWithBorder title="Filters" handleClick={handleClick} /> */}
       </div>
       {showFilters && (
         <div className="py-10">

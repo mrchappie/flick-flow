@@ -2,7 +2,7 @@ import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContai
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
 
-export default function NowPlayingMovies() {
+export default function NowPlayingMovies({ style }) {
   const [movieDetails, setMovieDetails] = useState([]);
 
   const { response } = useAPI({
@@ -19,6 +19,7 @@ export default function NowPlayingMovies() {
     title: 'Now Playing Movies',
     data: movieDetails,
     path: '/movies/now_playing',
+    style: style,
   };
   return <CardsInfoContainer {...componentData} />;
 }
