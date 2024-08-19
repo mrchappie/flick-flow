@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { HiBookmark, HiOutlineBookmark } from 'react-icons/hi2';
 import { useStateStore } from 'utils/services/state/State';
+import { motion as m } from 'framer-motion';
 
 export default function AddToOtherList({ details, showModal }) {
   const { updateShowModal, itemsInList, updateDisableScroll } = useStateStore();
@@ -28,7 +29,10 @@ export default function AddToOtherList({ details, showModal }) {
   }, [details.id, itemsInList]);
 
   return (
-    <span
+    <m.span
+      variants={buttonVariants}
+      whileHover="hover"
+      whileTap="tap"
       onClick={() => {
         openListsModal(details);
       }}
@@ -38,6 +42,24 @@ export default function AddToOtherList({ details, showModal }) {
       {!isInList && (
         <HiOutlineBookmark className="text-[30px] text-yellow-500" />
       )}
-    </span>
+    </m.span>
   );
 }
+
+const buttonVariants = {
+  hover: {
+    scale: 1.3,
+    transition: {
+      duration: 0.15,
+    },
+  },
+  tap: {
+    scale: 0.95,
+    rotate: -5,
+    transition: {
+      duration: 0.15,
+      repeatType: 'mirror',
+      repeat: 5,
+    },
+  },
+};
