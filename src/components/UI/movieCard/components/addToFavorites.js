@@ -3,6 +3,7 @@ import { HiHeart, HiOutlineHeart } from 'react-icons/hi2';
 import useFetch from 'utils/hooks/useFetch';
 import { useStateStore } from 'utils/services/state/State';
 import { checkMediaType } from './helper';
+import { motion as m } from 'framer-motion';
 
 export default function AddToFavorites({ details }) {
   const { itemsInList } = useStateStore();
@@ -53,7 +54,7 @@ export default function AddToFavorites({ details }) {
   }, [details.id, itemsInList]);
 
   return (
-    <span className="hover:scale-125">
+    <m.span variants={buttonVariants} whileHover="hover" whileTap="tap">
       {isFavorite && (
         <div onClick={removeFromFavorites}>
           <HiHeart className="text-[30px] text-red-500" />
@@ -65,6 +66,24 @@ export default function AddToFavorites({ details }) {
           <HiOutlineHeart className="text-[30px] text-red-500" />
         </div>
       )}
-    </span>
+    </m.span>
   );
 }
+
+const buttonVariants = {
+  hover: {
+    scale: 1.3,
+    transition: {
+      duration: 0.15,
+    },
+  },
+  tap: {
+    scale: 0.95,
+    rotate: -5,
+    transition: {
+      duration: 0.15,
+      repeatType: 'mirror',
+      repeat: 5,
+    },
+  },
+};

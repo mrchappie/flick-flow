@@ -25,6 +25,7 @@ import ManageLists from 'pages/admin/manage-lists/manageLists';
 import Dashboard from 'pages/admin/dashboard/dashboard';
 import AdminRoute from 'utils/hoc/AdminRoute';
 import List from 'pages/list/list';
+import { AnimatePresence } from 'framer-motion';
 
 const defaultRoutes = [
   {
@@ -229,18 +230,20 @@ const adminRoutes = [
 
 function DefaultRoutes() {
   return (
-    <Routes>
-      {defaultRoutes.map((route) => {
-        return (
-          <Route
-            exact
-            path={route.path}
-            element={route.element}
-            key={route.path}
-          />
-        );
-      })}
-    </Routes>
+    <AnimatePresence mode="wait">
+      <Routes>
+        {defaultRoutes.map((route) => {
+          return (
+            <Route
+              exact
+              path={route.path}
+              element={route.element}
+              key={route.path}
+            />
+          );
+        })}
+      </Routes>
+    </AnimatePresence>
   );
 }
 
