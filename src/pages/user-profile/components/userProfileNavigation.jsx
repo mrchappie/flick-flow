@@ -4,7 +4,7 @@ import { getUserRole, logoutUser } from 'utils/services/auth/Auth';
 import { useStateStore } from 'utils/services/state/State';
 import { capitalizeWords } from 'utils/utils';
 
-export default function UserProfileNavigation({ userData }) {
+export default function UserProfileNavigation({ userData, closeNav }) {
   const navigate = useNavigate();
   const { updateIsLoggedIn } = useStateStore();
 
@@ -44,7 +44,11 @@ export default function UserProfileNavigation({ userData }) {
         </div>
 
         {role === 'admin' && (
-          <NavLink to={'/admin/dashboard'} className="text-xl">
+          <NavLink
+            onClick={closeNav}
+            to={'/admin/dashboard'}
+            className="text-xl"
+          >
             Dashboard
           </NavLink>
         )}
@@ -52,6 +56,7 @@ export default function UserProfileNavigation({ userData }) {
         {routes.map(({ path, name }) => {
           return (
             <NavLink
+              onClick={closeNav}
               key={name}
               to={path}
               className="text-xl"
@@ -71,6 +76,7 @@ export default function UserProfileNavigation({ userData }) {
           userData.lists.map((list) => {
             return (
               <NavLink
+                onClick={closeNav}
                 to={`/user-profile/user-lists/${list.listName}?list_id=${list.listID}`}
                 className="pl-4 text-xl"
                 style={({ isActive }) => {

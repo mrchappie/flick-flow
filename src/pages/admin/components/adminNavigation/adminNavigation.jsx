@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { logoutUser } from 'utils/services/auth/Auth';
 import { useStateStore } from 'utils/services/state/State';
 
-export default function AdminNavigation({ userData }) {
+export default function AdminNavigation({ userData, closeNav }) {
   const navigate = useNavigate();
   const { updateIsLoggedIn } = useStateStore();
 
@@ -33,6 +33,7 @@ export default function AdminNavigation({ userData }) {
         {routes.map(({ path, name }) => {
           return (
             <NavLink
+              onClick={closeNav}
               to={path}
               className="text-xl"
               style={({ isActive }) => {
