@@ -2,7 +2,11 @@ import React from 'react';
 import { HiMiniBars3, HiMiniXMark } from 'react-icons/hi2';
 import { AnimatePresence, motion as m, useCycle } from 'framer-motion';
 
-export default function NavWrapper({ children }) {
+export default function NavWrapper({
+  children,
+  togglePostion = 'top-left',
+  navPostion = 'left',
+}) {
   const [isOpen, toggleOpen] = useCycle(false, true);
   function closeNav() {
     toggleOpen();
@@ -12,31 +16,45 @@ export default function NavWrapper({ children }) {
     toggleOpen();
   }
 
+  const vw = window.innerWidth;
+
+  if (vw > 1023) {
+    navPostion = undefined;
+  }
+
+  const xValue = getNavPosition(navPostion, vw);
+
   return (
     <AnimatePresence mode="wait">
       <div
         onClick={openNav}
-        className="absolute w-[80px] h-[80px] text-2xl bg-black top-[-20px] left-[-20px] rounded-br-[50px] center cursor-pointer z-20 lg:hidden"
+        className={`absolute w-[80px] h-[80px] text-2xl bg-black center cursor-pointer z-20 lg:hidden ${getTogglePosition(
+          togglePostion
+        )}`}
       >
         <HiMiniBars3 />
       </div>
       <m.nav
-        variants={navVariants}
+        key={'nav'}
+        variants={navVariants(xValue)}
         initial={false}
         animate={isOpen ? 'open' : 'close'}
-        className={`h-full z-50 lg:col-span-2 row-span-full bg-[#222] max-lg:absolute max-lg:shadow-2xl shadow-white`}
+        className={`h-full z-50 lg:col-span-2 row-span-full bg-[#222] max-lg:absolute max-lg:shadow-2xl shadow-white left-0`}
       >
-        <div
-          onClick={closeNav}
-          className="absolute p-2 text-2xl rounded-full cursor-pointer right-2 top-2 hover:bg-white hover:text-black"
-        >
-          <HiMiniXMark />
-        </div>
+        {isOpen && (
+          <div
+            onClick={closeNav}
+            className="absolute p-2 text-2xl rounded-full cursor-pointer right-2 top-2 hover:bg-white hover:text-black"
+          >
+            <HiMiniXMark />
+          </div>
+        )}
         {React.Children.map(children, (child) =>
           React.cloneElement(child, { closeNav })
         )}
       </m.nav>
       <m.div
+        key={'backdrop'}
         variants={backdropVariants}
         initial={false}
         animate={isOpen ? 'open' : 'close'}
@@ -47,24 +65,52 @@ export default function NavWrapper({ children }) {
   );
 }
 
-const navVariants = {
-  open: {
-    x: 0,
-    transition: {
-      type: 'spring',
-      stiffness: 400,
-      damping: 40,
+function getTogglePosition(togglePostion) {
+  switch (togglePostion) {
+    case 'top-left':
+      return 'top-[-20px] left-[-20px] rounded-br-[50px]';
+    case 'top-right':
+      return 'top-[-20px] right-[-20px] rounded-bl-[50px]';
+    case 'bottom-left':
+      return 'bottom-[-20px] left-[-20px] rounded-tr-[50px]';
+    case 'bottom-right':
+      return 'bottom-[-20px] right-[-20px] rounded-tl-[50px]';
+    default:
+      return 'top-[-20px] left-[-20px] rounded-br-[50px]';
+  }
+}
+
+function getNavPosition(navPostion, vw) {
+  switch (navPostion) {
+    case 'left':
+      return { open: 0, close: -200 };
+    case 'right':
+      return { open: vw - 200, close: vw + 200 };
+    default:
+      return { open: 0, close: 0 };
+  }
+}
+
+function navVariants(xValue) {
+  return {
+    open: {
+      x: xValue.open,
+      transition: {
+        type: 'spring',
+        stiffness: 400,
+        damping: 40,
+      },
     },
-  },
-  close: {
-    x: -200,
-    transition: {
-      type: 'spring',
-      stiffness: 400,
-      damping: 40,
+    close: {
+      x: xValue.close,
+      transition: {
+        type: 'spring',
+        stiffness: 400,
+        damping: 40,
+      },
     },
-  },
-};
+  };
+}
 
 const backdropVariants = {
   open: {
@@ -78,5 +124,10 @@ const backdropVariants = {
   },
   close: {
     transitionEnd: { display: 'none' },
+    transition: {
+      type: 'spring',
+      stiffness: 400,
+      damping: 40,
+    },
   },
 };

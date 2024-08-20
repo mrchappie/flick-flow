@@ -77,6 +77,7 @@ export default function UserProfileNavigation({ userData, closeNav }) {
             return (
               <NavLink
                 onClick={closeNav}
+                key={list.listID}
                 to={`/user-profile/user-lists/${list.listName}?list_id=${list.listID}`}
                 className="pl-4 text-xl"
                 style={({ isActive }) => {
@@ -84,7 +85,6 @@ export default function UserProfileNavigation({ userData, closeNav }) {
                     color: isActive ? 'red' : 'white',
                   };
                 }}
-                key={list.listID}
               >
                 - {capitalizeWords(list.listName)}
               </NavLink>
