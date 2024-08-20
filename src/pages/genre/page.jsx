@@ -12,7 +12,7 @@ export default function Genre() {
   }
 
   return (
-    <section className="w-full col-span-12 p-10">
+    <section className="w-full col-span-12 p-10 max-w-[1200px] m-auto">
       <div className="center">
         <Heading
           title={'Movies Genres'}

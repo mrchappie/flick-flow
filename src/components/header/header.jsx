@@ -1,11 +1,9 @@
 import Navigation from '../navigation/navigation';
 import Search from '../searchBar/searchBar';
 import { logoutUser } from 'utils/services/auth/Auth';
-import { useState } from 'react';
 import { useStateStore } from 'utils/services/state/State';
 import { Link, useNavigate } from 'react-router-dom';
-import { AnimatePresence, motion as m } from 'framer-motion';
-import { HiMiniChevronDown } from 'react-icons/hi2';
+import { AnimatePresence, motion as m, useCycle } from 'framer-motion';
 import { capitalizeWords } from 'utils/utils';
 import { ButtonTextNoBgWithBorder } from 'components/UI/buttons/buttons';
 
@@ -13,11 +11,7 @@ export default function Header() {
   const { isLoggedIn } = useStateStore();
   const { userData } = useStateStore();
   const { updateIsLoggedIn, role } = useStateStore();
-
-  const [toggleMenu, setToggleMenu] = useState(false);
-  function handleShowMenu() {
-    setToggleMenu(!toggleMenu);
-  }
+  const [isOpen, toggleOpen] = useCycle(false, true);
 
   console.log(role);
 
@@ -26,7 +20,7 @@ export default function Header() {
   // handle logout
   const handleLogOut = async () => {
     await logoutUser();
-    handleShowMenu();
+    toggleOpen();
     // redirect to landing page and then set to false login state
     updateIsLoggedIn(false);
     navigate('/');
@@ -54,12 +48,12 @@ export default function Header() {
         </div>
       )}
       {isLoggedIn && (
-        <div className="relative">
+        <div className="relative rounded-full center">
           <div
-            onClick={handleShowMenu}
+            onClick={toggleOpen}
             className="relative h-full cursor-pointer center"
           >
-            <div className="rounded-[50%] overflow-hidden border-2 border-white">
+            <div className="rounded-[50%] overflow-hidden border-2 border-white z-20">
               <img
                 src="https://picsum.photos/200"
                 width={50}
@@ -67,101 +61,105 @@ export default function Header() {
                 alt=""
               />
             </div>
-            {/* <div className="text-2xl center">
-              <HiMiniChevronDown />
-            </div> */}
           </div>
           <AnimatePresence>
-            {toggleMenu && (
-              <m.div
-                initial={{ opacity: 0, scale: 0.8, y: '-100%' }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{
-                  opacity: 0,
-                  scale: 0.8,
-                  y: '-100%',
-                  transition: { duration: 0.25 },
-                }}
-                transition={{
-                  duration: 0.35,
-                  type: 'spring',
-                  stiffness: 100,
-                  ease: 'linear',
-                }}
-                onMouseLeave={handleShowMenu}
-                className="absolute top-[0%] p-8 w-max center-col items-start bg-black z-50"
+            <m.nav
+              variants={navVariants}
+              initial={false}
+              animate={isOpen ? 'open' : 'close'}
+              onMouseLeave={toggleOpen}
+              className="w-[54px] h-[54px] absolute top-0 left-[50%] z-10 center-col px-8 pt-[80px] pb-8 bg-black translate-x-[-50%]"
+            >
+              <div className="center-col">
+                <h2 className="text-xl italic font-extrabold">
+                  Hi,&nbsp;
+                  <span>
+                    {userData && capitalizeWords(userData && userData.name)}
+                  </span>
+                </h2>
+              </div>
+              <hr className="w-full border-white" />
+              {role === 'admin' && (
+                <Link
+                  onClick={toggleOpen}
+                  to={'/admin/dashboard'}
+                  className="text-xl"
+                >
+                  Dashboard
+                </Link>
+              )}
+              <Link
+                onClick={toggleOpen}
+                to={'/user-profile'}
+                className="text-xl"
               >
-                <div className="center-col">
-                  <div className="rounded-[50%] overflow-hidden relative">
-                    <img
-                      src="https://picsum.photos/200"
-                      width={50}
-                      height={50}
-                      alt=""
-                    />
-                  </div>
-                  <h2 className="text-xl">
-                    Hi,
-                    <span>
-                      {userData && capitalizeWords(userData && userData.name)}
-                    </span>
-                  </h2>
-                </div>
-                {role === 'admin' && (
-                  <Link
-                    onClick={handleShowMenu}
-                    to={'/admin/dashboard'}
-                    className="text-xl"
-                  >
-                    Dashboard
-                  </Link>
-                )}
-                <Link
-                  onClick={handleShowMenu}
-                  to={'/user-profile'}
-                  className="text-xl"
-                >
-                  Profile
-                </Link>
-                <Link
-                  onClick={handleShowMenu}
-                  to={`/user-profile/user-lists/favorites?list_id=${
-                    userData &&
-                    userData.lists.find((list) => list.listName === 'favorites')
-                      .listID
-                  }`}
-                  className="text-xl"
-                >
-                  Favorites
-                </Link>
-                <Link
-                  onClick={handleShowMenu}
-                  to={`/user-profile/user-lists/watchlist?list_id=${
-                    userData &&
-                    userData.lists.find((list) => list.listName === 'watchlist')
-                      .listID
-                  }`}
-                  className="text-xl"
-                >
-                  Watchlist
-                </Link>
-                <Link
-                  onClick={handleShowMenu}
-                  to={'/user-profile/user-lists'}
-                  className="text-xl"
-                >
-                  Your lists
-                </Link>
-                <div>
-                  <button onClick={handleLogOut} className="text-xl">
-                    Sign Out
-                  </button>
-                </div>
-              </m.div>
-            )}
+                Profile
+              </Link>
+              <Link
+                onClick={toggleOpen}
+                to={`/user-profile/user-lists/favorites?list_id=${
+                  userData &&
+                  userData.lists.find((list) => list.listName === 'favorites')
+                    .listID
+                }`}
+                className="text-xl"
+              >
+                Favorites
+              </Link>
+              <Link
+                onClick={toggleOpen}
+                to={`/user-profile/user-lists/watchlist?list_id=${
+                  userData &&
+                  userData.lists.find((list) => list.listName === 'watchlist')
+                    .listID
+                }`}
+                className="text-xl"
+              >
+                Watchlist
+              </Link>
+              <Link
+                onClick={toggleOpen}
+                to={'/user-profile/user-lists'}
+                className="text-xl"
+              >
+                Your lists
+              </Link>
+              <div>
+                <button onClick={handleLogOut} className="text-xl">
+                  Sign Out
+                </button>
+              </div>
+            </m.nav>
           </AnimatePresence>
         </div>
       )}
     </header>
   );
 }
+
+const navVariants = {
+  open: {
+    borderRadius: '5%',
+    width: '200px',
+    height: '400px',
+    display: 'flex',
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 400,
+      damping: 40,
+    },
+  },
+  close: {
+    borderRadius: '100%',
+    width: '54px',
+    height: '54px',
+    transitionEnd: { display: 'none' },
+    opacity: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 400,
+      damping: 40,
+    },
+  },
+};

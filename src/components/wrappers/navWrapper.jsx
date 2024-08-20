@@ -59,7 +59,9 @@ export default function NavWrapper({
         initial={false}
         animate={isOpen ? 'open' : 'close'}
         onClick={closeNav}
-        className="absolute inset-0 z-20 w-full h-full bg-black cursor-pointer"
+        className={`absolute inset-0 z-20 w-full h-full bg-black ${
+          isOpen ? 'cursor-pointer' : 'cursor-not-allowed'
+        }`}
       ></m.div>
     </AnimatePresence>
   );
@@ -123,6 +125,7 @@ const backdropVariants = {
     },
   },
   close: {
+    opacity: 0,
     transitionEnd: { display: 'none' },
     transition: {
       type: 'spring',

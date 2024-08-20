@@ -34,6 +34,7 @@ export default function AdminNavigation({ userData, closeNav }) {
           return (
             <NavLink
               onClick={closeNav}
+              key={name}
               to={path}
               className="text-xl"
               style={({ isActive }) => {

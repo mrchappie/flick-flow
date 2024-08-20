@@ -47,6 +47,10 @@ button {
   outline: none;
 }
 
+a:hover {
+  color: #1884f7;
+}
+
 button[disabled] {
   filter: grayscale();
   cursor: not-allowed;
