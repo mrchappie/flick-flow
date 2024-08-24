@@ -3,68 +3,115 @@ import { useState } from 'react';
 import { Heading } from 'components/UI/heading/heading';
 import { movieGenres, tvGenres } from 'utils/keys/tmdbGenres';
 import { motion as m } from 'framer-motion';
+import './genre.css';
 
 export default function Genre() {
-  const [toggleGenres, setToggleGenres] = useState(true);
+  const [toggleGenres, setToggleGenres] = useState('movie');
 
-  function toggleGenresFn() {
-    setToggleGenres(!toggleGenres);
+  function toggleGenresFn(param) {
+    setToggleGenres(param);
   }
 
   return (
-    <section className="w-full col-span-12 p-10 max-w-[1200px] m-auto">
-      <div className="center">
-        <Heading
-          title={'Movies Genres'}
-          toggleGen={toggleGenresFn}
-          customStyle={`cursor-pointer ${!toggleGenres ? 'opacity-50' : ''}`}
-        />
-        <Heading
-          title={'TV Genres'}
-          toggleGen={toggleGenresFn}
-          customStyle={`cursor-pointer ${toggleGenres ? 'opacity-50' : ''}`}
-        />
+    <section className="w-full col-span-8 col-start-3 p-10 m-auto">
+      <div className="gap-0 center">
+        <div
+          className={`relative border-2 w-[50%] center px-2 py-4 justify-start ${
+            toggleGenres === 'movie'
+              ? 'border-brand2 border-b-transparent rounded-t-md bg-black/75 movie-genre-border'
+              : 'border-transparent border-b-brand3'
+          }`}
+        >
+          <Heading
+            title={'Movies Genres'}
+            toggleGen={() => {
+              toggleGenresFn('movie');
+            }}
+            customStyle={`justify-start cursor-pointer m-0 ${
+              toggleGenres === 'movie' ? '' : 'opacity-50'
+            } hover:text-brand2`}
+          />
+        </div>
+        <div
+          className={`relative border-2 w-[50%] center px-2 py-4 justify-end ${
+            toggleGenres === 'tv'
+              ? 'border-brand3 border-b-transparent rounded-t-md bg-black/75 tv-genre-border'
+              : 'border-transparent border-b-brand2'
+          }`}
+        >
+          <Heading
+            title={'TV Genres'}
+            toggleGen={() => {
+              toggleGenresFn('tv');
+            }}
+            customStyle={`justify-end cursor-pointer m-0 ${
+              toggleGenres === 'tv' ? '' : 'opacity-50'
+            } hover:text-brand3`}
+          />
+        </div>
       </div>
-      {toggleGenres && (
-        <ul className="flex-wrap w-full gap-5 center">
+      {toggleGenres === 'movie' && (
+        <ul
+          className={`relative flex-wrap w-full gap-5 p-2 center justify-evenly border-t-transparent rounded-b-md py-6 ${
+            toggleGenres === 'movie' &&
+            'border-2 border-brand2 bg-black/75 movie-genre-container'
+          }`}
+        >
           {movieGenres.map((genre) => {
             return (
               <Link
                 to={`/genre/${genre.name.toLowerCase()}?${new URLSearchParams({
-                  movie_or_tv: toggleGenres ? 'movie' : 'tv',
+                  content_type: toggleGenres,
                   genre_id: genre.id,
                 }).toString()}`}
                 key={genre.id}
+                className="hover:text-brand2"
               >
                 <m.li
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70"
+                  className="relative w-[200px] h-[200px] rounded-md center overflow-hidden items-end text-[25px] font-bold p-4 bg-black shadow-md shadow-white/75 hover:border-brand2 hover:shadow-brand2"
                 >
-                  <span className="text-center">{genre.name}</span>
+                  <img
+                    src={`/images/genre_img/movie/${genre.name}.png`}
+                    alt=""
+                    className="absolute object-cover"
+                  />
+                  <span className="z-10 text-center">{genre.name}</span>
                 </m.li>
               </Link>
             );
           })}
         </ul>
       )}
-      {!toggleGenres && (
-        <ul className="flex-wrap w-full gap-5 center">
+      {toggleGenres === 'tv' && (
+        <ul
+          className={`relative flex-wrap w-full gap-5 p-2 center justify-evenly border-t-transparent rounded-b-md py-6 ${
+            toggleGenres === 'tv' &&
+            'border-2 border-brand3 bg-black/75 tv-genre-container'
+          }`}
+        >
           {tvGenres.map((genre) => {
             return (
               <Link
                 to={`/genre/${genre.name.toLowerCase()}?${new URLSearchParams({
-                  movie_or_tv: toggleGenres ? 'movie' : 'tv',
+                  content_type: toggleGenres,
                   genre_id: genre.id,
                 }).toString()}`}
                 key={genre.id}
+                className="hover:text-brand3"
               >
                 <m.li
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-[200px] h-[200px] border-2 rounded-md center text-[25px] font-bold p-4 bg-black/70"
+                  className="relative w-[200px] h-[200px] rounded-md center overflow-hidden items-end text-[25px] font-bold p-4 bg-black shadow-md shadow-white/75 hover:border-brand3 hover:shadow-brand3"
                 >
-                  <span className="text-center">{genre.name}</span>
+                  <img
+                    src={`/images/genre_img/tv/${genre.name}.png`}
+                    alt=""
+                    className="absolute object-cover"
+                  />
+                  <span className="z-10 text-center">{genre.name}</span>
                 </m.li>
               </Link>
             );
