@@ -13,6 +13,7 @@ export const useStateStore = create((set) => ({
   itemsInList: [],
   disableScroll: false,
   users: [],
+  scrollYPosition: 0,
 
   initState: () => set({ isLoggedIn: false }),
 
@@ -51,4 +52,5 @@ export const useStateStore = create((set) => ({
     })),
 
   updateUsers: (users) => set(() => ({ users: users })),
+  updateScrollYPosition: (scrollY) => set(() => ({ scrollYPosition: scrollY })),
 }));

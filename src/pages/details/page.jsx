@@ -36,7 +36,6 @@ export default function Details() {
 
   useEffect(() => {
     if (response) {
-      console.log(response);
       setMovieDetails(response);
       setGenres(response.genres);
     }

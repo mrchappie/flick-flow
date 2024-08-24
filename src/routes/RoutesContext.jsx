@@ -1,31 +1,55 @@
-import NotFound from 'pages/not-found';
-import LandingPage from 'pages/page';
-import Home from '../pages/home/page';
-import Movies from '../pages/movies/page';
-import TvShows from '../pages/tv-shows/page';
-import React from 'react';
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Login from 'pages/login/page';
-import Register from 'pages/register/page';
-import Details from 'pages/details/page';
-import Genre from 'pages/genre/page';
-import UserProfile from 'pages/user-profile/page';
-import WatchList from 'pages/user-profile/watchlist/page';
-import WatchHistory from 'pages/user-profile/watch-history/page';
-import Settings from 'pages/user-profile/settings/page';
-import GenreCategory from 'pages/genre/[genreID]/page';
-import PrivateRoute from 'utils/hoc/PrivateRoute';
-import Favorites from 'pages/user-profile/favorites/page';
-import UserLists from 'pages/user-profile/user-lists/userLists';
-import UserList from 'pages/user-profile/user-lists/[userList]';
-import AnonymousRoute from 'utils/hoc/AnonymousRoute';
-import Search from 'pages/search/Search';
-import ManageUsers from 'pages/admin/manage-users/manageUsers';
-import ManageLists from 'pages/admin/manage-lists/manageLists';
-import Dashboard from 'pages/admin/dashboard/dashboard';
-import AdminRoute from 'utils/hoc/AdminRoute';
-import List from 'pages/list/list';
 import { AnimatePresence } from 'framer-motion';
+import AdminRoute from 'utils/hoc/AdminRoute';
+import AnonymousRoute from 'utils/hoc/AnonymousRoute';
+import PrivateRoute from 'utils/hoc/PrivateRoute';
+import WithScrollMemory from './WithScrollMemory';
+
+const NotFound = WithScrollMemory(lazy(() => import('pages/not-found')));
+const LandingPage = WithScrollMemory(lazy(() => import('pages/page')));
+const Home = WithScrollMemory(lazy(() => import('../pages/home/page')));
+const Movies = WithScrollMemory(lazy(() => import('../pages/movies/page')));
+const TvShows = WithScrollMemory(lazy(() => import('../pages/tv-shows/page')));
+const Login = WithScrollMemory(lazy(() => import('pages/login/page')));
+const Register = WithScrollMemory(lazy(() => import('pages/register/page')));
+const Details = WithScrollMemory(lazy(() => import('pages/details/page')));
+const Genre = WithScrollMemory(lazy(() => import('pages/genre/page')));
+const UserProfile = WithScrollMemory(
+  lazy(() => import('pages/user-profile/page'))
+);
+const WatchList = WithScrollMemory(
+  lazy(() => import('pages/user-profile/watchlist/page'))
+);
+const WatchHistory = WithScrollMemory(
+  lazy(() => import('pages/user-profile/watch-history/page'))
+);
+const Settings = WithScrollMemory(
+  lazy(() => import('pages/user-profile/settings/page'))
+);
+const GenreCategory = WithScrollMemory(
+  lazy(() => import('pages/genre/[genreID]/page'))
+);
+const Favorites = WithScrollMemory(
+  lazy(() => import('pages/user-profile/favorites/page'))
+);
+const UserLists = WithScrollMemory(
+  lazy(() => import('pages/user-profile/user-lists/userLists'))
+);
+const UserList = WithScrollMemory(
+  lazy(() => import('pages/user-profile/user-lists/[userList]'))
+);
+const Search = WithScrollMemory(lazy(() => import('pages/search/Search')));
+const ManageUsers = WithScrollMemory(
+  lazy(() => import('pages/admin/manage-users/manageUsers'))
+);
+const ManageLists = WithScrollMemory(
+  lazy(() => import('pages/admin/manage-lists/manageLists'))
+);
+const Dashboard = WithScrollMemory(
+  lazy(() => import('pages/admin/dashboard/dashboard'))
+);
+const List = WithScrollMemory(lazy(() => import('pages/list/list')));
 
 const defaultRoutes = [
   {

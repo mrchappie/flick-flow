@@ -20,9 +20,9 @@ export default function VideoPlayer({ movieDetails }) {
 
   useEffect(() => {
     if (response && response.results) {
-      console.log(
-        response.results.filter((item) => item.name.includes('Trailer'))
-      );
+      // console.log(
+      //   response.results.filter((item) => item.name.includes('Trailer'))
+      // );
     }
   }, [response]);
 

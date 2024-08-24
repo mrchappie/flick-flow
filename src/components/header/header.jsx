@@ -13,8 +13,6 @@ export default function Header() {
   const { updateIsLoggedIn, role } = useStateStore();
   const [isOpen, toggleOpen] = useCycle(false, true);
 
-  console.log(role);
-
   const navigate = useNavigate();
 
   // handle logout
@@ -68,7 +66,7 @@ export default function Header() {
               initial={false}
               animate={isOpen ? 'open' : 'close'}
               onMouseLeave={toggleOpen}
-              className="w-[54px] h-[54px] absolute top-0 left-[50%] z-10 center-col px-8 pt-[80px] pb-8 bg-black translate-x-[-50%]"
+              className="w-[54px] h-[54px] absolute top-0 left-[50%] z-10 center-col px-8 pt-[80px] pb-8 bg-black translate-x-[-50%] overflow-hidden"
             >
               <div className="center-col">
                 <h2 className="text-xl italic font-extrabold">
