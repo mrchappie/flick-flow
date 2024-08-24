@@ -50,11 +50,13 @@ export default function useFetch({
           options.headers = customHeaders;
         }
 
-        const data = await fetch(customURL, options);
-        if (!data.ok) throw new Error(data.statusText);
+        const response = await fetch(customURL, options);
+        if (!response.ok) throw new Error(response.statusText);
 
-        const response = await data.json();
-        setResponse(response);
+        const data = await response.json();
+        setResponse(data);
+        console.log(data);
+        return data;
       } catch (error) {
         setError(error.message);
       } finally {

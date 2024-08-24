@@ -10,6 +10,6 @@ export function handleFilterLists(listArray) {
   });
 }
 
-export function handleWhatListToShow(itemLists, currentListName) {
-  return itemLists.some((list) => list.listName === currentListName);
+export function handleWhatListToShow(listsItemIsIn, currentListName) {
+  return listsItemIsIn.some((list) => list.listName === currentListName);
 }

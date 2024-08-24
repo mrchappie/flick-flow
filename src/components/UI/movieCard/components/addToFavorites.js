@@ -4,13 +4,14 @@ import useFetch from 'utils/hooks/useFetch';
 import { useStateStore } from 'utils/services/state/State';
 import { checkMediaType } from './helper';
 import { motion as m } from 'framer-motion';
+import { toast } from 'react-toastify';
 
 export default function AddToFavorites({ details }) {
   const { itemsInList } = useStateStore();
   const { addItemInList, removeItemFromList } = useStateStore();
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const { response, fetchData } = useFetch({
+  const { fetchData } = useFetch({
     body: {
       listName: 'favorites',
       data: details,
@@ -22,25 +23,27 @@ export default function AddToFavorites({ details }) {
     fetchData({
       customURL: process.env.REACT_APP_FIREBASE_ADD_ITEM_TO_LIST,
       customMethod: 'POST',
+    }).then((result) => {
+      if (result && result.status === 200) {
+        setIsFavorite(true);
+        addItemInList([{ movieID: details.id, listName: 'favorites' }]);
+        toast.success(result.message);
+      }
     });
-    setIsFavorite(true);
-    addItemInList([{ movieID: details.id, listName: 'favorites' }]);
   }
 
   function removeFromFavorites() {
     fetchData({
       customURL: process.env.REACT_APP_FIREBASE_RMV_ITEM_FROM_LIST,
       customMethod: 'DELETE',
+    }).then((result) => {
+      if (result && result.status === 200) {
+        setIsFavorite(false);
+        removeItemFromList(details, 'favorites');
+        toast.success(result.message);
+      }
     });
-    setIsFavorite(false);
-    removeItemFromList(details, 'favorites');
   }
-
-  useEffect(() => {
-    if (response) {
-      console.log(response);
-    }
-  }, [response]);
 
   useEffect(() => {
     const itemInList = itemsInList.some((item) => {

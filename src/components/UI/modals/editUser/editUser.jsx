@@ -30,9 +30,7 @@ export default function EditUser({ user, closeModal }) {
   } = useForm({
     mode: 'onChange',
   });
-  const { response, fetchData } = useFetch({});
-
-  console.log(user);
+  const { fetchData } = useFetch({});
 
   async function handleUpdateProfile(formData) {
     try {
@@ -45,6 +43,10 @@ export default function EditUser({ user, closeModal }) {
         customURL: process.env.REACT_APP_FIREBASE_UPDATE_USER_DATA,
         customMethod: 'PUT',
         customBody: { data: { ...validFormData, uid: user.uid } },
+      }).then((result) => {
+        if (result) {
+          toast.info(result.message);
+        }
       });
     } catch (error) {
       console.log(error);
@@ -67,12 +69,6 @@ export default function EditUser({ user, closeModal }) {
       // closeModal();
     }
   }
-
-  useEffect(() => {
-    if (response) {
-      toast(response.message);
-    }
-  }, [response]);
 
   return (
     <>

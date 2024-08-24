@@ -8,6 +8,7 @@ import { handleFilterLists, handleWhatListToShow } from './helper';
 import useFetch from 'utils/hooks/useFetch';
 import { checkMediaType } from '../movieCard/components/helper';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 // import CreateNewList from 'pages/user-profile/user-lists/createNewList';
 
 export default function CardsInfoContainer({
@@ -21,7 +22,7 @@ export default function CardsInfoContainer({
   const { showModal } = useStateStore();
   const { updateShowModal } = useStateStore();
   const { addItemInList, removeItemFromList } = useStateStore();
-  const [listsItemIsIn, setListsItemIsIn] = useState(null);
+  const [listsItemIsIn, setListsItemIsIn] = useState([]);
   const [itemDetails, setItemDetails] = useState({});
   // const [showCreateNewListModal, setShowCreateNewListModal] = useState(false);
 
@@ -36,11 +37,13 @@ export default function CardsInfoContainer({
         data: itemDetails,
         itemType: checkMediaType(itemDetails),
       },
+    }).then((result) => {
+      if (result && result.status === 200) {
+        addItemInList([{ movieID: itemDetails.id, listName: listName }]);
+        updateShowModal(false);
+        toast.success(result.message);
+      }
     });
-    // if (response.status === 200) {
-    addItemInList([{ movieID: itemDetails.id, listName: listName }]);
-    updateShowModal(false);
-    // }
   }
 
   function removeFromList(listName) {
@@ -52,23 +55,19 @@ export default function CardsInfoContainer({
         data: itemDetails,
         itemType: checkMediaType(itemDetails),
       },
+    }).then((result) => {
+      if (result && result.status === 200) {
+        removeItemFromList(itemDetails, listName);
+        updateShowModal(false);
+        toast.success(result.message);
+      }
     });
-    // if (response.status === 200) {
-    removeItemFromList(itemDetails, listName);
-    updateShowModal(false);
-    // }
   }
 
-  function handleShowModal(itemDetails, itemLists) {
-    setListsItemIsIn(itemLists);
+  function handleShowModal(itemDetails, filteredList) {
+    setListsItemIsIn(filteredList);
     setItemDetails(itemDetails);
   }
-
-  useEffect(() => {
-    if (response) {
-      console.log(response);
-    }
-  }, [response]);
 
   return (
     <section className="mx-4 col-span-full center-col">

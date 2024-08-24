@@ -16,9 +16,12 @@ export function ListCardBlock({ list, removeList }) {
         customURL: process.env.REACT_APP_FIREBASE_DELETE_LIST,
         customMethod: 'DELETE',
         customBody: { data: { uid: userData.uid, ...list } },
-      })
-        .then(removeList(list))
-        .finally(toast.success('List deleted successfully!'));
+      }).then((result) => {
+        if (result && result.status === 200) {
+          removeList(list);
+          toast.success('List deleted successfully!');
+        }
+      });
     } catch (error) {
       console.log(error);
     }
