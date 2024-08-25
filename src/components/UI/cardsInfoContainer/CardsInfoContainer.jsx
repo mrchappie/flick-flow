@@ -26,7 +26,7 @@ export default function CardsInfoContainer({
   const [itemDetails, setItemDetails] = useState({});
   // const [showCreateNewListModal, setShowCreateNewListModal] = useState(false);
 
-  const { response, fetchData } = useFetch({});
+  const { fetchData } = useFetch({});
 
   function addToList(listName) {
     fetchData({
@@ -70,22 +70,22 @@ export default function CardsInfoContainer({
   }
 
   return (
-    <section className="mx-4 col-span-full center-col">
-      <div className="justify-between w-full center mt-[50px] px-4">
-        {title && (
+    <section className="max-lg:mx-4 col-span-full center-col">
+      {title && (
+        <div className="justify-between w-full center mt-[50px] px-4">
           <div>
             <Heading title={title} />
           </div>
-        )}
-        {path && (
-          <div>
-            <Link to={`${path}`} className="underline hover:text-brand4">
-              See More
-            </Link>
-          </div>
-        )}
-      </div>
 
+          {path && (
+            <div>
+              <Link to={`${path}`} className="underline hover:text-brand4">
+                See More
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
       <div
         className={
           customStyle ?? `w-full h-full center my-[50px] ${style ?? ''} pb-4`

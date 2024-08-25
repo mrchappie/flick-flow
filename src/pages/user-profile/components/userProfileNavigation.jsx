@@ -28,73 +28,75 @@ export default function UserProfileNavigation({ userData, closeNav }) {
 
   return (
     <div className="items-start justify-start w-full h-full p-8 bg-black/50 center-col">
-      <div className="items-start justify-start center-col h-[90%] gap-6">
-        <div className="justify-start center-col">
-          <div className="rounded-[50%] overflow-hidden relative">
-            <img
-              src="https://picsum.photos/200"
-              width={50}
-              height={50}
-              alt=""
-            />
+      <div className="fixed h-full">
+        <div className="items-start justify-start center-col h-[90%] gap-6">
+          <div className="justify-start center-col">
+            <div className="rounded-[50%] overflow-hidden relative">
+              <img
+                src="https://picsum.photos/200"
+                width={50}
+                height={50}
+                alt=""
+              />
+            </div>
+            <h2 className="text-xl">
+              Hi, <span>{userData && userData.name}</span>
+            </h2>
           </div>
-          <h2 className="text-xl">
-            Hi, <span>{userData && userData.name}</span>
-          </h2>
-        </div>
 
-        {role === 'admin' && (
-          <NavLink
-            onClick={closeNav}
-            to={'/admin/dashboard'}
-            className="text-xl"
-          >
-            Dashboard
-          </NavLink>
-        )}
-
-        {routes.map(({ path, name }) => {
-          return (
+          {role === 'admin' && (
             <NavLink
               onClick={closeNav}
-              key={name}
-              to={path}
+              to={'/admin/dashboard'}
               className="text-xl"
-              style={({ isActive }) => {
-                return {
-                  color: isActive ? 'red' : 'white',
-                };
-              }}
-              end
             >
-              {name}
+              Dashboard
             </NavLink>
-          );
-        })}
+          )}
 
-        {userData &&
-          userData.lists.map((list) => {
+          {routes.map(({ path, name }) => {
             return (
               <NavLink
                 onClick={closeNav}
-                key={list.listID}
-                to={`/user-profile/user-lists/${list.listName}?list_id=${list.listID}`}
-                className="pl-4 text-xl"
+                key={name}
+                to={path}
+                className="text-xl"
                 style={({ isActive }) => {
                   return {
                     color: isActive ? 'red' : 'white',
                   };
                 }}
+                end
               >
-                - {capitalizeWords(list.listName)}
+                {name}
               </NavLink>
             );
           })}
-      </div>
-      <div className="h-[10%] center items-end">
-        <button onClick={handleLogOut} className="text-xl">
-          Sign Out
-        </button>
+
+          {userData &&
+            userData.lists.map((list) => {
+              return (
+                <NavLink
+                  onClick={closeNav}
+                  key={list.listID}
+                  to={`/user-profile/user-lists/${list.listName}?list_id=${list.listID}`}
+                  className="pl-4 text-xl"
+                  style={({ isActive }) => {
+                    return {
+                      color: isActive ? 'red' : 'white',
+                    };
+                  }}
+                >
+                  - {capitalizeWords(list.listName)}
+                </NavLink>
+              );
+            })}
+        </div>
+        <div className="h-[10%] center items-start justify-start">
+          <button onClick={handleLogOut} className="text-xl">
+            Sign Out
+          </button>
+        </div>
       </div>
     </div>
   );

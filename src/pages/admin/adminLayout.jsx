@@ -16,7 +16,7 @@ export default function AdminLayout() {
 
   return (
     <>
-      <NavWrapper>
+      <NavWrapper customStyle="lg:col-span-2 row-span-full">
         <AdminNavigation userData={userDataS} />
       </NavWrapper>
       <div className="h-full col-span-10 p-8 row-span-full bg-[#222] max-lg:col-span-full">

@@ -62,7 +62,7 @@ export default function Pagination({ paginationData }) {
   }
 
   return (
-    <div className="select-none center">
+    <div className="py-4 select-none center">
       <div className="center">
         <button
           onClick={setFirstPage}

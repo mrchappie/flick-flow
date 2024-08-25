@@ -25,6 +25,7 @@ export default function UserList() {
   const componentData = {
     title: `${capitalizeWords(pathname.split('/').reverse()[0])} Collection`,
     data: listFetchedData,
+    style: 'flex-wrap',
   };
 
   useEffect(() => {

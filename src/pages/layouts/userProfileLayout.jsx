@@ -16,7 +16,7 @@ export default function UserProfileLayout() {
 
   return (
     <>
-      <NavWrapper>
+      <NavWrapper customStyle="lg:col-span-2 row-span-full">
         <UserProfileNavigation userData={userDataS} />
       </NavWrapper>
       <div className="h-full col-span-10 p-8 row-span-full bg-[#222] max-lg:col-span-full">

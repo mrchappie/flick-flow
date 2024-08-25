@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HiMiniBars3, HiMiniXMark } from 'react-icons/hi2';
-import { AnimatePresence, motion as m, useCycle } from 'framer-motion';
+import { AnimatePresence, motion as m } from 'framer-motion';
+import { twMerge } from 'tailwind-merge';
 
 export default function NavWrapper({
   children,
+  customStyle,
   togglePostion = 'top-left',
   navPostion = 'left',
 }) {
-  const [isOpen, toggleOpen] = useCycle(false, true);
+  const [isOpen, toggleNav] = useState(false);
   function closeNav() {
-    toggleOpen();
+    toggleNav(false);
   }
 
   function openNav() {
-    toggleOpen();
+    toggleNav(true);
   }
 
   const vw = window.innerWidth;
@@ -39,7 +41,9 @@ export default function NavWrapper({
         variants={navVariants(xValue)}
         initial={false}
         animate={isOpen ? 'open' : 'close'}
-        className={`h-full z-50 lg:col-span-2 row-span-full bg-[#222] max-lg:absolute max-lg:shadow-2xl shadow-white left-0`}
+        className={twMerge(
+          `h-full z-50 bg-[#222] max-lg:absolute max-lg:shadow-2xl shadow-white left-0 ${customStyle}`
+        )}
       >
         {isOpen && (
           <div

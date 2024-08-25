@@ -16,42 +16,44 @@ export default function AdminNavigation({ userData, closeNav }) {
 
   return (
     <div className="items-start justify-start w-full h-full p-8 bg-black/50 center-col">
-      <div className="items-start justify-start center-col h-[90%] gap-6">
-        <div className="justify-start mb-8 center-col">
-          <div className="rounded-[50%] overflow-hidden relative">
-            <img
-              src="https://picsum.photos/200"
-              width={50}
-              height={50}
-              alt=""
-            />
+      <div className="fixed h-full">
+        <div className="items-start justify-start center-col h-[90%] gap-6">
+          <div className="justify-start mb-8 center-col">
+            <div className="rounded-[50%] overflow-hidden relative">
+              <img
+                src="https://picsum.photos/200"
+                width={50}
+                height={50}
+                alt=""
+              />
+            </div>
+            <h2 className="text-xl">
+              Hi, <span>{userData && userData.name}</span>
+            </h2>
           </div>
-          <h2 className="text-xl">
-            Hi, <span>{userData && userData.name}</span>
-          </h2>
+          {routes.map(({ path, name }) => {
+            return (
+              <NavLink
+                onClick={closeNav}
+                key={name}
+                to={path}
+                className="text-xl"
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? 'red' : 'white',
+                  };
+                }}
+              >
+                {name}
+              </NavLink>
+            );
+          })}
         </div>
-        {routes.map(({ path, name }) => {
-          return (
-            <NavLink
-              onClick={closeNav}
-              key={name}
-              to={path}
-              className="text-xl"
-              style={({ isActive }) => {
-                return {
-                  color: isActive ? 'red' : 'white',
-                };
-              }}
-            >
-              {name}
-            </NavLink>
-          );
-        })}
-      </div>
-      <div className="h-[10%] center items-end">
-        <button onClick={handleLogOut} className="text-xl">
-          Sign Out
-        </button>
+        <div className="h-[10%] center items-start justify-start">
+          <button onClick={handleLogOut} className="text-xl">
+            Sign Out
+          </button>
+        </div>
       </div>
     </div>
   );
