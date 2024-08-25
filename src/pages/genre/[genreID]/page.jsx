@@ -9,7 +9,7 @@ export default function GenreCategory() {
   const { genreName } = useParams();
   const [searchParams] = useSearchParams();
   const genreID = searchParams.get('genre_id');
-  const movieOrTV = searchParams.get('movie_or_tv');
+  const contentType = searchParams.get('content_type');
   const [page] = useSearchParams();
 
   const [movieDetails, setMovieDetails] = useState([]);
@@ -17,7 +17,7 @@ export default function GenreCategory() {
   const { response } = useAPI({
     paths: {
       category: 'discover',
-      subCategory: [movieOrTV],
+      subCategory: [contentType],
       params: {
         with_genres: genreID,
         page: page.get('page') ?? 1,
@@ -33,7 +33,7 @@ export default function GenreCategory() {
 
   const componentData = {
     title: `${capitalize(genreName)} ${
-      movieOrTV === 'movie' ? 'movies' : 'tv-shows'
+      contentType === 'movie' ? 'movies' : 'tv-shows'
     }`,
     data: movieDetails,
     style: 'max-w-[1200px] flex-wrap',
