@@ -14,9 +14,9 @@ export default function Genre() {
 
   return (
     <section className="w-full col-span-8 col-start-3 p-10 m-auto">
-      <div className="gap-0 center">
+      <div className="relative items-end justify-between gap-0 center">
         <div
-          className={`relative border-2 w-[50%] center px-2 py-4 justify-start ${
+          className={`relative z-10 border-4 w-[25%] center px-2 py-4 justify-start ${
             toggleGenres === 'movie'
               ? 'border-brand2 border-b-transparent rounded-t-md bg-black/75 movie-genre-border'
               : 'border-transparent border-b-brand3'
@@ -28,12 +28,17 @@ export default function Genre() {
               toggleGenresFn('movie');
             }}
             customStyle={`justify-start cursor-pointer m-0 ${
-              toggleGenres === 'movie' ? '' : 'opacity-50'
+              toggleGenres === 'movie' ? '' : 'opacity-75'
             } hover:text-brand2`}
           />
         </div>
         <div
-          className={`relative border-2 w-[50%] center px-2 py-4 justify-end ${
+          className={`relative z-0 border-b-4 h-full grow devider-border border-${
+            toggleGenres === 'movie' ? 'brand2' : 'brand3'
+          }`}
+        ></div>
+        <div
+          className={`relative z-10 border-4 w-[25%] center px-2 py-4 justify-end ${
             toggleGenres === 'tv'
               ? 'border-brand3 border-b-transparent rounded-t-md bg-black/75 tv-genre-border'
               : 'border-transparent border-b-brand2'
@@ -45,7 +50,7 @@ export default function Genre() {
               toggleGenresFn('tv');
             }}
             customStyle={`justify-end cursor-pointer m-0 ${
-              toggleGenres === 'tv' ? '' : 'opacity-50'
+              toggleGenres === 'tv' ? '' : 'opacity-75'
             } hover:text-brand3`}
           />
         </div>
@@ -54,7 +59,7 @@ export default function Genre() {
         <ul
           className={`relative flex-wrap w-full gap-5 p-2 center justify-evenly border-t-transparent rounded-b-md py-6 ${
             toggleGenres === 'movie' &&
-            'border-2 border-brand2 bg-black/75 movie-genre-container'
+            'border-4 border-brand2 bg-black/75 movie-genre-container'
           }`}
         >
           {movieGenres.map((genre) => {
@@ -88,7 +93,7 @@ export default function Genre() {
         <ul
           className={`relative flex-wrap w-full gap-5 p-2 center justify-evenly border-t-transparent rounded-b-md py-6 ${
             toggleGenres === 'tv' &&
-            'border-2 border-brand3 bg-black/75 tv-genre-container'
+            'border-4 border-brand3 bg-black/75 tv-genre-container'
           }`}
         >
           {tvGenres.map((genre) => {
