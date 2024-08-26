@@ -26,7 +26,7 @@ export default function useAPI({
   }, [method, body, userAuthToken]);
 
   const { category, subCategory, params = {} } = paths;
-  const url = `${'https://fetchdatafromtmdb-6cjkhsqjsq-uc.a.run.app'}/${category}${
+  const url = `${process.env.REACT_APP_FIREBASE_FETCH_TMDB_API}/${category}${
     subCategory.length > 0 ? `/${subCategory.join('/')}` : ''
   }${
     Object.keys(params).length > 0
