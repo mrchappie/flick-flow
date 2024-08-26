@@ -51,6 +51,10 @@ a:hover {
   color: #1884f7;
 }
 
+a.active {
+  scale: 1;
+}
+
 button[disabled] {
   filter: grayscale();
   cursor: not-allowed;

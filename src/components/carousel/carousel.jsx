@@ -65,15 +65,15 @@ export default function Carousel() {
     addItemInList([{ movieID: details.id, listName: 'watchlist' }]);
   }
 
-  // useEffect(() => {
-  //   const changeSlide = setTimeout(() => {
-  //     handleNextSlide();
-  //   }, 5000);
+  useEffect(() => {
+    const changeSlide = setTimeout(() => {
+      handleNextSlide();
+    }, 5000);
 
-  //   return () => {
-  //     clearTimeout(changeSlide);
-  //   };
-  // }, [activeSlide, handleNextSlide]);
+    return () => {
+      clearTimeout(changeSlide);
+    };
+  }, [activeSlide, handleNextSlide]);
 
   return (
     <section className="w-full h-[75vh] col-span-full center">
@@ -88,7 +88,7 @@ export default function Carousel() {
           return (
             <div
               key={slide.id}
-              className={`absolute top-0 w-full h-full ${styles.customCarouselTransition}`}
+              className={`absolute top-0 w-full h-full ${styles.customCarouselTransition} transition-transform`}
               style={{
                 left: `${slideOffset}px`,
               }}

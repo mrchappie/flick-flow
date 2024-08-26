@@ -22,7 +22,7 @@ export default function Navigation() {
               <li key={route.path}>
                 <NavLink
                   to={`${route.path}`}
-                  className="block px-6 py-4 font-bold"
+                  className="block px-6 py-4 font-bold transition-all hover:scale-110"
                   style={({ isActive }) => {
                     return {
                       color: isActive ? '#f51a3b' : 'white',
