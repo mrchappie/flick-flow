@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-
-const tmdbAccessToken = process.env.REACT_APP_TMDB_ACCESS_TOKEN;
+import { useStateStore } from 'utils/services/state/State';
 
 export default function useAPI({
   method = 'GET',
@@ -11,23 +10,23 @@ export default function useAPI({
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const { userAuthToken } = useStateStore();
   const options = useMemo(() => {
     const opts = {
       method: method,
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${tmdbAccessToken}`,
+        Authorization: `Bearer ${userAuthToken}`,
       },
     };
     if (body) {
       opts.body = body;
     }
     return opts;
-  }, [method, body]);
+  }, [method, body, userAuthToken]);
 
   const { category, subCategory, params = {} } = paths;
-  const url = `${process.env.REACT_APP_TMDB_API_ORIGIN}/${category}${
+  const url = `${'https://fetchdatafromtmdb-6cjkhsqjsq-uc.a.run.app'}/${category}${
     subCategory.length > 0 ? `/${subCategory.join('/')}` : ''
   }${
     Object.keys(params).length > 0
@@ -41,11 +40,10 @@ export default function useAPI({
       setLoading(true);
       try {
         const data = await fetch(url, options);
-
         if (!data.ok) throw new Error(data.statusText);
 
         const response = await data.json();
-        setResponse(response);
+        setResponse(response.data);
       } catch (error) {
         setError(error.message);
       } finally {

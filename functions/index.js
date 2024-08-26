@@ -11,6 +11,7 @@ const {
   deleteUser,
 } = require('./src/users/users.cjs');
 const { exportListsData, deleteList } = require('./src/lists/lists.cjs');
+const fetchDataFromTMDB = require('./src/externalAPI/fetchData.cjs');
 
 exports.getItemsFromContentIDs = getItemsFromContentIDs;
 exports.removeItemFromList = removeItemFromList;
@@ -28,3 +29,6 @@ exports.setUserRole = setUserRole;
 exports.updateUserData = updateUserData;
 exports.createUser = createUser;
 exports.deleteUser = deleteUser;
+
+// EXTERNAL API
+exports.fetchDataFromTMDB = fetchDataFromTMDB;

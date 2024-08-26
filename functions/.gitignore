@@ -2,3 +2,5 @@ node_modules/
 *.local
 *.log
 testcode.js
+
+ui-debug.log
