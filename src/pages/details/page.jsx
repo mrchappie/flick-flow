@@ -17,26 +17,32 @@ import VideoPlayer from './videoPlayer/videoPlayer';
 export default function Details() {
   // fetch the desired movie data
   const [searchParams] = useSearchParams();
-  const [movieID, setMovieID] = useState(searchParams.get('movie_id'));
+  const [contentID, setContentID] = useState(searchParams.get('content_id'));
+  const [contentType, setContentType] = useState(
+    searchParams.get('content_type')
+  );
 
   const [genres, setGenres] = useState([]);
-  const [movieDetails, setMovieDetails] = useState([]);
+  const [itemDetails, setItemDetails] = useState([]);
 
   useEffect(() => {
-    setMovieID(searchParams.get('movie_id'));
+    setContentID(searchParams.get('content_id'));
+    setContentType(searchParams.get('content_type'));
   }, [searchParams]);
 
   const { response } = useAPI({
     paths: {
-      category: 'movie',
-      subCategory: [movieID],
+      category: contentType,
+      subCategory: [contentID],
       params: { language: 'en-US' },
     },
   });
 
+  console.log(itemDetails);
+
   useEffect(() => {
     if (response) {
-      setMovieDetails(response);
+      setItemDetails(response);
       setGenres(response.genres);
     }
   }, [response]);
@@ -44,15 +50,19 @@ export default function Details() {
   return (
     <section className="grid grid-cols-12 gap-8 px-10 col-span-full">
       <section className="w-full h-full col-span-9 max-lg:col-span-12 center-col">
-        <VideoPlayer movieDetails={movieDetails} />
+        <VideoPlayer
+          itemDetails={itemDetails}
+          contentID={contentID}
+          contentType={contentType}
+        />
         <header className="h-[30%] center-col justify-start gap-10 w-full">
           <div className="justify-between w-full center">
             <div className="items-start center-col">
-              <Heading title={movieDetails.title} />
+              <Heading title={itemDetails.title} />
               <div className="text-xl font-semibold center">
-                <span>{extractReleaseYear(movieDetails)}</span>
+                <span>{extractReleaseYear(itemDetails)}</span>
                 <span>&#8226;</span>
-                <span>{formatRunningTime(movieDetails.runtime)}</span>
+                <span>{formatRunningTime(itemDetails)}</span>
               </div>
               <div className="text-white/50 center">
                 {genres.map((genre) => {
@@ -77,14 +87,14 @@ export default function Details() {
           </div>
           <div className="items-start w-full">
             <h2 className="py-2 text-2xl font-semibold">Description</h2>
-            <p className="text-white/50 text-md">{movieDetails.overview}</p>
+            <p className="text-white/50 text-md">{itemDetails.overview}</p>
           </div>
         </header>
       </section>
       <section className="justify-start h-full col-span-3 max-lg:col-span-12 center-col">
-        <Recomandations movieID={movieID} />
+        <Recomandations contentID={contentID} contentType={contentType} />
       </section>
-      <ForYou />
+      <ForYou contentType={contentType} />
     </section>
   );
 }

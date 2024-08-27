@@ -5,15 +5,15 @@ import useAPI from 'utils/hooks/useAPI';
 import { useStateStore } from 'utils/services/state/State';
 import { tmdbImagesOrigin } from 'utils/utils';
 
-export default function VideoPlayer({ movieDetails }) {
+export default function VideoPlayer({ itemDetails, contentID, contentType }) {
   const [togglePlayButton, setTogglePlayButton] = useState(false);
   const [toggleShowTrailer, setToggleShowTrailer] = useState(false);
   const { updateDisableScroll, disableScroll } = useStateStore();
 
   const { response } = useAPI({
     paths: {
-      category: 'movie',
-      subCategory: [movieDetails.id, 'videos'],
+      category: contentType,
+      subCategory: [contentID, 'videos'],
       params: { language: 'en-US' },
     },
   });
@@ -43,8 +43,8 @@ export default function VideoPlayer({ movieDetails }) {
         className="w-full h-[70%] relative overflow-hidden"
       >
         <img
-          src={tmdbImagesOrigin + '/w1280' + movieDetails.backdrop_path}
-          alt={movieDetails.title}
+          src={tmdbImagesOrigin + '/w1280' + itemDetails.backdrop_path}
+          alt={itemDetails.title}
           className="object-cover w-full"
         />
 

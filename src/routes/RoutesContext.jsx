@@ -119,9 +119,9 @@ const defaultRoutes = [
   {
     path: '/details',
     element: (
-      <PrivateRoute>
-        <Details />
-      </PrivateRoute>
+      // <PrivateRoute>
+      <Details />
+      // </PrivateRoute>
     ),
   },
   {

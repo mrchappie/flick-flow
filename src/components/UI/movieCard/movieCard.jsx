@@ -5,6 +5,7 @@ import { tmdbImagesOrigin } from 'utils/utils';
 import AddToFavorites from './components/addToFavorites';
 import AddToOtherList from './components/addToOtherList';
 import { motion as m } from 'framer-motion';
+import { checkMediaType } from './components/helper';
 
 export default function MovieCard({ details, customStyle, onHandleShowModal }) {
   const { isLoggedIn } = useStateStore();
@@ -26,7 +27,9 @@ export default function MovieCard({ details, customStyle, onHandleShowModal }) {
           </div>
         )}
         <Link
-          to={`/details?movie_id=${details.id}`}
+          to={`/details?content_type=${checkMediaType(details)}&content_id=${
+            details.id
+          }`}
           className="absolute top-0 left-0 z-0 block w-full h-full"
         ></Link>
       </m.div>

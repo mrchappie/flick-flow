@@ -3,7 +3,7 @@ import { Heading, Heading2 } from '../heading/heading';
 import Modal from '../modal/modal';
 import MovieCard from '../movieCard/movieCard';
 import { ListCardInline } from 'pages/user-profile/user-lists/listCard';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { handleFilterLists, handleWhatListToShow } from './helper';
 import useFetch from 'utils/hooks/useFetch';
 import { checkMediaType } from '../movieCard/components/helper';
@@ -39,8 +39,8 @@ export default function CardsInfoContainer({
       },
     }).then((result) => {
       if (result && result.status === 200) {
-        addItemInList([{ movieID: itemDetails.id, listName: listName }]);
         updateShowModal(false);
+        addItemInList([{ movieID: itemDetails.id, listName: listName }]);
         toast.success(result.message);
       }
     });

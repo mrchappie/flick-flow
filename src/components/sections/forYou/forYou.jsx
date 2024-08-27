@@ -1,12 +1,16 @@
 import CardsInfoContainer from 'components/UI/cardsInfoContainer/CardsInfoContainer';
 import { useEffect, useState } from 'react';
 import useAPI from 'utils/hooks/useAPI';
+import { capitalize } from 'utils/utils';
 
-export default function ForYou() {
+export default function ForYou({ contentType }) {
   const [movieDetails, setMovieDetails] = useState([]);
 
-  const { response, loading, error } = useAPI({
-    paths: { category: 'movie', subCategory: ['now_playing'] },
+  const { response } = useAPI({
+    paths: {
+      category: contentType,
+      subCategory: [contentType === 'movie' ? 'now_playing' : 'on_the_air'],
+    },
   });
 
   useEffect(() => {
@@ -16,7 +20,7 @@ export default function ForYou() {
   }, [response]);
 
   const componentData = {
-    title: 'For You',
+    title: `Now Playing ${capitalize(contentType)}s`,
     data: movieDetails,
     path: '/movie/now_playing',
     style: 'max-lg:justify-start max-lg:mx-12 max-lg:overflow-x-scroll',
