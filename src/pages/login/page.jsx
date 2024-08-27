@@ -20,7 +20,6 @@ export default function Login() {
     try {
       // attempt to login the user
       const response = await loginUser(formData);
-      console.log(response);
       if (response) {
         await DB.updateFirestoreDoc(['users', response.user.uid], {
           email: response.user.email,

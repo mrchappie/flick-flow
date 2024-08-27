@@ -5,7 +5,6 @@ import { getUserRole } from 'utils/services/auth/Auth';
 
 function AdminRoute({ children }) {
   const location = useLocation();
-  console.log(location);
   const { pathname } = location;
 
   const navigate = useNavigate();

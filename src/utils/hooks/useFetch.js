@@ -11,6 +11,7 @@ export default function useFetch({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { userAuthToken } = useStateStore();
+  const abortController = useMemo(() => new AbortController(), []);
 
   const options = useMemo(() => {
     const opts = {
@@ -18,13 +19,14 @@ export default function useFetch({
       headers: {
         accept: 'application/json',
         Authorization: `Bearer ${userAuthToken}`,
+        signal: abortController.signal,
       },
     };
     if (body) {
       opts.body = JSON.stringify(body);
     }
     return opts;
-  }, [method, body, userAuthToken]);
+  }, [method, body, userAuthToken, abortController]);
 
   const fetchData = useCallback(
     async ({
@@ -33,7 +35,8 @@ export default function useFetch({
       customBody,
       customHeaders = options.headers,
     }) => {
-      if (!userAuthToken) {
+      const customToken = customHeaders.Authorization.split(' ')[1];
+      if (!userAuthToken && !customToken) {
         setError('User token is not available');
         return;
       }
@@ -55,7 +58,7 @@ export default function useFetch({
 
         const data = await response.json();
         setResponse(data);
-        console.log(data);
+
         return data;
       } catch (error) {
         setError(error.message);
@@ -70,7 +73,11 @@ export default function useFetch({
     if (shouldFetch) {
       fetchData({});
     }
-  }, [fetchData, shouldFetch]);
+
+    return () => {
+      abortController.abort();
+    };
+  }, [abortController, fetchData, shouldFetch]);
 
   return { response, loading, error, fetchData };
 }

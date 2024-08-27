@@ -26,7 +26,7 @@ const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
       if (isObjectEmpty(bodyData)) {
         return res
           .status(401)
-          .json({ message: 'Please provide data to delete', status: 401 });
+          .json({ message: 'No user data to initialize', status: 401 });
       }
 
       const defaultListsIDs = {
@@ -35,7 +35,7 @@ const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
         history: uuid(),
       };
 
-      await initializeUserObject(
+      const userObject = await initializeUserObject(
         userID,
         {
           email: userData.email,
@@ -45,11 +45,12 @@ const initializeUserInDataBase = onRequest({ cors: true }, async (req, res) => {
       );
       await initializeUserListsObject(userID, defaultListsIDs);
 
-      return res
-        .status(200)
-        .json({ message: 'Item was added successfully!', status: 200 });
+      return res.status(200).json({
+        message: 'User object was initialized!',
+        status: 200,
+        data: userObject,
+      });
     } catch (error) {
-      console.log(error);
       return res.status(500).send({
         error: 'Something went wrong',
         details: error,

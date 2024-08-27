@@ -3,20 +3,20 @@ const { DB } = require('../utils/initialize.cjs');
 
 async function initializeUserObject(userID, userData, listsIDs) {
   try {
-    await DB.collection('users')
-      .doc(userID)
-      .set({
-        email: userData.email,
-        name: userData.name,
-        userName: null,
-        role: 'user',
-        genres: [],
-        uid: userID,
-        lists: ['favorites', 'watchlist', 'history'].map((listName) => ({
-          listID: listsIDs[listName],
-          listName,
-        })),
-      });
+    const userObject = {
+      email: userData.email,
+      name: userData.name,
+      userName: null,
+      role: 'user',
+      genres: [],
+      uid: userID,
+      lists: ['favorites', 'watchlist', 'history'].map((listName) => ({
+        listID: listsIDs[listName],
+        listName,
+      })),
+    };
+    await DB.collection('users').doc(userID).set(userObject);
+    return userObject;
   } catch (error) {
     console.error('Error initializing user object:', error);
     throw error;

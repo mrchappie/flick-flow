@@ -4,21 +4,22 @@ import { Field, Form, Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import useFetch from 'utils/hooks/useFetch';
 import { createUser } from 'utils/services/auth/Auth';
+import { useStateStore } from 'utils/services/state/State';
 
 export default function Register() {
-  const { loading, response, fetchData } = useFetch({});
+  const { loading, fetchData } = useFetch({});
   const navigate = useNavigate();
+  const { updateUserData } = useStateStore();
 
   async function handleRegister(formData) {
     try {
       // attempt to login the user
       const userCredentials = await createUser(formData);
       const user = userCredentials.user;
-      console.log(user);
-      const accessToken = await user.getIdToken();
+      const accessToken = await user.accessToken;
 
       if (user) {
-        fetchData({
+        const result = await fetchData({
           customURL: process.env.REACT_APP_FIREBASE_INIT_USER,
           customMethod: 'POST',
           customBody: {
@@ -28,16 +29,15 @@ export default function Register() {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-      }
 
-      return user;
+        if (result && result.status === 200) {
+          updateUserData(result.data);
+          return navigate('/home');
+        }
+      }
     } catch (error) {
       console.log(error);
     }
-  }
-  console.log(response);
-  if (response && response.status === 200) {
-    return navigate('/home');
   }
 
   return (
