@@ -36,7 +36,7 @@ export default function Login() {
     <section className="col-span-full center">
       <div className="rounded-md center-col p-[40px]">
         <Formik
-          initialValues={{ email: 'alex@mail.com', password: 'Alex2024!' }}
+          initialValues={{ email: '', password: '' }}
           onSubmit={handleLogin}
         >
           <Form className="items-stretch h-full center-col">
