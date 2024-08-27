@@ -1,4 +1,4 @@
-import Navigation from '../navigation/navigation';
+import DesktopNavigation from '../desktopNavigation/desktopNavigation';
 import Search from '../searchBar/searchBar';
 import { logoutUser } from 'utils/services/auth/Auth';
 import { useStateStore } from 'utils/services/state/State';
@@ -61,7 +61,7 @@ export default function Header() {
           </div>
         </Link>
       </div>
-      <Navigation />
+      <DesktopNavigation customStyle={'max-sm:hidden'} />
       <Search />
       {!isLoggedIn && (
         <div>
@@ -149,6 +149,22 @@ export default function Header() {
               >
                 Your lists
               </Link>
+              <hr className="w-full border-white" />
+              <div className="center-col">
+                <Link onClick={toggleOpen} to={'/home'} className="text-xl">
+                  Home
+                </Link>
+                <Link onClick={toggleOpen} to={'/movies'} className="text-xl">
+                  Movies
+                </Link>
+                <Link onClick={toggleOpen} to={'/tv-shows'} className="text-xl">
+                  TV Shows
+                </Link>
+                <Link onClick={toggleOpen} to={'/genre'} className="text-xl">
+                  Genre
+                </Link>
+              </div>
+              <hr className="w-full border-white" />
               <div>
                 <button onClick={handleLogOut} className="text-xl">
                   Sign Out
@@ -166,7 +182,7 @@ const navVariants = {
   open: {
     borderRadius: '5%',
     width: '200px',
-    height: '400px',
+    height: '500px',
     display: 'flex',
     opacity: 1,
     transition: {

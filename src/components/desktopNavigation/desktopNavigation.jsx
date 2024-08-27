@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useStateStore } from 'utils/services/state/State';
 
-export default function Navigation() {
+export default function DesktopNavigation({ customStyle }) {
   const isLoggedIn = useStateStore((state) => state.isLoggedIn);
 
   function renderRoute(route) {
@@ -14,7 +14,7 @@ export default function Navigation() {
   }
 
   return (
-    <div>
+    <div className={`${customStyle}`}>
       <ul className="gap-8 center">
         {routes.map((route) => {
           if (renderRoute(route)) {
