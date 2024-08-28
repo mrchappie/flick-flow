@@ -5,9 +5,9 @@ export default function LandingPageHeroSection() {
   return (
     <section className="w-full h-[70vh] col-span-full center justify-start-start overflow-hidden relative">
       <div className="w-full">
-        <div className="w-[50%] center-col items-start gap-6">
+        <div className="w-[50%] max-md:w-full center-col items-start gap-6">
           <h1 className="text-[20px] font-semibold">Welcome to FlickFlow</h1>
-          <p className="text-[50px] font-bold">
+          <p className="text-[50px] max-md:text-[30px] font-bold">
             Download Unlimited Movies, Drama, Music Video and More Content.
           </p>
           <p className="text-md w-[60%]">

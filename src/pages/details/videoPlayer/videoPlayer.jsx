@@ -45,7 +45,7 @@ export default function VideoPlayer({ itemDetails, contentID, contentType }) {
         <img
           src={tmdbImagesOrigin + '/w1280' + itemDetails.backdrop_path}
           alt={itemDetails.title}
-          className="object-cover w-full"
+          className="object-cover w-full h-full"
         />
 
         {togglePlayButton && (
@@ -63,7 +63,7 @@ export default function VideoPlayer({ itemDetails, contentID, contentType }) {
         )}
       </div>
       {toggleShowTrailer && (
-        <div className="fixed top-0 left-0 z-50 grid w-full h-full grid-cols-2 gap-8 p-8 bg-black/90">
+        <div className="fixed top-0 left-0 z-50 grid w-full h-full grid-cols-2 gap-8 p-8 max-sm:grid-cols-1 bg-black/90">
           <div className="absolute w-full center">
             <ButtonTextBg handleClick={showTrailers}>
               Click to close this popup or press Esc key

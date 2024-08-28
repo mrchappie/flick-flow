@@ -98,7 +98,7 @@ export default function Carousel() {
                 <div>
                   <GenreDurationDate itemDetails={slide} />
                 </div>
-                <div>
+                <div className="max-sm:hidden">
                   <p className="max-w-[30rem] text-[1rem] text-black4">
                     {trimText(slide.overview, 200)}...&nbsp;
                     <Link

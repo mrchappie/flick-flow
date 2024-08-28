@@ -55,8 +55,8 @@ export default function Details() {
           contentID={contentID}
           contentType={contentType}
         />
-        <header className="h-[30%] center-col justify-start gap-10 w-full">
-          <div className="justify-between w-full center">
+        <header className="justify-start w-full gap-10 center-col">
+          <div className="justify-between w-full center max-md:center-col max-md:items-start">
             <div className="items-start center-col">
               <Heading title={itemDetails.title} />
               <div className="text-xl font-semibold center">
@@ -70,7 +70,7 @@ export default function Details() {
                 })}
               </div>
             </div>
-            <div className="justify-start center">
+            <div className="justify-end w-full center max-md:justify-center">
               <ButtonWithTextAndIcon>
                 <MdFormatListBulletedAdd className="text-2xl" />
                 <span>Watchlist</span>

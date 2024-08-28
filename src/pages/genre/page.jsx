@@ -13,10 +13,10 @@ export default function Genre() {
   }
 
   return (
-    <section className="w-full col-span-8 col-start-3 p-10 m-auto">
+    <section className="w-full col-span-8 col-start-3 p-10 m-auto max-sm:col-span-full max-sm:col-start-1">
       <div className="relative items-end justify-between gap-0 center">
         <div
-          className={`relative z-10 border-4 w-[25%] center px-2 py-4 justify-start ${
+          className={`relative z-10 border-4 w-[25%] max-sm:w-[50%] center px-2 py-4 justify-start ${
             toggleGenres === 'movie'
               ? 'border-brand2 border-b-transparent rounded-t-md bg-black/75 movie-genre-border'
               : 'border-transparent border-b-brand3'
@@ -33,12 +33,12 @@ export default function Genre() {
           />
         </div>
         <div
-          className={`relative z-0 border-b-4 h-full grow devider-border border-${
+          className={`relative z-0 border-b-4 h-full grow devider-border max-sm:hidden border-${
             toggleGenres === 'movie' ? 'brand2' : 'brand3'
           }`}
         ></div>
         <div
-          className={`relative z-10 border-4 w-[25%] center px-2 py-4 justify-end ${
+          className={`relative z-10 border-4 w-[25%] max-sm:w-[50%] center px-2 py-4 justify-end ${
             toggleGenres === 'tv'
               ? 'border-brand3 border-b-transparent rounded-t-md bg-black/75 tv-genre-border'
               : 'border-transparent border-b-brand2'
@@ -75,7 +75,7 @@ export default function Genre() {
                 <m.li
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="relative w-[200px] h-[200px] rounded-md center overflow-hidden items-end text-[25px] font-bold p-4 bg-black shadow-md shadow-white/75 hover:border-brand2 hover:shadow-brand2"
+                  className="relative w-[200px] h-[200px] max-sm:w-[150px] max-sm:h-[150px] rounded-md center overflow-hidden items-end text-[25px] font-bold p-4 bg-black shadow-md shadow-white/75 hover:border-brand2 hover:shadow-brand2"
                 >
                   <img
                     src={`/images/genre_img/movie/${genre.name}.png`}

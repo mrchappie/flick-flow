@@ -3,11 +3,14 @@ import LandingPageHeroSection from '../components/hero-section/landing-page-hero
 import UpcomingTV from 'components/sections/upcomingTV/upcomingTV';
 
 export default function LandingPage() {
+  const customStyle =
+    'max-lg:justify-start max-lg:mx-12 max-lg:overflow-x-scroll';
+
   return (
     <div className="p-10 col-span-full">
       <LandingPageHeroSection />
-      <UpcomingMovies />
-      <UpcomingTV />
+      <UpcomingMovies style={customStyle} />
+      <UpcomingTV style={customStyle} />
     </div>
   );
 }

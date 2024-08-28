@@ -23,7 +23,7 @@ export default function Recomandations({ contentID, contentType }) {
   const componentData = {
     title: `Similar ${capitalize(contentType)}s`,
     data: moviesRecDetails,
-    customStyle: 'grid grid-cols-2 gap-4 max-lg:grid-cols-3',
+    customStyle: 'grid grid-cols-2 gap-4 max-lg:grid-cols-3 max-sm:grid-cols-2',
     path: '/recommendations',
   };
 

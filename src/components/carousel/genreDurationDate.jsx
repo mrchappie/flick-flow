@@ -20,7 +20,7 @@ export default function GenreDurationDate({ itemDetails }) {
           return <span key={genre.id}>{genre.name}</span>;
         })}
       <span>&nbsp;&#x2022;&nbsp;</span>
-      <span>{response && formatRunningTime(response.runtime)}</span>
+      <span>{response && formatRunningTime(response)}</span>
       <span>&nbsp;&#x2022;&nbsp;</span>
       <span>{response && response.release_date}</span>
     </div>

@@ -3,7 +3,7 @@ import Search from '../searchBar/searchBar';
 import { logoutUser } from 'utils/services/auth/Auth';
 import { useStateStore } from 'utils/services/state/State';
 import { Link, useNavigate } from 'react-router-dom';
-import { AnimatePresence, motion as m, useCycle } from 'framer-motion';
+import { AnimatePresence, motion as m } from 'framer-motion';
 import { capitalizeWords } from 'utils/utils';
 import { ButtonTextNoBgWithBorder } from 'components/UI/buttons/buttons';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ export default function Header() {
   const { isLoggedIn } = useStateStore();
   const { userData } = useStateStore();
   const { updateIsLoggedIn, role } = useStateStore();
-  const [isOpen, toggleOpen] = useCycle(false, true);
+  const [isOpen, toggleOpen] = useState(false);
 
   const [headerBg, setHeaderBg] = useState(false);
 
@@ -21,14 +21,20 @@ export default function Header() {
   // handle logout
   const handleLogOut = async () => {
     await logoutUser();
-    toggleOpen();
+    closeNavigation();
     // redirect to landing page and then set to false login state
     updateIsLoggedIn(false);
     navigate('/');
   };
 
-  // event for scrolling on Y
+  function openNavigation() {
+    toggleOpen(true);
+  }
+  function closeNavigation() {
+    toggleOpen(false);
+  }
 
+  // event for scrolling on Y
   function setScrolllY() {
     if (window.scrollY > 50) {
       setHeaderBg(true);
@@ -75,7 +81,7 @@ export default function Header() {
       {isLoggedIn && (
         <div className="relative rounded-full center">
           <div
-            onClick={toggleOpen}
+            onClick={openNavigation}
             className="relative h-full cursor-pointer center"
           >
             <div className="rounded-[50%] overflow-hidden border-2 border-white z-20">
@@ -92,8 +98,8 @@ export default function Header() {
               variants={navVariants}
               initial={false}
               animate={isOpen ? 'open' : 'close'}
-              onMouseLeave={toggleOpen}
-              className="w-[54px] h-[54px] absolute top-0 left-[50%] z-10 center-col px-8 pt-[80px] pb-8 bg-black translate-x-[-50%] overflow-hidden"
+              onMouseLeave={closeNavigation}
+              className="w-[54px] h-[54px] absolute top-0 left-[50%] max-sm:left-[-50%] z-10 center-col px-8 pt-[80px] pb-8 bg-black translate-x-[-50%] overflow-hidden"
             >
               <div className="center-col">
                 <h2 className="text-xl italic font-extrabold">
@@ -106,7 +112,7 @@ export default function Header() {
               <hr className="w-full border-white" />
               {role === 'admin' && (
                 <Link
-                  onClick={toggleOpen}
+                  onClick={closeNavigation}
                   to={'/admin/dashboard'}
                   className="text-xl"
                 >
@@ -114,14 +120,14 @@ export default function Header() {
                 </Link>
               )}
               <Link
-                onClick={toggleOpen}
+                onClick={closeNavigation}
                 to={'/user-profile'}
                 className="text-xl"
               >
                 Profile
               </Link>
               <Link
-                onClick={toggleOpen}
+                onClick={closeNavigation}
                 to={`/user-profile/user-lists/favorites?list_id=${
                   userData &&
                   userData.lists.find((list) => list.listName === 'favorites')
@@ -132,7 +138,7 @@ export default function Header() {
                 Favorites
               </Link>
               <Link
-                onClick={toggleOpen}
+                onClick={closeNavigation}
                 to={`/user-profile/user-lists/watchlist?list_id=${
                   userData &&
                   userData.lists.find((list) => list.listName === 'watchlist')
@@ -143,7 +149,7 @@ export default function Header() {
                 Watchlist
               </Link>
               <Link
-                onClick={toggleOpen}
+                onClick={closeNavigation}
                 to={'/user-profile/user-lists'}
                 className="text-xl"
               >
@@ -151,16 +157,32 @@ export default function Header() {
               </Link>
               <hr className="w-full border-white" />
               <div className="center-col">
-                <Link onClick={toggleOpen} to={'/home'} className="text-xl">
+                <Link
+                  onClick={closeNavigation}
+                  to={'/home'}
+                  className="text-xl"
+                >
                   Home
                 </Link>
-                <Link onClick={toggleOpen} to={'/movies'} className="text-xl">
+                <Link
+                  onClick={closeNavigation}
+                  to={'/movies'}
+                  className="text-xl"
+                >
                   Movies
                 </Link>
-                <Link onClick={toggleOpen} to={'/tv-shows'} className="text-xl">
+                <Link
+                  onClick={closeNavigation}
+                  to={'/tv-shows'}
+                  className="text-xl"
+                >
                   TV Shows
                 </Link>
-                <Link onClick={toggleOpen} to={'/genre'} className="text-xl">
+                <Link
+                  onClick={closeNavigation}
+                  to={'/genre'}
+                  className="text-xl"
+                >
                   Genre
                 </Link>
               </div>
