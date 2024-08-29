@@ -4,6 +4,9 @@ import useFetch from './hooks/useFetch';
 import { useStateStore } from './services/state/State';
 import { LoadingSpinner } from 'components/UI/loadingSpinner/loadingSpinner';
 import { getUserRole } from './services/auth/Auth';
+import ConnectDB from './services/crud/crud';
+
+const DB = new ConnectDB();
 
 export default function AppRunner({ children }) {
   const { user, userData, authIsLoading, userAuthToken } = useAuthCheck();
@@ -16,11 +19,24 @@ export default function AppRunner({ children }) {
     disableScroll,
     addItemInList,
     updateRole,
+    updateActiveBanner,
   } = useStateStore();
   const { response, fetchData } = useFetch({
     url: process.env.REACT_APP_FIREBASE_GET_ITEM_IDS,
     shouldFetch: isLoggedIn,
   });
+
+  async function getBanners() {
+    const res = await DB.getFirestoreDoc(['settings', 'banners']);
+    updateActiveBanner(
+      ...res.content.filter((banner) => banner.active === true)
+    );
+  }
+
+  // set banners
+  useEffect(() => {
+    getBanners();
+  }, []);
 
   // fetch item IDs from user lists
   useEffect(() => {

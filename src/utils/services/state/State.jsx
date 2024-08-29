@@ -14,6 +14,7 @@ export const useStateStore = create((set) => ({
   disableScroll: false,
   users: [],
   scrollYPosition: 0,
+  banner: '',
 
   initState: () => set({ isLoggedIn: false }),
 
@@ -53,4 +54,6 @@ export const useStateStore = create((set) => ({
 
   updateUsers: (users) => set(() => ({ users: users })),
   updateScrollYPosition: (scrollY) => set(() => ({ scrollYPosition: scrollY })),
+
+  updateActiveBanner: (newURL) => set(() => ({ banner: newURL })),
 }));

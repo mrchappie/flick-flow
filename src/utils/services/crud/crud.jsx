@@ -22,6 +22,7 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
 import { logoutUser } from '../auth/Auth';
 
@@ -229,6 +230,23 @@ class ConnectDB {
   async getLists(docPath) {
     try {
     } catch (error) {}
+  }
+
+  async uploadFileToStorage(path, file) {
+    const storage = getStorage();
+    const fileRef = ref(storage, path.join('/'));
+
+    const url = await uploadBytes(fileRef, file).then(async (snapshot) => {
+      console.log(snapshot);
+      return await getDownloadURL(
+        ref(storage, snapshot.metadata.fullPath)
+      ).then(function (downloadURL) {
+        console.log('File available at', downloadURL);
+        return downloadURL;
+      });
+    });
+
+    return url;
   }
 }
 
