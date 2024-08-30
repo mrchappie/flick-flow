@@ -51,7 +51,7 @@ function App() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                zIndex: 50,
+                zIndex: 40,
               }}
             />
           </main>

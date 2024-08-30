@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 import ConnectDB from 'utils/services/crud/crud';
 import ProfilePicture from './profilePicture';
 import { useStateStore } from 'utils/services/state/State';
+import { twMerge } from 'tailwind-merge';
 
 const DB = new ConnectDB();
 
-export default function ProfileCard({ loggedUserData }) {
+export default function ProfileCard({ loggedUserData, customStyle }) {
   const { handleSubmit, register, setValue } = useForm();
   const { updateUserData } = useStateStore();
 
@@ -34,29 +35,35 @@ export default function ProfileCard({ loggedUserData }) {
   }
 
   return (
-    <div className="col-start-1 col-end-4 p-4 bg-black/50 rounded-2xl row-span-full center-col ">
+    <div
+      className={twMerge(
+        `p-4 bg-black/50 rounded-2xl center-col ${customStyle}`
+      )}
+    >
       <ProfilePicture loggedUserData={loggedUserData} />
       <div>
         <h1 className="text-2xl font-semibold">
           {loggedUserData && loggedUserData.name}
         </h1>
       </div>
-      <div className="mt-[100px]">
+      <div className="mt-[50px]">
         <form
           onSubmit={handleSubmit(handleUpdateProfile)}
-          className="items-stretch h-full center-col"
+          className="h-full center-col"
         >
           <input
             {...register('name', { required: true })}
             placeholder="Name"
-            className="text-black w-[400px] h-10"
+            className="text-black w-[300px] max-sm:w-[200px] h-10"
           />
           <input
             {...register('username')}
             placeholder="Username"
-            className="text-black w-[400px] h-10"
+            className="text-black w-[300px] max-sm:w-[200px] h-10"
           />
-          <ButtonTextBg type="submit">Save</ButtonTextBg>
+          <ButtonTextBg type="submit" customStyle={'w-full'}>
+            Save
+          </ButtonTextBg>
         </form>
       </div>
     </div>

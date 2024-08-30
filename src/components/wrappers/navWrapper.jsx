@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HiMiniBars3, HiMiniXMark } from 'react-icons/hi2';
 import { AnimatePresence, motion as m } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
+import { useStateStore } from 'utils/services/state/State';
 
 export default function NavWrapper({
   children,
@@ -10,12 +11,16 @@ export default function NavWrapper({
   navPostion = 'left',
 }) {
   const [isOpen, toggleNav] = useState(false);
+  const { updateDisableScroll } = useStateStore();
+
   function closeNav() {
     toggleNav(false);
+    updateDisableScroll(false);
   }
 
   function openNav() {
     toggleNav(true);
+    updateDisableScroll(true);
   }
 
   const vw = window.innerWidth;

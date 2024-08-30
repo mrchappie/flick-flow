@@ -101,7 +101,7 @@ const navVariants = function (isOpen) {
     open: {
       borderRadius: '5%',
       width: '200px',
-      height: !isOpen ? '500px' : '400px',
+      height: !isOpen ? '400px' : '500px',
       display: 'flex',
       opacity: 1,
       transition: {

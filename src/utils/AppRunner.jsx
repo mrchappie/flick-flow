@@ -82,6 +82,7 @@ export default function AppRunner({ children }) {
 
   useEffect(() => {
     document.body.style.overflow = disableScroll ? 'hidden' : null;
+    // document.body.style.paddingRight = disableScroll ? '4px' : null;
   }, [disableScroll]);
 
   if (authIsLoading && !userData) {

@@ -27,8 +27,8 @@ export default function UserProfileNavigation({ userData, closeNav }) {
   }, []);
 
   return (
-    <div className="items-start justify-start w-full h-full p-8 bg-black/50 center-col">
-      <div className="fixed h-full">
+    <div className="items-start justify-start w-full h-full p-8 bg-black/20 center-col">
+      <div className="h-full">
         <div className="items-start justify-start center-col h-[90%] gap-6">
           <div className="justify-start center-col">
             <div className="rounded-[50%] overflow-hidden relative">

@@ -1,10 +1,10 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Heading } from 'components/UI/heading/heading';
 import { TagWithBorder } from 'components/UI/tags/tags';
-import { toast } from 'react-toastify';
+import { twMerge } from 'tailwind-merge';
 import { useModal } from 'utils/modals/ModalContext';
 
-export default function ManageAccount({ loggedUserData }) {
+export default function ManageAccount({ loggedUserData, customStyle }) {
   const { openModal, closeModal } = useModal();
 
   function handleDeleteAccount() {
@@ -32,7 +32,7 @@ export default function ManageAccount({ loggedUserData }) {
   }
 
   return (
-    <div className="col-start-4 col-end-7 row-start-1 row-end-4 p-4 bg-black/50 rounded-2xl">
+    <div className={twMerge(`p-4 bg-black/50 rounded-2xl ${customStyle}`)}>
       <Heading title={'Manage your account'} />
       <hr />
       <div className="p-4 center-col">
