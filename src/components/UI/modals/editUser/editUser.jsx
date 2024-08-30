@@ -1,9 +1,8 @@
 import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Heading2 } from 'components/UI/heading/heading';
-import P from 'components/UI/typography/p/P';
 import DeleteUser from 'pages/admin/manage-users/userComponent/deleteUser';
 import DisableUser from 'pages/admin/manage-users/userComponent/disableUser';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import useFetch from 'utils/hooks/useFetch';

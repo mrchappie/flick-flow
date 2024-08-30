@@ -5,6 +5,7 @@ import { HiXMark } from 'react-icons/hi2';
 import EditUser from 'components/UI/modals/editUser/editUser';
 import Confirmation from 'components/UI/modals/confirmation/confirmation';
 import ChangeCredentials from 'components/UI/modals/changeCredentials/changeCredentials';
+import AddBanner from 'components/UI/modals/addBanner/addbanner';
 
 const ModalLookup = {
   TestModal: TestModal,
@@ -12,6 +13,7 @@ const ModalLookup = {
   EditUser: EditUser,
   Confirmation: Confirmation,
   ChangeCredentials: ChangeCredentials,
+  AddBanner: AddBanner,
 };
 
 export default function ModalManager() {
@@ -33,7 +35,7 @@ export default function ModalManager() {
         >
           <HiXMark />
         </span>
-        <div className="p-4 center-col gap-4">
+        <div className="gap-4 p-4 center-col">
           <Modal closeModal={closeModal} {...modal.props} />
         </div>
       </div>
