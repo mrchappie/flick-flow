@@ -1,16 +1,30 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Heading } from 'components/UI/heading/heading';
 import { movieGenres, tvGenres } from 'utils/keys/tmdbGenres';
 import { motion as m } from 'framer-motion';
 import './genre.css';
+import ConnectDB from 'utils/services/crud/crud';
+
+const DB = new ConnectDB();
 
 export default function Genre() {
   const [toggleGenres, setToggleGenres] = useState('movie');
+  const [genreImages, setGenreImages] = useState({});
 
   function toggleGenresFn(param) {
     setToggleGenres(param);
   }
+
+  async function getGenreImages() {
+    return await DB.getFirestoreDoc(['settings', 'genre']);
+  }
+
+  useEffect(() => {
+    getGenreImages().then((res) => {
+      setGenreImages(res.content);
+    });
+  }, []);
 
   return (
     <section className="w-full col-span-8 col-start-3 p-10 m-auto max-sm:col-span-full max-sm:col-start-1">
@@ -55,7 +69,7 @@ export default function Genre() {
           />
         </div>
       </div>
-      {toggleGenres === 'movie' && (
+      {genreImages && toggleGenres === 'movie' && (
         <ul
           className={`relative flex-wrap w-full gap-5 p-2 center justify-evenly border-t-transparent rounded-b-md py-6 ${
             toggleGenres === 'movie' &&
@@ -75,13 +89,17 @@ export default function Genre() {
                 <m.li
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="relative w-[200px] h-[200px] max-sm:w-[150px] max-sm:h-[150px] rounded-md center overflow-hidden items-end text-[25px] font-bold p-4 bg-black shadow-md shadow-white/75 hover:border-brand2 hover:shadow-brand2"
+                  className="relative w-[200px] h-[200px] max-sm:w-[150px] max-sm:h-[150px] rounded-md center overflow-hidden items-end text-[25px] font-bold bg-black shadow-md shadow-white/75 hover:border-brand2 hover:shadow-brand2"
                 >
                   <img
-                    src={`/images/genre_img/movie/${genre.name}.png`}
+                    src={`${
+                      genreImages[genre.name.replaceAll(' ', '_').toLowerCase()]
+                        ?.url
+                    }`}
                     alt=""
-                    className="absolute object-cover"
+                    className="absolute object-cover w-full h-full"
                   />
+                  <div className="absolute top-0 left-0 w-full h-full rotate-180 bg-custom-bg-fade"></div>
                   <span className="z-10 text-center">{genre.name}</span>
                 </m.li>
               </Link>
@@ -89,7 +107,7 @@ export default function Genre() {
           })}
         </ul>
       )}
-      {toggleGenres === 'tv' && (
+      {genreImages && toggleGenres === 'tv' && (
         <ul
           className={`relative flex-wrap w-full gap-5 p-2 center justify-evenly border-t-transparent rounded-b-md py-6 ${
             toggleGenres === 'tv' &&
@@ -109,12 +127,15 @@ export default function Genre() {
                 <m.li
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="relative w-[200px] h-[200px] rounded-md center overflow-hidden items-end text-[25px] font-bold p-4 bg-black shadow-md shadow-white/75 hover:border-brand3 hover:shadow-brand3"
+                  className="relative w-[200px] h-[200px] rounded-md center overflow-hidden items-end text-[25px] font-bold bg-black shadow-md shadow-white/75 hover:border-brand3 hover:shadow-brand3"
                 >
                   <img
-                    src={`/images/genre_img/tv/${genre.name}.png`}
+                    src={`${
+                      genreImages[genre.name.replaceAll(' ', '_').toLowerCase()]
+                        ?.url
+                    }`}
                     alt=""
-                    className="absolute object-cover"
+                    className="absolute object-cover w-full h-full"
                   />
                   <span className="z-10 text-center">{genre.name}</span>
                 </m.li>

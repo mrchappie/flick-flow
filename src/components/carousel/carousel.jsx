@@ -76,7 +76,7 @@ export default function Carousel() {
   }, [activeSlide, handleNextSlide]);
 
   return (
-    <section className="w-full h-[75vh] col-span-full center">
+    <section className="w-full h-[75vh] col-span-full center overflow-x-hidden">
       <div className="w-[30px] h-full center z-10">
         <CarouselArrowPrev handleClick={handlePrevSlide}></CarouselArrowPrev>
       </div>

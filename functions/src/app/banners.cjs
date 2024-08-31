@@ -1,6 +1,6 @@
-const { DB } = require('../../utils/initialize.cjs');
+const { DB } = require('../utils/initialize.cjs');
 const { onRequest } = require('firebase-functions/v2/https');
-const authUser = require('../../utils/authUser.cjs');
+const authUser = require('../utils/authUser.cjs');
 const { v4: uuid } = require('uuid');
 const { FieldValue } = require('firebase-admin/firestore');
 const { storage } = require('firebase-admin');

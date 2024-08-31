@@ -2,6 +2,7 @@ import { ButtonTextBg } from 'components/UI/buttons/buttons';
 import { Heading, Heading2 } from 'components/UI/heading/heading';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import useFetch from 'utils/hooks/useFetch';
 import { useModal } from 'utils/modals/ModalContext';
 import ConnectDB from 'utils/services/crud/crud';
 import { useStateStore } from 'utils/services/state/State';
@@ -12,6 +13,7 @@ export default function Dashboard() {
   const [banners, setBanners] = useState([]);
   const { updateActiveBanner } = useStateStore();
   const { openModal, closeModal } = useModal();
+  const { fetchData } = useFetch({});
 
   async function getBanners() {
     const res = await DB.getFirestoreDoc(['settings', 'banners']);
@@ -109,6 +111,16 @@ export default function Dashboard() {
             })}
         </section>
       )}
+      <br />
+      <ButtonTextBg
+        title={'Refresh Genre Images'}
+        customStyle={'mt-[50px]'}
+        handleClick={() => {
+          fetchData({
+            customURL: process.env.REACT_APP_FIREBASE_REFRESH_GENRE_IMAGES,
+          });
+        }}
+      />
     </div>
   );
 }

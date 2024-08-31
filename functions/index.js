@@ -12,7 +12,8 @@ const {
 } = require('./src/users/users.cjs');
 const { exportListsData, deleteList } = require('./src/lists/lists.cjs');
 const fetchDataFromTMDB = require('./src/externalAPI/fetchData.cjs');
-const addNewBanner = require('./src/app/settings/banners.cjs');
+const addNewBanner = require('./src/app/banners.cjs');
+const refreshGenreImages = require('./src/app/genreImages.cjs');
 
 exports.getItemsFromContentIDs = getItemsFromContentIDs;
 exports.removeItemFromList = removeItemFromList;
@@ -36,3 +37,4 @@ exports.fetchDataFromTMDB = fetchDataFromTMDB;
 
 // STORAGE
 exports.addNewBanner = addNewBanner;
+exports.refreshGenreImages = refreshGenreImages;

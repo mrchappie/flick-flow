@@ -247,6 +247,29 @@ class ConnectDB {
 
     return url;
   }
+
+  urls = [];
+
+  async getFileDownloadURL(path) {
+    try {
+      const storage = getStorage();
+      // const fileRef = ref(storage, path.join('/'));
+
+      const url = await getDownloadURL(
+        ref(storage, `genre/movie/${path}.webp`)
+      ).then(function (downloadURL) {
+        return downloadURL;
+      });
+
+      // console.log('File available at', url);
+
+      this.urls.push({ name: path, url });
+      console.log(this.urls);
+      console.log(path);
+    } catch (error) {
+      // console.log(error);
+    }
+  }
 }
 
 export default ConnectDB;
