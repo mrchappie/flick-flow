@@ -10,7 +10,7 @@ const DB = new ConnectDB();
 
 export default function Genre() {
   const [toggleGenres, setToggleGenres] = useState('movie');
-  const [genreImages, setGenreImages] = useState({});
+  const [genreImages, setGenreImages] = useState(null);
 
   function toggleGenresFn(param) {
     setToggleGenres(param);
@@ -93,8 +93,9 @@ export default function Genre() {
                 >
                   <img
                     src={`${
-                      genreImages[genre.name.replaceAll(' ', '_').toLowerCase()]
-                        ?.url
+                      genreImages?.movie[
+                        genre.name.replaceAll(' ', '_').toLowerCase()
+                      ]?.url
                     }`}
                     alt=""
                     className="absolute object-cover w-full h-full"
@@ -131,8 +132,9 @@ export default function Genre() {
                 >
                   <img
                     src={`${
-                      genreImages[genre.name.replaceAll(' ', '_').toLowerCase()]
-                        ?.url
+                      genreImages?.tv[
+                        genre.name.replaceAll(' ', '_').toLowerCase()
+                      ]?.url
                     }`}
                     alt=""
                     className="absolute object-cover w-full h-full"

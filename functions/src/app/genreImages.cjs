@@ -28,21 +28,32 @@ const refreshGenreImages = onRequest({ cors: true }, async (req, res) => {
 
       const firestoreRef = DB.collection('settings');
 
-      const allFiles = await storageRef.getFiles({ prefix: 'genre/movie' });
-
-      const urls = {};
+      const urls = {
+        movie: {},
+        tv: {},
+      };
 
       await Promise.all(
-        allFiles[0]
-          .filter((file) => {
-            return !file.name.endsWith('/');
-          })
-          .map(async (file) => {
-            const downloadURL = await getDownloadURL(file);
-            const genreName = file.name.split('/').pop().split('.')[0];
-            urls[genreName] = { url: downloadURL };
-            return;
-          })
+        ['movie', 'tv'].map(async (category) => {
+          const allFiles = await storageRef.getFiles({
+            prefix: `genre/${category}`,
+          });
+
+          await Promise.all(
+            allFiles[0]
+              .filter((file) => {
+                return !file.name.endsWith('/');
+              })
+              .map(async (file) => {
+                const downloadURL = await getDownloadURL(file);
+                const genreName = file.name.split('/').pop().split('.')[0];
+
+                urls[category][genreName] = { url: downloadURL };
+
+                return;
+              })
+          );
+        })
       );
 
       // update genre image urls in firestore
