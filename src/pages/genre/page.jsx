@@ -27,7 +27,7 @@ export default function Genre() {
   }, []);
 
   return (
-    <section className="w-full col-span-8 col-start-3 p-10 m-auto max-sm:col-span-full max-sm:col-start-1">
+    <section className="w-full col-span-8 col-start-3 p-10 m-auto max-sm:p-4 max-sm:col-span-full max-sm:col-start-1">
       <div className="relative items-end justify-between gap-0 center">
         <div
           className={`relative z-10 border-4 w-[25%] max-sm:w-[50%] center px-2 py-4 justify-start ${
@@ -128,7 +128,7 @@ export default function Genre() {
                 <m.li
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="relative w-[200px] h-[200px] rounded-md center overflow-hidden items-end text-[25px] font-bold bg-black shadow-md shadow-white/75 hover:border-brand3 hover:shadow-brand3"
+                  className="relative w-[200px] h-[200px] max-sm:w-[150px] max-sm:h-[150px] rounded-md center overflow-hidden items-end text-[25px] font-bold bg-black shadow-md shadow-white/75 hover:border-brand3 hover:shadow-brand3"
                 >
                   <img
                     src={`${
@@ -139,6 +139,7 @@ export default function Genre() {
                     alt=""
                     className="absolute object-cover w-full h-full"
                   />
+                  <div className="absolute top-0 left-0 w-full h-full rotate-180 bg-custom-bg-fade"></div>
                   <span className="z-10 text-center">{genre.name}</span>
                 </m.li>
               </Link>
